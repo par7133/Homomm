@@ -82,7 +82,7 @@
      } else {  
        // display the msg
        $msg = HTMLencode(file_get_contents($curPath . DIRECTORY_SEPARATOR . "msgs" . DIRECTORY_SEPARATOR . $val));
-       echo("<div style='background-color:$bgcolor;float:$float;padding:5px;max-width:300px;min-width:260px;border-radius:2px;'>".str_replace("\n", "<br>", $msg)."<div style='float:right;font-size:9px;'>$time</div></div><br><br><br>");
+       echo("<div style='background-color:$bgcolor;float:$float;padding:5px;max-width:300px;min-width:260px;border-radius:2px;white-space:normal;'>".str_replace("\n", "<br>", $msg)."<div style='float:right;font-size:9px;'>$time</div></div><br><br><br>");
      }	   
      echo("<div style='clear:both;'></div>");
      echo("</div>");
@@ -618,9 +618,11 @@ function updateHistory(&$update, $maxItems) {
     <?php endif; ?>
     <div id="upload-cont"><input id="files" name="files[]" type="file" accept=".gif,.png,.jpg,.jpeg" style="visibility: hidden;"></div>
     &nbsp;<br><br>
-    &nbsp;<input type="text" id="Password" name="Password" placeholder="password" style="font-size:10px; background:#393939; color:#ffffff; width: 90%; border-radius:3px;" value="<?php echo($password);?>" autocomplete="off"><br>
-    &nbsp;<input type="text" id="Salt" placeholder="salt" style="position:relative; top:+5px; font-size:10px; background:#393939; color:#ffffff; width: 90%; border-radius:3px;" autocomplete="off"><br>
-    &nbsp;<a href="#" onclick="showEncodedPassword();" style="position:relative; left:-2px; top:+5px; color:#000000; font-size:12px;">Hash Me!</a>     
+    <div style="text-align:left;">
+    &nbsp;&nbsp;<input type="text" id="Password" name="Password" placeholder="password" style="font-size:10px; background:#393939; color:#ffffff; width: 70%; border-radius:3px;" value="<?php echo($password);?>" autocomplete="off">&nbsp;<input type="submit" value="Go" style="width:45px;"><br>
+    &nbsp;&nbsp;<input type="text" id="Salt" placeholder="salt" style="position:relative; top:+5px; font-size:10px; background:#393939; color:#ffffff; width: 70%; border-radius:3px;" autocomplete="off"><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="showEncodedPassword();" style="position:relative; left:-2px; top:+5px; color:#000000; font-size:12px;">Hash Me!</a>     
+    </div>
 </div>
 
 <div style="float:left; width:75%; max-width:950px; height:600px; padding:8px; border-left: 1px solid #2c2f34;">
@@ -673,7 +675,7 @@ function updateHistory(&$update, $maxItems) {
 	</pre>	
   </div>
 	<pre id="Messagep" style="position:relative;top:-10px;margin-left:5px;padding:10px;padding-top:0px;border:0px;background:url('/res/console-bg.png'); background-size:cover; color: #000000;">
-<div id="MessageL" style="width:100%;position:relative;white-space:nowrap;top:-23px;border:0px solid black;"><div id="MessageK" style="float:left;width:93%;background:url('/res/send-opts-bg.png');white-space:nowrap;position:relative; top:+40px;border:0px solid black;"><textarea id="MessageLine" name="MessageLine" type="text" autocomplete="off" rows="3" placeholder="Message" style="float:left;position:relative;top:+1px;width:80%;resize:none; background-color:white; color:black; border:0px; border-bottom: 1px dashed #EEEEEE;font-weight:900;font-family:Monospace,'Currier New',Serif;font-size:20px;"></textarea><div id="sendOptions" style="float:left;position:relative;top:-1px;width:16%;min-width:50px;height:59px;white-space:nowrap;padding:3px;font-weight:900;"><input type="checkbox" name="chkSMS" value="sms">&nbsp;SMS&nbsp;<br><div onclick="upload();" style="position:relative;top:+5px;left:+5px;cursor:pointer;"><img src="/res/upload.png" style="width:48px;"></div><div id="del-attach" onclick="clearUpload()" style="position:relative;top:-48px;left:-60px;display:none;cursor:pointer;"><img src="/res/del-attach.png" style="width:64px;"></div></div></div><div style="float:left;width:7%;position:relative;top:+40px;cursor:pointer;" onclick="sendMessage()"><img src="/res/send.png" style="float:left;width:63px;height:87px"></div></div>	
+<div id="MessageL" style="width:100%;position:relative;white-space:nowrap;top:-23px;border:0px solid black;"><div id="MessageK" style="float:left;width:93%;background:url('/res/send-opts-bg.png');white-space:nowrap;position:relative; top:+40px;border:0px solid black;"><textarea id="MessageLine" name="MessageLine" type="text" autocomplete="off" rows="3" placeholder="Message" style="float:left;position:relative;top:+1px;width:80%;resize:none; background-color:white; color:black; border:0px; border-bottom: 1px dashed #EEEEEE;font-weight:900;"></textarea><div id="sendOptions" style="float:left;position:relative;top:-1px;width:16%;min-width:50px;height:59px;white-space:nowrap;padding:3px;font-weight:900;"><input type="checkbox" name="chkSMS" value="sms">&nbsp;SMS&nbsp;<br><div onclick="upload();" style="position:relative;top:+5px;left:+5px;cursor:pointer;"><img src="/res/upload.png" style="width:32px;"></div><div id="del-attach" onclick="clearUpload()" style="position:relative;top:-48px;left:-60px;display:none;cursor:pointer;"><img src="/res/del-attach.png" style="width:64px;"></div></div></div><div style="float:left;width:7%;position:relative;top:+40px;cursor:pointer;" onclick="sendMessage()"><img src="/res/send.png" style="float:left;width:63px;"></div></div>	
 <div style="clear:both"></div>
   </pre>  
 		
