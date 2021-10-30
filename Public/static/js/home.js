@@ -80,6 +80,16 @@ function sendMessage() {
  frmHC.submit();
 }
 
+function setContentPos() {
+  if (window.innerWidth<900) {
+    $("#MessageL").css("width","97%");
+    $("#MessageK").css("width","89%");  
+  } else {
+    $("#MessageL").css("width","100%");
+    $("#MessageK").css("width","93%");  
+  }    
+}  
+
 function setFooterPos() {
   if (document.getElementById("footerCont")) {
 	if ($("#Password").val() === "") {  
@@ -130,13 +140,15 @@ $("#Salt").on("keydown", function(e){
 });	
 
 window.addEventListener("load", function() {
-    
+  
+  setTimeout("setContentPos()", 1000);  
   setTimeout("setFooterPos()", 3000);
   
 }, true);
 
 window.addEventListener("resize", function() {
 
+  setTimeout("setContentPos()", 1000);  
   setTimeout("setFooterPos()", 3000);
 
 }, true);
