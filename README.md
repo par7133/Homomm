@@ -23,6 +23,6 @@ As you are going to run Homomm in the PHP process context, using a limited web s
 <li>Configure the max history items and max recall history items as required (default: 50).</li>	      
 </ol>	
      
-Hope you can enjoy it and let us know about any feedback: <a href="mailto:info@homemm.com" style="color:#e6d236;">info@homemm.com</a>
+Hope you can enjoy it and let us know about any feedback: <a href="mailto:info@homemm.com" style="color:#e6d236;">info@homemm.org</a>
 	   
 
