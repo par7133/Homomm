@@ -52,7 +52,7 @@ define('SMS_PASSWORD', "");
 // Set here the Message Service to send message from.. 
 define('SMS_MESSAGING_SERVICE', "");
 // Set here the Message body
-define('SMS_BODY', "You have a new message on http://homomm.prg");
+define('SMS_BODY', "You have a new message on http://homomm.org");
 
 
 $CONFIG = [
