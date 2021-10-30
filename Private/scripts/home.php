@@ -48,6 +48,7 @@
    
    $i = 1;	 
    //echo "curPath=$curPath<br>"; 
+   $oldDate = "";
    foreach($msgHistory as $val) {
      if ((mb_stripos($val, "-master") !== false) && ($user == "MASTER")) {
        $float = "right";
@@ -58,6 +59,13 @@
      }
      echo("<div style='width:100%;height:auto;border:0px solid red;margin-bottom:12px;'>");
      $val = rtrim($val,"\n");
+     // grab the date
+     $date = left($val, 8);
+     $date = date("l j F", mktime(0,0,0,substr($date,4,2),right($date,2),left($date,4))); 
+     if ($date!=$oldDate) {
+       echo("<div style='text-align:center;'><span style='background-color:gray;color:#FFFFFF'>$date</span></div><br>");  
+       $oldDate = $date;
+     }  
      // grab the time
      preg_match('/^.+-(\d{4})-/i', $val, $matches);
      $time = $matches[1];
@@ -65,13 +73,13 @@
      // parsing for file ext
      $fileext = strtolower(pathinfo($val, PATHINFO_EXTENSION));
      if ($fileext === "png" || $fileext === "jpg" || $fileext === "jpeg" || $fileext === "gif") {
-       // grab the img
+       // display the img
        $img = substr($picPath, strlen(APP_PATH)) . DIRECTORY_SEPARATOR . $val; 
        echo("<div style='background-color:#EEEEEE;float:$float;padding:5px;max-width:300px;min-width:260px;'><img src='$img' style='width:100%;'><div style='float:right;font-size:9px;'>$time</div></div><br><br><br>");
      } else {  
-       // grab the msg
+       // display the msg
        $msg = HTMLencode(file_get_contents($curPath . DIRECTORY_SEPARATOR . "msgs" . DIRECTORY_SEPARATOR . $val));
-       echo("<div style='background-color:#EEEEEE;float:$float;padding:5px;;max-width:300px;min-width:260px;'>".str_replace("\n", "<br>", $msg)."<div style='float:right;font-size:9px;'>$time</div></div><br><br><br>");
+       echo("<div style='background-color:#EEEEEE;float:$float;padding:5px;max-width:300px;min-width:260px;'>".str_replace("\n", "<br>", $msg)."<div style='float:right;font-size:9px;'>$time</div></div><br><br><br>");
      }	   
      echo("<div style='clear:both;'></div>");
      echo("</div>");
