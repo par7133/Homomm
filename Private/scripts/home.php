@@ -651,13 +651,13 @@ function updateHistory(&$update, $maxItems) {
 	   <li>Check the permissions of your "Repo" folder in your web app private path; and set its path in the config file.</li>
 	   <li>In the Repo path create a "user" folder for each user and give to this folder the write permission. Set it appropriately in the config file.</li>
 	   <li>In the config file, set every "user" information appropriately like in the examples given.</li>
-	   <li>Configure your Twilio account information appropriately to send out sms notification.</li>	      
+	   <li>Configure your <a href="http://twilio.com" style="color:#e6d236;">Twilio</a> account information appropriately to send out sms notification.</li>	      
      <li>Configure the max history items as required (default: 50).</li>	      
 	   </ol>
 	   
 	   <br>	
      
-	   Hope you can enjoy it and let us know about any feedback: <a href="mailto:info@homemm.org" style="color:#e6d236;">info@homemm.org</a>
+	   Hope you can enjoy it and let us know about any feedback: <a href="mailto:info@homomm.org" style="color:#e6d236;">info@homomm.org</a>
 	   
 	</div>	
 	<?php endif; ?>
