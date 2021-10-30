@@ -1,5 +1,5 @@
 # Homomm
-##Every person its messages..
+## Every person its messages..
 
 Hello and welcome to Homomm!   
 	   
