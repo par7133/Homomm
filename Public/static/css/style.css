@@ -1,0 +1,88 @@
+/**
+ * Copyright 2021, 2024 5 Mode
+ *
+ * This file is part of Homomm.
+ *
+ * Homomm is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Homomm is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.  
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with Homomm. If not, see <https://www.gnu.org/licenses/>.
+ *
+ * style.css
+ * 
+ * CSS file.
+ *
+ * @author Daniele Bonini <my25mb@aol.com>
+ * @copyrights (c) 2021, 2024, 5 Mode     
+ */
+
+html {
+  height: 100%;
+}
+body {
+  margin: 0px; 
+  padding: 0px;
+  /*height:100%;*/ 
+  font-family: helvetica neue,helvetica,arial,sans-serif;
+  background-color: #FFFFFF;
+  color: #000000;
+  overflow-y: hidden;
+}
+.standardfield{
+  border: 0px;
+  border-bottom: 1px dashed #EEEEEE;
+}
+.emptyfield{
+  border: 1px solid red;
+}
+.editemptyfield{
+  border-bottom: 3px dashed red;
+}
+.friend:hover {
+  background-color: #E1E1E1;
+}
+#footerCont {
+  position: fixed; 
+  top: 2000px; 
+  left:-10px;
+  width: 102%; 
+  border: 1px solid #C2DBF2; 
+  padding: 7px; 
+  background: #ffedf0; 
+  opacity: 0.6;
+  color:white; 
+  font-family: Sans;
+  font-size: 12px; 
+  text-align: center; 
+  z-index: 99990;
+}
+#footer {
+  position: fixed;
+  float: right;
+  top: 2000px; 
+  left:-10px;
+  width: 100%; 
+  border: 0px solid #C2DBF2; 
+  padding: 7px; 
+  opacity: 1.0;
+  color:black; 
+  font-family: Sans;
+  font-size: 12px; 
+  font-weight: 400;
+  text-align: right; 
+  z-index: 99991;
+}
+.header {
+  height: 65px;
+  vertical-align: middle;
+  border-bottom: 1px solid #2c2f34;
+  padding: 8px;
+}

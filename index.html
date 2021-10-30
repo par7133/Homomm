@@ -1,0 +1,197 @@
+ 
+
+<!DOCTYPE html>
+<html lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	
+  <meta charset="UTF-8"/>
+  <meta name="style" content="day1"/>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  
+<!--
+    Copyright 2021, 2024 5 Mode
+
+    This file is part of Homomm.
+
+    Homomm is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Homomm is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Homomm. If not, see <https://www.gnu.org/licenses/>.
+ -->
+     
+  <title>Homomm: every person its messages..</title>
+	
+  <link rel="shortcut icon" href="Public/static/res/favicon.ico" />
+    
+  <meta name="description" content="Welcome to Homomm"/>
+  <meta name="author" content="5 Mode"/> 
+  <meta name="keywords" content="multimedia,messanging,message,exchange,on,premise,solution"/>
+  
+  <script src="Public/static/js/jquery-3.1.0.min.js" type="text/javascript"></script>
+  <script src="Public/static/js/jquery-ui.1.12.1.min.js" type="text/javascript"></script>
+  <script src="Public/static/js/common.js" type="text/javascript"></script>
+  <script src="Public/static/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="Public/static/js/sha.js" type="text/javascript"></script>
+  
+  <script src="Public/static/js/home.js" type="text/javascript" defer></script>
+  
+  <link href="Public/static/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+  <link href="Public/static/css/jquery-ui.1.12.1.css" type="text/css" rel="stylesheet">
+  <link href="Public/static/css/style.css?v=1631827555" type="text/css" rel="stylesheet">
+
+  <script>
+  		  
+  function hideTitle() {
+    $("#myh1").hide("slow");
+  }
+  
+  function startApp() {
+	  $("#HCsplash").hide("slow");
+    $(document.body).css("background","#ffffff");
+	  $("#frmHC").show();
+	}			
+
+	window.addEventListener("load", function() {
+	
+    $(document.body).css("background","#000000");
+	  $("#HCsplash").show("slow");	  
+	  setTimeout("hideTitle()", 2000);
+    setTimeout("startApp()", 4000);
+
+	}, true);
+
+  </script>    
+       
+</head>
+<body>
+
+<div id="HCsplash" style="padding-top: 160px; text-align:center;color:#ffffff;display:none;">
+   <div id="myh1"><H1>Homomm</H1></div><br>
+   <img src="./Public/static/res/HMMlogo2.png" style="width:310px;">
+</div>
+
+<form id="frmHC" method="POST" target="_self" enctype="multipart/form-data" style="display:none;">
+
+<div class="header">
+   <a href="http://homomm.org" target="_self" style="color:#000000; text-decoration: none;"><img src="./Public/static/res/HMMlogo2.png" style="width:45px;">&nbsp;Homomm</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/par7133/Homomm" style="color:#000000;"><span style="color:#119fe2">on</span> github</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="mailto:info@homomm.org" style="color:#000000;"><span style="color:#119fe2">for</span> feedback</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="tel:+39-331-4029415" style="font-size:13px;background-color:#15c60b;border:2px solid #15c60b;color:#000000;height:27px;text-decoration:none;">&nbsp;&nbsp;get support&nbsp;&nbsp;</a>
+</div>
+	
+<div style="clear:both; float:left; padding:8px; width:15%; height:100%; text-align:center;">
+	<div style="padding-left:10px;text-align: left;">
+	  &nbsp;Download<br>	
+	  &nbsp;<a href="https://github.com/par7133/Homomam/archive/refs/tags/v1.0.5.zip">Release 1.0.5 (zip)</a><br>
+	  &nbsp;<a href="https://github.com/par7133/Homomm/archive/refs/tags/v1.0.5.tar.gz">Release 1.0.5 (tar.gz)</a><br>
+	</div>  
+    <br><br>
+    <img src="Public/static/res/HMMgenius.png" alt="HC Genius" title="HMM Genius" style="position:relative; left:+6px; width:90%; border: 1px dashed #EEEEEE;">
+    &nbsp;<br><br><br>
+    &nbsp;<input type="text" id="Password" name="Password" placeholder="password" style="font-size:10px; background:#393939; color:#ffffff; width: 90%; border-radius:3px;" value="" autocomplete="off"><br>
+    &nbsp;<input type="text" id="Salt" placeholder="salt" style="position:relative; top:+5px; font-size:10px; background:#393939; color:#ffffff; width: 90%; border-radius:3px;" autocomplete="off"><br>
+    &nbsp;<a href="#" onclick="showEncodedPassword();" style="position:relative; left:-2px; top:+5px; color:#000000; font-size:12px;">Hash Me!</a>
+    <br><br><br>
+</div>
+
+<div style="float:left; width:85%;height:100%; padding:8px; border-left: 1px solid #2c2f34;">
+	
+	<?php if (APP_SPLASH): ?>
+	<?php if ($hideSplash !== PHP_STR): ?>
+	<div id="splash" style="border-radius:20px; position:relative; left:+3px; width:98%; background-color: #33aced; padding: 20px; margin-bottom:8px;">	
+	
+	   <button type="button" class="close" aria-label="Close" onclick="close-Splash();" style="position:relative; left:-10px;">
+        <span aria-hidden="true">&times;</span>
+     </button>
+	
+	   Hello and welcome to Homomm!<br><br>
+	   
+	   Homomm is a light and simple software on premise to exchange multimedia messages with friends.<br><br>
+	   
+	   Homomm is released under GPLv3 license, it is supplied AS-IS and we do not take any responsibility for its misusage.<br><br>
+	   
+     Homomm name comes from the two words, "homines" meaning our choise to give chance to the human beings to come first, 
+     and "mm" for "multimedia messaging".<br><br>
+     
+     Homomm doesn't want to be a replacement of Whats App, Telegram, Wechat, etc. but simply want to be their alter ago.<br><br>
+     
+	   First step, use the left side panel password and salt fields to create the hash to insert in the config file. Remember to manually set there also the salt value.<br><br>
+	   
+	   As you are going to run Homomm in the PHP process context, using a limited web server or phpfpm user, you must follow some simple directives for an optimal first setup:<br>
+	   <ol>
+	   <li>Check the permissions of your "Repo" folder in your web app private path; and set its path in the config file.</li>
+	   <li>In the Repo path create a "user" folder for each user and give to this folder the write permission. Set it appropriately in the config file.</li>
+	   <li>In the config file, set every "user" information appropriately like in the examples given.</li>
+	   <li>Configure your Twilio account information appropriately to send out sms notification.</li>	      
+     <li>Configure the max history items and max recall history items as required (default: 50).</li>	      
+	   </ol>
+	   
+	   <br>	
+     
+	   Hope you can enjoy it and let us know about any feedback: <a href="mailto:info@homemm.com" style="color:#e6d236;">info@homemm.com</a>
+	   
+	</div>	
+  	
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>	
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>	
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>	
+	
+</div>
+
+<div class="footer">
+<div id="footerCont">&nbsp;</div>
+<div id="footer"><span style="background:#E1E1E1;color:black;opacity:1.0;margin-right:10px;">&nbsp;&nbsp;<a href="dd.html">Disclaimer</a>&nbsp;&nbsp;A <a href="http://5mode.com">5 Mode</a> project and <a href="http://wysiwyg.systems">WYSIWYG</a> system. Some rights reserved.</span></div>	
+</div>
+
+</form>
+
+<script>
+  
+function setFooterPos2() {
+  if (document.getElementById("footerCont")) {
+    //if ($("#Password").val() === "") {  
+    //    tollerance = 48;
+    //  } else {
+    //  tollerance = 15;
+    //}
+    tollerance = 22;  	  
+    $("#footerCont").css("top", parseInt( window.innerHeight - $("#footerCont").height() - tollerance ) + "px");
+    $("#footer").css("top", parseInt( window.innerHeight - $("#footer").height() - tollerance + 6) + "px");
+  }
+}
+
+window.addEventListener("load", function() {
+    
+  setTimeout("setFooterPos2()", 4000);
+
+}, true);
+  
+</script>  
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(86081534, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/86081534" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+</body>	 
+</html>	 
+
