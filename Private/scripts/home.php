@@ -639,7 +639,7 @@ function updateHistory(&$update, $maxItems) {
 	   
 	   <br>	
      
-	   Hope you can enjoy it and let us know about any feedback: <a href="mailto:info@homemm.com" style="color:#e6d236;">info@homemm.com</a>
+	   Hope you can enjoy it and let us know about any feedback: <a href="mailto:info@homemm.org" style="color:#e6d236;">info@homemm.org</a>
 	   
 	</div>	
 	<?php endif; ?>
