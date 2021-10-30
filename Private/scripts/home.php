@@ -52,10 +52,13 @@
    foreach($msgHistory as $val) {
      if ((mb_stripos($val, "-master") !== false) && ($user == "MASTER")) {
        $float = "right";
+       $bgcolor = "#E3FAE3";
      } else if ((mb_stripos($val, "-master") === false) && ($user != "MASTER")) {
        $float = "right";
+       $bgcolor = "#E3FAE3";
      } else {
        $float = "left";
+       $bgcolor = "#FFFFFF";
      }
      echo("<div style='width:100%;height:auto;border:0px solid red;margin-bottom:12px;'>");
      $val = rtrim($val,"\n");
@@ -75,11 +78,11 @@
      if ($fileext === "png" || $fileext === "jpg" || $fileext === "jpeg" || $fileext === "gif") {
        // display the img
        $img = substr($picPath, strlen(APP_PATH)) . DIRECTORY_SEPARATOR . $val; 
-       echo("<div style='background-color:#EEEEEE;float:$float;padding:5px;max-width:300px;min-width:260px;'><img src='$img' style='width:100%;'><div style='float:right;font-size:9px;'>$time</div></div><br><br><br>");
+       echo("<div style='background-color:$bgcolor;float:$float;padding:5px;max-width:300px;min-width:260px;border-radius:2px;'><img src='$img' style='width:100%;'><div style='float:right;font-size:9px;'>$time</div></div><br><br><br>");
      } else {  
        // display the msg
        $msg = HTMLencode(file_get_contents($curPath . DIRECTORY_SEPARATOR . "msgs" . DIRECTORY_SEPARATOR . $val));
-       echo("<div style='background-color:#EEEEEE;float:$float;padding:5px;max-width:300px;min-width:260px;'>".str_replace("\n", "<br>", $msg)."<div style='float:right;font-size:9px;'>$time</div></div><br><br><br>");
+       echo("<div style='background-color:$bgcolor;float:$float;padding:5px;max-width:300px;min-width:260px;border-radius:2px;'>".str_replace("\n", "<br>", $msg)."<div style='float:right;font-size:9px;'>$time</div></div><br><br><br>");
      }	   
      echo("<div style='clear:both;'></div>");
      echo("</div>");
@@ -600,7 +603,7 @@ function updateHistory(&$update, $maxItems) {
    <a href="http://homomm.org" target="_blank" style="color:black; text-decoration: none;"><img src="/res/HMMlogo2.png" style="width:48px;">&nbsp;Homomm</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/par7133/Homomm" style="color:#000000"><span style="color:#119fe2">on</span> github</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="mailto:info@homomm.com" style="color:#000000"><span style="color:#119fe2">for</span> feedback</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="tel:+39-331-4029415" style="font-size:13px;background-color:#15c60b;border:2px solid #15c60b;color:black;height:27px;text-decoration:none;">&nbsp;&nbsp;get support&nbsp;&nbsp;</a>
 </div>
 	
-<div style="clear:both; float:left; padding:8px; width:15%; height:100%; text-align:center;">
+<div style="clear:both; float:left; padding:8px; width:25%; max-width:250px; height:100%; text-align:center;">
     <?php if ($user!="MASTER"): ?>
     <br><br>
     <img src="/res/HMMgenius.png" alt="HC Genius" title="HC Genius" style="position:relative; left:+6px; width:90%; border: 1px dashed #EEEEEE;">
@@ -620,7 +623,7 @@ function updateHistory(&$update, $maxItems) {
     &nbsp;<a href="#" onclick="showEncodedPassword();" style="position:relative; left:-2px; top:+5px; color:#000000; font-size:12px;">Hash Me!</a>     
 </div>
 
-<div style="float:left; width:85%;height:600px; padding:8px; border-left: 1px solid #2c2f34;">
+<div style="float:left; width:75%; max-width:950px; height:600px; padding:8px; border-left: 1px solid #2c2f34;">
 	
 	<?php if (APP_SPLASH): ?>
 	<?php if ($hideSplash !== PHP_STR): ?>
@@ -669,7 +672,7 @@ function updateHistory(&$update, $maxItems) {
 	</pre>	
   </div>
 	<pre id="Messagep" style="position:relative;top:-10px;margin-left:5px;padding:10px;padding-top:0px;border:0px;background:url('/res/console-bg.png'); background-size:cover; color: #000000;">
-<div id="MessageL" style="position:relative;top:-23px;border:0px solid black;"><div style="float:left;width:93%; position:relative; top:+40px;border:0px solid black;"><textarea id="MessageLine" name="MessageLine" type="text" autocomplete="off" rows="3" placeholder="Message" style="float:left;width:86%;resize:none; background-color: white; color:black; border:0px; border-bottom: 1px dashed #EEEEEE;"></textarea><div id="sendOptions" style="float:left;position:relative;top:-1px;width:14%;background-color:#49a1d6;height:59px;white-space:nowrap;padding:3px;border:0px solid green;background:url('/res/send-opts-bg.png');font-weight:900;"><input type="checkbox" name="chkSMS" value="sms">&nbsp;SMS&nbsp;<br><div onclick="upload();" style="position:relative;top:+5px;left:+45px;cursor:pointer;"><img src="/res/upload.png" style="width:28px;"></div><div id="del-attach" onclick="clearUpload()" style="position:relative;top:-48px;left:-60px;display:none;cursor:pointer;"><img src="/res/del-attach.png" style="width:48px;"></div></div></div><div style="float:left;width:7%;position:relative;top:+39px;cursor:pointer;border:0px solid red;" onclick="sendMessage()"><img src="/res/send.png" style="float:left;width:63px"></div></div>	
+<div id="MessageL" style="width:100%;position:relative;white-space:nowrap;top:-23px;border:0px solid black;"><div id="MessageK" style="float:left;width:93%;background:url('/res/send-opts-bg.png');white-space:nowrap;position:relative; top:+40px;border:0px solid black;"><textarea id="MessageLine" name="MessageLine" type="text" autocomplete="off" rows="3" placeholder="Message" style="float:left;width:80%;resize:none; background-color: white; color:black; border:0px; border-bottom: 1px dashed #EEEEEE;"></textarea><div id="sendOptions" style="float:left;position:relative;top:-1px;width:16%;min-width:50px;height:59px;white-space:nowrap;padding:3px;font-weight:900;"><input type="checkbox" name="chkSMS" value="sms">&nbsp;SMS&nbsp;<br><div onclick="upload();" style="position:relative;top:+5px;left:+5px;cursor:pointer;"><img src="/res/upload.png" style="width:22px;"></div><div id="del-attach" onclick="clearUpload()" style="position:relative;top:-48px;left:-60px;display:none;cursor:pointer;"><img src="/res/del-attach.png" style="width:48px;"></div></div></div><div style="float:left;width:7%;position:relative;top:+40px;cursor:pointer;" onclick="sendMessage()"><img src="/res/send.png" style="float:left;width:63px"></div></div>	
 <div style="clear:both"></div>
   </pre>  
 		
