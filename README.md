@@ -25,4 +25,4 @@ As you are going to run Homomm in the PHP process context, using a limited web s
      
 Hope you can enjoy it and let us know about any feedback: <a href="mailto:info@homemm.com" style="color:#e6d236;">info@homemm.org</a>
 	   
-
+ ![Homomm in action](/Public/static/res/screenshot2.jpg)
