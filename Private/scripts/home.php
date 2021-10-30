@@ -315,6 +315,7 @@ function updateHistory(&$update, $maxItems) {
     global $userName;
     global $sendSMS;
     global $CONFIG;
+    global $userHintResolved; 
      
     if (!empty($message)) {
     
@@ -337,10 +338,16 @@ function updateHistory(&$update, $maxItems) {
       $output[] = $fileName . "\n";
       updateHistory($output, HISTORY_MAX_ITEMS);
       
+      if ($user == "MASTER") {
+        $smsUser = $userHintResolved; 
+      } else {
+        $smsUser = "MASTER";
+      }  
+         
       // Sending out the sms notifcation..
       if ($sendSMS && SMS_USERNAME!=PHP_STR) {
         $message = array(
-         'To'=>$CONFIG['AUTH'][$user]['PHONE'], 
+         'To'=>$CONFIG['AUTH'][$smsUser]['PHONE'], 
          'MessagingServiceSid'=>SMS_MESSAGING_SERVICE, 
          'Body'=>SMS_BODY
         );
