@@ -646,7 +646,7 @@ function updateHistory(&$update, $maxItems) {
      
      Homomm doesn't want to be a replacement of Whats App, Telegram, Wechat, etc. but simply want to be their alter ago.<br><br>
      
-	   First step, use the left side panel password and salt fields to create the hash to insert in the config file. Remember to manually set there also the salt value.<br><br>
+	   First step, use the left side panel password and salt fields to create the hash to insert in the config file for every user. Remember to manually set there also the salt value.<br><br>
 	   
 	   As you are going to run Homomm in the PHP process context, using a limited web server or phpfpm user, you must follow some simple directives for an optimal first setup:<br>
 	   <ol>
