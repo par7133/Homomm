@@ -510,7 +510,7 @@ function updateHistory(&$update, $maxItems) {
     
   <title>Homomm: every person its messages..</title>
 	
-  <link rel="shortcut icon" href="./res/favicon66.ico?v=<?php echo(time()); ?>" />
+  <link rel="shortcut icon" href="./res/favicon.ico?v=<?php echo(time()); ?>" />
     
   <meta name="description" content="Welcome to <?php echo(APP_NAME); ?>"/>
   <meta name="author" content="5 Mode"/> 
