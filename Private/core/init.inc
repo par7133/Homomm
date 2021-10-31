@@ -37,16 +37,9 @@ require dirname(__DIR__) . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR 
 if (!file_exists(APP_REPO_PATH)) {
   die("Repository folder doesn't exist. You must create a repository folder in your web app private path and configure it properly inside the config file.");
 }	
-
-//define("APP_SAMPLE_DIR", APP_INV_PATH . DIRECTORY_SEPARATOR . ".INVsampledir");
-//if (!file_exists(APP_SAMPLE_DIR) || !is_dir(APP_SAMPLE_DIR)) {
-//  die("Sample folder doesn't exist. You must create a sample folder named '.INVsampledir' inside your inventory folder. Give to it the proper write permissions.");
-//}		
-
-//define("APP_SAMPLE_FILE", APP_INV_PATH . DIRECTORY_SEPARATOR . ".INVsamplefile.xml");
-//if (!file_exists(APP_SAMPLE_FILE)) {
-//  die("Sample file doesn't exist. You must create a sample file named '.INVsamplefile.xml' inside your inventory folder. Give to it the proper write permissions.");
-//}		
+if (!file_exists(APP_PIC_PATH)) {
+  die("Picture folder doesn't exist. You must create a pciture folder in your web app public path and configure it properly inside the config file.");
+}
 
 require dirname(__DIR__) . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "const.inc";
 require dirname(__DIR__) . DIRECTORY_SEPARATOR . "functions" . DIRECTORY_SEPARATOR . "funct.inc";
@@ -64,3 +57,10 @@ if (DEBUG) {
   ini_set('display_errors',0);  
   ini_set('log_errors',1); 
 }
+
+// Set no cache headers
+// for HTTP/1.0 clients
+header("Expires: 0");
+header("Pragma: no-cache");
+// HTTP/1.1 support
+header("Cache-Control: no-cache,no-store,max-age=0,s-maxage=0,must-revalidate");
