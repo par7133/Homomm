@@ -612,16 +612,22 @@ function updateHistory(&$update, $maxItems) {
     <div style="position:relative;top:-10px;left:+6px; width:90%; overflow-y:auto; height:244px; border: 1px dashed #EEEEEE;">
       <?php foreach($CONFIG['AUTH'] as $key => $val): 
               $myusername = $val['USERNAME'];
-              echo("<div class=\"friend\" onclick=\"changeChat('$myusername')\" style=\"text-align:left;cursor:pointer;\">&nbsp;&nbsp;$myusername</div>");
+              $currentChatClass = PHP_STR;
+              if ($myusername == $userHint) {
+                $currentChatClass = "friend-selected";
+              }  
+              echo("<div class=\"friend $currentChatClass\" onclick=\"changeChat('$myusername')\" style=\"text-align:left;cursor:pointer;\">&nbsp;&nbsp;$myusername</div>");
             endforeach; ?> 
     </div>  
     <?php endif; ?>
     <div id="upload-cont"><input id="files" name="files[]" type="file" accept=".gif,.png,.jpg,.jpeg" style="visibility: hidden;"></div>
     &nbsp;<br><br>
-    <div style="text-align:left;">
-    &nbsp;&nbsp;<input type="text" id="Password" name="Password" placeholder="password" style="font-size:10px; background:#393939; color:#ffffff; width: 70%; border-radius:3px;" value="<?php echo($password);?>" autocomplete="off">&nbsp;<input type="submit" value="Go" style="width:45px;"><br>
-    &nbsp;&nbsp;<input type="text" id="Salt" placeholder="salt" style="position:relative; top:+5px; font-size:10px; background:#393939; color:#ffffff; width: 70%; border-radius:3px;" autocomplete="off"><br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="showEncodedPassword();" style="position:relative; left:-2px; top:+5px; color:#000000; font-size:12px;">Hash Me!</a>     
+    <div style="text-align:left;white-space:nowrap;">
+    &nbsp;&nbsp;<input type="text" id="Password" name="Password" placeholder="password" style="font-size:10px; background:#393939; color:#ffffff; width: 60%; border-radius:3px;" value="<?php echo($password);?>" autocomplete="off">&nbsp;<input type="submit" value="Go" style="text-align:left;width:25%;"><br>
+    &nbsp;&nbsp;<input type="text" id="Salt" placeholder="salt" style="position:relative; top:+5px; font-size:10px; background:#393939; color:#ffffff; width: 90%; border-radius:3px;" autocomplete="off"><br>
+    <div style="text-align:center;">
+    <a href="#" onclick="showEncodedPassword();" style="position:relative; left:-2px; top:+5px; color:#000000; font-size:12px;">Hash Me!</a>     
+    </div>
     </div>
 </div>
 
