@@ -285,14 +285,15 @@ function updateHistory(&$update, $maxItems) {
        $originalFileExt = pathinfo($name, PATHINFO_EXTENSION);
        $fileExt = strtolower(pathinfo($name, PATHINFO_EXTENSION));
 
+       $date = date("Ymd-Hms");
        $rnd = $msgSign;    
    
        if ($originalFileExt!==PHP_STR) {
          //$destFileName = $originalFilename . "." . $fileExt;
-         if ($user === "master") {
-           $destFileName = date("Ymd-Hms") . "-" . $rnd . "-master.$fileExt";
+         if ($user == "MASTER") {
+           $destFileName = $date . "-" . $rnd . "-master.$fileExt";
          } else {
-           $destFileName = date("Ymd-Hms") . "-" . $rnd . "-$userName.$fileExt";
+           $destFileName = $date . "-" . $rnd . "-$userName.$fileExt";
          }  
        } else {
          return; 
