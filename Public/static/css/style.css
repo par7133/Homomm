@@ -49,6 +49,10 @@ body {
 .friend:hover {
   background-color: #E1E1E1;
 }
+.friend-selected {
+  background-color: #33aced;
+  color: #FFFFFF;
+}
 #footerCont {
   position: fixed; 
   top: 2000px; 
