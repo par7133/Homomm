@@ -88,11 +88,15 @@ function sendMessage() {
 function setContentPos() {
   if (window.innerWidth<900) {
     $("#MessageL").css("width","97%");
-    $("#MessageK").css("width","89%");  
+    $("#MessageK").css("width","89%");
+    $("#del-attach").css("top","-42px");  
   } else {
     $("#MessageL").css("width","100%");
     $("#MessageK").css("width","93%");  
+    $("#del-attach").css("top","-34px");
   }    
+  msgKrect=document.getElementById("MessageK").getBoundingClientRect();
+  $("#MessageS").css("height",parseInt(msgKrect.height));
 }  
 
 function setFooterPos() {
@@ -146,14 +150,22 @@ $("#Salt").on("keydown", function(e){
 
 window.addEventListener("load", function() {
   
-  setTimeout("setContentPos()", 1000);  
+  if ($("#frmHC").css("display")==="none") {
+    setTimeout("setContentPos()", 6000);  
+  } else {
+    setTimeout("setContentPos()", 1000);
+  }      
   setTimeout("setFooterPos()", 3000);
   
 }, true);
 
 window.addEventListener("resize", function() {
 
-  setTimeout("setContentPos()", 1000);  
+  if ($("#frmHC").css("display")==="none") {
+    setTimeout("setContentPos()", 6000);  
+  } else {
+    setTimeout("setContentPos()", 1000);
+  }      
   setTimeout("setFooterPos()", 3000);
 
 }, true);
