@@ -285,7 +285,7 @@ function updateHistory(&$update, $maxItems) {
        $originalFileExt = pathinfo($name, PATHINFO_EXTENSION);
        $fileExt = strtolower(pathinfo($name, PATHINFO_EXTENSION));
 
-       $date = date("Ymd-Hms");
+       $date = date("Ymd-His");
        $rnd = $msgSign;    
    
        if ($originalFileExt!==PHP_STR) {
@@ -335,7 +335,7 @@ function updateHistory(&$update, $maxItems) {
     global $userHintResolved; 
     global $msgSign;
     
-    $date = date("Ymd-Hms");
+    $date = date("Ymd-His");
     $rnd = $msgSign;    
  
     $duplicateMsgs = glob($curPath . DIRECTORY_SEPARATOR . "msgs" . DIRECTORY_SEPARATOR . date("Ymd-H") . "*-$msgSign*.msg");
@@ -351,7 +351,7 @@ function updateHistory(&$update, $maxItems) {
         $fileName = $date . "-" . $rnd . "-$userName.msg";
       }  
       
-      $msg = HTMLencode($message);
+      $msg = $message;
       if (right($msg,1)!="\n") {
         $msg = $msg . "\n";  
       }  
@@ -696,15 +696,14 @@ function updateHistory(&$update, $maxItems) {
 	&nbsp;Message board&nbsp;<a href="#" onclick="refresh();"><img src="/res/refresh.png" style="position:relative;top:+0px;"></a><br>
 	<div id="Console" style="height:433px; overflow-y:auto; margin-top:10px;">
   <!--<div id="Console" style="height:493px; margin-top:10px;">-->
-	<pre id="Consolep" style="min-height:433px;margin-left:5px;padding:10px;border:0px;background:url('/res/console-bg.png'); background-size:cover; color: #000000;">
+	<div id="Consolep" style="min-height:433px;margin-left:5px;padding:10px;border:0px solid green;background:url('/res/console-bg.png'); background-size:cover; color: #000000;">
 <?php showHistory($msgHistory); ?>
-<!--<div style="clear:both" style="height:2px;">
-</div>--></pre>	
+  </div>	
   </div>
-	<pre id="Messagep" style="position:relative;top:-10px;margin-left:5px;padding:10px;padding-top:0px;border:0px;background:url('/res/console-bg.png'); background-size:cover; color: #000000;">
+	<div id="Messagep" style="min-height:105px;position:relative;top:-1px;margin-left:5px;padding:10px;padding-top:0px;border:0px solid red;background:url('/res/console-bg.png'); background-size:cover; color: #000000;">
 <div id="MessageL" style="width:100%;position:relative;white-space:nowrap;top:-23px;border:0px solid black;"><div id="MessageK" style="float:left;width:93%;background:url('/res/send-opts-bg.png');white-space:nowrap;position:relative; top:+40px;border:0px solid black;"><textarea id="MessageLine" name="MessageLine" type="text" autocomplete="off" rows="3" placeholder="Message" style="float:left;position:relative;top:+1px;width:80%;resize:none; background-color:white; color:black; border:0px; border-bottom: 1px dashed #EEEEEE;font-weight:900;"></textarea><div id="sendOptions" style="float:left;position:relative;top:-1px;width:16%;min-width:50px;height:59px;white-space:nowrap;padding:3px;font-weight:900;"><input type="checkbox" name="chkSMS" value="sms">&nbsp;SMS&nbsp;<br><div onclick="upload();" style="position:relative;top:+5px;left:+5px;cursor:pointer;"><img src="/res/upload.png" style="width:32px;"></div><div id="del-attach" onclick="clearUpload()" style="position:relative;top:-48px;left:-60px;display:none;cursor:pointer;"><img src="/res/del-attach.png" style="width:64px;"></div></div></div><div style="float:left;width:7%;position:relative;top:+40px;cursor:pointer;" onclick="sendMessage()"><img src="/res/send.png" style="float:left;width:63px;"></div></div>	
 <div style="clear:both"></div>
-  </pre>  
+  </div>  
 		
 </div>
 
