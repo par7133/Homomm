@@ -82,6 +82,10 @@
      } else {  
        // display the msg
        $msg = HTMLencode(file_get_contents($curPath . DIRECTORY_SEPARATOR . "msgs" . DIRECTORY_SEPARATOR . $val));
+       
+       $msg = enableEmails($msg);
+       $msg = enableLinks($msg);
+
        echo("<div style='background-color:$bgcolor;float:$float;padding:5px;max-width:300px;min-width:260px;border-radius:2px;white-space:normal;'>".str_replace("\n", "<br>", $msg)."<div style='float:right;font-size:9px;'>$time</div></div><br><br><br>");
      }	   
      echo("<div style='clear:both;' style='height:2px;'></div>");
