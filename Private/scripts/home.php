@@ -556,7 +556,7 @@ function updateHistory(&$update, $maxItems) {
   <script src="./js/bootstrap.min.js" type="text/javascript"></script>
   <script src="./js/sha.js" type="text/javascript"></script>
   
-  <script src="./js/home.js" type="text/javascript" defer></script>
+  <script src="./js/home.js?v=<?php echo(time()); ?>" type="text/javascript" defer></script>
   
   <link href="./css/bootstrap.min.css" type="text/css" rel="stylesheet">
   <link href="./css/style.css?v=<?php echo(time()); ?>" type="text/css" rel="stylesheet">
@@ -705,7 +705,7 @@ function updateHistory(&$update, $maxItems) {
   </div>	
   </div>
 	<div id="Messagep" style="min-height:105px;position:relative;top:-1px;margin-left:5px;padding:10px;padding-top:0px;border:0px solid red;background:url('/res/console-bg.png'); background-size:cover; color: #000000;">
-<div id="MessageL" style="width:100%;position:relative;white-space:nowrap;top:-23px;border:0px solid black;"><div id="MessageK" style="float:left;width:93%;background:url('/res/send-opts-bg.png');white-space:nowrap;position:relative; top:+40px;border:0px solid black;"><textarea id="MessageLine" name="MessageLine" type="text" autocomplete="off" rows="3" placeholder="Message" style="float:left;position:relative;top:+1px;width:80%;resize:none; background-color:white; color:black; border:0px; border-bottom: 1px dashed #EEEEEE;font-weight:900;"></textarea><div id="sendOptions" style="float:left;position:relative;top:-1px;width:16%;min-width:50px;height:59px;white-space:nowrap;padding:3px;font-weight:900;"><input type="checkbox" name="chkSMS" value="sms">&nbsp;SMS&nbsp;<br><div onclick="upload();" style="position:relative;top:+5px;left:+5px;cursor:pointer;"><img src="/res/upload.png" style="width:32px;"></div><div id="del-attach" onclick="clearUpload()" style="position:relative;top:-48px;left:-60px;display:none;cursor:pointer;"><img src="/res/del-attach.png" style="width:64px;"></div></div></div><div style="float:left;width:7%;position:relative;top:+40px;cursor:pointer;" onclick="sendMessage()"><img src="/res/send.png" style="float:left;width:63px;"></div></div>	
+<div id="MessageL" style="width:100%;position:relative;white-space:nowrap;top:-23px;border:0px solid black;"><div id="MessageK" style="float:left;width:93%;background:#FFFFFF;;white-space:nowrap;position:relative; top:+40px;border:0px solid red;"><textarea id="MessageLine" name="MessageLine" type="text" autocomplete="off" rows="3" placeholder="Message" style="float:left;position:relative;top:+1px;width:80%;resize:none; background-color:white; color:black; border:0px; border-bottom: 1px dashed #EEEEEE;font-weight:900;"></textarea><div id="sendOptions" style="float:left;position:relative;top:+1px;left:+2px;background-color:#FFFFFF;width:16%;min-width:50px;height:59px;white-space:nowrap;padding:3px;font-weight:900;"><div style="float:right;"><input type="checkbox" name="chkSMS" value="sms">&nbsp;SMS&nbsp;</div><div onclick="upload();" style="float:right;position:relative;top:+5px;left:-5px;cursor:pointer;"><img src="/res/upload.png" style="width:32px;"></div><div id="del-attach" onclick="clearUpload()" style="float:left; position:relative;top:-48px;left:-60px;display:none;cursor:pointer;"><img src="/res/del-attach.png" style="width:64px;"></div></div></div><div id="MessageS" style="float:left;width:7%;position:relative;top:+40px;cursor:pointer;border:0px solid green;" onclick="sendMessage()"><img src="/res/send.png" style="float:left;height:100%;width:63px;"></div></div>	
 <div style="clear:both"></div>
   </div>  
 		
