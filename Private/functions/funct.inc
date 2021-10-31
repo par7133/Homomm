@@ -26,6 +26,51 @@
  * @copyrights (c) 2021, 2024, 5 Mode     
  */
 
+
+if (!function_exists("enableEmails")) { 
+/**
+ * Enable the links of the given text
+ * 
+ * @param string $text the text being parsed for links
+ * @return the text with enabled links
+ */  
+function enableEmails(string $text, bool $masked = false): string 
+{
+  $callable_masked = function($aResults) {
+    $result = implode(PHP_STR, $aResults); 
+    return "<a href='mailto:$result'>" . mb_strrichr($result, "@", true) . "@.." . mb_strrichr($result, ".", false) . "</a>";
+  };
+
+  $callable_unmasked = function($aResults) {
+    $result = implode(PHP_STR, $aResults); 
+    return "<a href='mailto:$result'>$result</a>";
+  };
+
+  $regexPattern = "/(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}/";
+  
+  if ($masked) {
+    $callable = $callable_masked;
+  } else {
+    $callable = $callable_unmasked;
+  } 
+  
+  return preg_replace_callback($regexPattern, $callable, $text);
+}  
+}
+
+if (!function_exists("enableLinks")) { 
+/**
+ * Enable the links of the given text
+ * 
+ * @param string $text the text being parsed for links
+ * @return the text with enabled links
+ */
+function enableLinks(string $text): string
+{
+  return preg_replace("/(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,8})(\/?.+)?$/", "<a href='\\0' target=\"_blank\">\\0</a>", $text);
+}  
+}
+
 if (!function_exists("fixMultipleFileUpload")) { 
 /**
  * Fix multiple file uploaded array ($_FILE)
