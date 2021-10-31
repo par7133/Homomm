@@ -70,9 +70,9 @@
        $oldDate = $date;
      }  
      // grab the time
-     preg_match('/^.+-(\d{4})-/i', $val, $matches);
+     preg_match('/^.+-(\d{6})-/i', $val, $matches);
      $time = $matches[1];
-     $time = ltrim(left($time,2),"0") . ":" . right($time,2);
+     $time = ltrim(left($time,2),"0") . ":" . substr($time,2,2);
      // parsing for file ext
      $fileext = strtolower(pathinfo($val, PATHINFO_EXTENSION));
      if ($fileext === "png" || $fileext === "jpg" || $fileext === "jpeg" || $fileext === "gif") {
@@ -84,7 +84,7 @@
        $msg = HTMLencode(file_get_contents($curPath . DIRECTORY_SEPARATOR . "msgs" . DIRECTORY_SEPARATOR . $val));
        echo("<div style='background-color:$bgcolor;float:$float;padding:5px;max-width:300px;min-width:260px;border-radius:2px;white-space:normal;'>".str_replace("\n", "<br>", $msg)."<div style='float:right;font-size:9px;'>$time</div></div><br><br><br>");
      }	   
-     echo("<div style='clear:both;'></div>");
+     echo("<div style='clear:both;' style='height:2px;'></div>");
      echo("</div>");
 
 	   $i++;   
@@ -198,6 +198,7 @@ function updateHistory(&$update, $maxItems) {
    global $user;
    global $userName;
    global $picPath;
+   global $msgSign;
 
    //if (trim($message,"\n")!==PHP_STR) {
    //  myExecSendMessage();  
@@ -283,20 +284,24 @@ function updateHistory(&$update, $maxItems) {
        $originalFilename = pathinfo($name, PATHINFO_FILENAME);
        $originalFileExt = pathinfo($name, PATHINFO_EXTENSION);
        $fileExt = strtolower(pathinfo($name, PATHINFO_EXTENSION));
-       
+
+       $rnd = $msgSign;    
+   
        if ($originalFileExt!==PHP_STR) {
          //$destFileName = $originalFilename . "." . $fileExt;
          if ($user === "master") {
-           $destFileName = date("Ymd-Hm") . "-" . mt_rand(100000, 999999) . "-master.$fileExt";
+           $destFileName = date("Ymd-Hms") . "-" . $rnd . "-master.$fileExt";
          } else {
-           $destFileName = date("Ymd-Hm") . "-" . mt_rand(100000, 999999) . "-$userName.$fileExt";
+           $destFileName = date("Ymd-Hms") . "-" . $rnd . "-$userName.$fileExt";
          }  
        } else {
          return; 
        }	   
        $destFullPath = $picPath . DIRECTORY_SEPARATOR . $destFileName;
+
+       $duplicateMsgs = glob($picPath . DIRECTORY_SEPARATOR . date("Ymd-H") . "*-$msgSign*.$fileExt");
        
-       if (file_exists($destFullPath)) {
+       if (file_exists($destFullPath) || !empty($duplicateMsgs)) {
          //updateHistoryWithErr("destination already exists", false);
          return;
        }	   
@@ -327,15 +332,24 @@ function updateHistory(&$update, $maxItems) {
     global $sendSMS;
     global $CONFIG;
     global $userHintResolved; 
-     
+    global $msgSign;
+    
+    $date = date("Ymd-Hms");
+    $rnd = $msgSign;    
+ 
+    $duplicateMsgs = glob($curPath . DIRECTORY_SEPARATOR . "msgs" . DIRECTORY_SEPARATOR . date("Ymd-H") . "*-$msgSign*.msg");
+    if (!empty($duplicateMsgs)) {
+      return;  
+    }  
+      
     if (!empty($message)) {
     
       if ($user == "MASTER") {
-        $fileName = date("Ymd-Hm") . "-" . mt_rand(100000, 999999) . "-master.msg";
+        $fileName = $date . "-" . $rnd . "-master.msg";
       } else {
-        $fileName = date("Ymd-Hm") . "-" . mt_rand(100000, 999999) . "-$userName.msg";
+        $fileName = $date . "-" . $rnd . "-$userName.msg";
       }  
- 
+      
       $msg = HTMLencode($message);
       if (right($msg,1)!="\n") {
         $msg = $msg . "\n";  
@@ -374,6 +388,9 @@ function updateHistory(&$update, $maxItems) {
  $command = filter_input(INPUT_POST, "CommandLine");
  $message = filter_input(INPUT_POST, "MessageLine");
  $sendSMS1 = filter_input(INPUT_POST, "chkSMS");
+ $oldMsgSign = filter_input(INPUT_POST, "old-msg-sign");
+ $msgSign = filter_input(INPUT_POST, "msg-sign");
+ 
  if ($sendSMS1!="") {
    $sendSMS = true;
  } else {
@@ -467,6 +484,8 @@ function updateHistory(&$update, $maxItems) {
          myExecSendMessage();
          upload();  
        }  
+     } else if ($command === "refreshbrd") {
+       // refreshing Msg Board..
      }
   
    } else if (mb_stripos(CMDLINE_VALIDCMDS, "|" . $cmd . "|")) {
@@ -673,13 +692,13 @@ function updateHistory(&$update, $maxItems) {
 	<?php endif; ?>
 	<?php endif; ?>
 	
-	&nbsp;Message board<br>
+	&nbsp;Message board&nbsp;<a href="#" onclick="refresh();"><img src="/res/refresh.png" style="position:relative;top:+0px;"></a><br>
 	<div id="Console" style="height:433px; overflow-y:auto; margin-top:10px;">
   <!--<div id="Console" style="height:493px; margin-top:10px;">-->
 	<pre id="Consolep" style="min-height:433px;margin-left:5px;padding:10px;border:0px;background:url('/res/console-bg.png'); background-size:cover; color: #000000;">
 <?php showHistory($msgHistory); ?>
-<div style="clear:both"></div>
-	</pre>	
+<!--<div style="clear:both" style="height:2px;">
+</div>--></pre>	
   </div>
 	<pre id="Messagep" style="position:relative;top:-10px;margin-left:5px;padding:10px;padding-top:0px;border:0px;background:url('/res/console-bg.png'); background-size:cover; color: #000000;">
 <div id="MessageL" style="width:100%;position:relative;white-space:nowrap;top:-23px;border:0px solid black;"><div id="MessageK" style="float:left;width:93%;background:url('/res/send-opts-bg.png');white-space:nowrap;position:relative; top:+40px;border:0px solid black;"><textarea id="MessageLine" name="MessageLine" type="text" autocomplete="off" rows="3" placeholder="Message" style="float:left;position:relative;top:+1px;width:80%;resize:none; background-color:white; color:black; border:0px; border-bottom: 1px dashed #EEEEEE;font-weight:900;"></textarea><div id="sendOptions" style="float:left;position:relative;top:-1px;width:16%;min-width:50px;height:59px;white-space:nowrap;padding:3px;font-weight:900;"><input type="checkbox" name="chkSMS" value="sms">&nbsp;SMS&nbsp;<br><div onclick="upload();" style="position:relative;top:+5px;left:+5px;cursor:pointer;"><img src="/res/upload.png" style="width:32px;"></div><div id="del-attach" onclick="clearUpload()" style="position:relative;top:-48px;left:-60px;display:none;cursor:pointer;"><img src="/res/del-attach.png" style="width:64px;"></div></div></div><div style="float:left;width:7%;position:relative;top:+40px;cursor:pointer;" onclick="sendMessage()"><img src="/res/send.png" style="float:left;width:63px;"></div></div>	
@@ -698,6 +717,7 @@ function updateHistory(&$update, $maxItems) {
 <input type="hidden" id="userHint" name="userHint" value="<?php echo($userHint); ?>">
 <input type="hidden" name="hideSplash" value="<?php echo($hideSplash); ?>">
 <input type="hidden" name="hideHCSplash" value="1">
+<input type="hidden" name="msg-sign" value="<?php echo(mt_rand(1000000, 9999999)); ?>">
 
 </form>
 
