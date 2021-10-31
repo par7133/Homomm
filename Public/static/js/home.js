@@ -41,8 +41,8 @@ $(document).ready(function() {
    key = e.which;
    //alert(key);
    if (key===13) {
-     e.preventDefault();
-     sendMessage()
+     //e.preventDefault();
+     //sendMessage()
    } else { 
      //e.preventDefault();
    }
@@ -71,11 +71,16 @@ function encryptSha2(string) {
   return jsSHAo.getHash("HEX");
 }
 
+function refresh() {
+ $("#CommandLine").val("refreshbrd");
+ frmHC.submit();
+}
+
 function sendMessage() {
- if ($("#MessageLine").val()==="") {
-   alert("First, write your message!");
-   return; 
- }
+ //if ($("#MessageLine").val()==="") {
+ //  alert("First, write your message!");
+ //  return; 
+ //}
  $("#CommandLine").val("sendmsg");
  frmHC.submit();
 }
