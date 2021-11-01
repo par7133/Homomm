@@ -34,7 +34,6 @@ body {
   font-family: helvetica neue,helvetica,arial,sans-serif;
   background-color: #FFFFFF;
   color: #000000;
-  overflow-y: hidden;
 }
 .standardfield{
   border: 0px;
@@ -89,4 +88,18 @@ body {
   vertical-align: middle;
   border-bottom: 1px solid #2c2f34;
   padding: 8px;
+}
+.friend-header-ve  {
+  background: #FFFFFF;
+}  
+.friend-header-ve:hover  {
+  background: #E1E1E1;
+}
+.friend-header-ve-selected {
+  background: #73b3f2;
+  color: #FFFFFF;
+  font-weight: 900;
+}
+.friend-header-ve-selected a{
+  color: #FFFFFF;
 }
