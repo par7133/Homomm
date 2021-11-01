@@ -45,6 +45,7 @@
    global $user;
    global $curPath;
    global $picPath;
+   global $LOCALE;
    
    $i = 1;	 
    //echo "curPath=$curPath<br>"; 
@@ -65,6 +66,11 @@
      // grab the date
      $date = left($val, 8);
      $date = date("l j F", mktime(0,0,0,substr($date,4,2),right($date,2),left($date,4))); 
+     
+     if ($LOCALE["Monday"]!=PHP_STR) {
+       $date = str_replace(array_keys($LOCALE),array_values($LOCALE), $date);
+     }
+     
      if ($date!=$oldDate) {
        echo("<div style='text-align:center;'><span style='background-color:gray;color:#FFFFFF'>$date</span></div><br>");  
        $oldDate = $date;
