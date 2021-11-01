@@ -46,6 +46,7 @@
    global $curPath;
    global $picPath;
    global $LOCALE;
+   global $EMOTICONS;
    
    $i = 1;	 
    //echo "curPath=$curPath<br>"; 
@@ -70,7 +71,7 @@
      if ($LOCALE["Monday"]!=PHP_STR) {
        $date = str_replace(array_keys($LOCALE),array_values($LOCALE), $date);
      }
-     
+
      if ($date!=$oldDate) {
        echo("<div style='text-align:center;'><span style='background-color:gray;color:#FFFFFF'>$date</span></div><br>");  
        $oldDate = $date;
@@ -91,6 +92,11 @@
        
        $msg = enableEmails($msg);
        $msg = enableLinks($msg);
+
+       if ($EMOTICONS) {
+         $msg = str_replace(array_keys($EMOTICONS),array_values($EMOTICONS), $msg);
+       }
+
 
        echo("<div style='background-color:$bgcolor;float:$float;padding:5px;max-width:300px;min-width:260px;border-radius:2px;white-space:normal;'>".str_replace("\n", "<br>", $msg)."<div style='float:right;font-size:9px;'>$time</div></div><br><br><br>");
      }	   
@@ -739,7 +745,13 @@ function updateHistory(&$update, $maxItems) {
   </div>	
   </div>
 	<div id="Messagep" style="float:left; width:100%;min-height:105px;position:relative;top:-1px;margin-left:0px;padding:10px;padding-top:0px;border:0px solid red;background:url('/res/console-bg.png'); background-size:cover; color: #000000;">
-<div id="MessageL" style="width:100%;position:relative;white-space:nowrap;top:-23px;border:0px solid black;"><div id="MessageK" style="float:left;width:93%;background:#FFFFFF;;white-space:nowrap;position:relative; top:+40px;border:0px solid red;"><textarea id="MessageLine" name="MessageLine" type="text" autocomplete="off" rows="3" placeholder="Message" style="float:left;position:relative;top:+1px;width:80%;resize:none; background-color:white; color:black; border:0px; border-bottom: 1px dashed #EEEEEE;font-weight:900;"></textarea><div id="sendOptions" style="float:left;position:relative;top:+1px;left:+2px;background-color:#FFFFFF;width:16%;min-width:50px;height:59px;white-space:nowrap;padding:3px;font-weight:900;"><div style="float:right;"><input type="checkbox" name="chkSMS" value="sms">&nbsp;SMS&nbsp;</div><div onclick="upload();" style="float:right;position:relative;top:+5px;left:-5px;cursor:pointer;"><img src="/res/upload.png" style="width:32px;"></div><div id="del-attach" onclick="clearUpload()" style="float:left; position:relative;top:-48px;left:-60px;display:none;cursor:pointer;"><img src="/res/del-attach.png" style="width:64px;"></div></div></div><div id="MessageS" style="float:left;width:7%;position:relative;top:+40px;cursor:pointer;border:0px solid green;" onclick="sendMessage()"><img src="/res/send.png" style="float:left;height:100%;width:63px;"></div></div>	
+<div id="MessageL" style="width:100%;position:relative;white-space:nowrap;top:-23px;border:0px solid black;"><div id="MessageK" style="float:left;width:93%;background:#FFFFFF;;white-space:nowrap;position:relative; top:+40px;border:0px solid red;"><textarea id="MessageLine" name="MessageLine" type="text" autocomplete="off" rows="3" placeholder="Message" style="float:left;position:relative;top:+1px;width:75%;resize:none; background-color:white; color:black; border:0px; border-bottom: 1px dashed #EEEEEE;font-weight:900;"></textarea><div id="sendOptions" style="float:left;position:relative;top:+1px;left:+2px;background-color:#FFFFFF;width:21%;min-width:50px;height:59px;white-space:nowrap;padding:3px;font-weight:900;"><div style="float:right;"><input type="checkbox" name="chkSMS" value="sms">&nbsp;SMS&nbsp;</div><div onclick="upload();" style="float:right;position:relative;top:+5px;left:-5px;cursor:pointer;"><img src="/res/upload.png" style="width:32px;"></div><div id="pop-icons" style="float:left;text-aling:center;width:30px;cursor:pointer;">&#128578;</div><div id="del-attach" onclick="clearUpload()" style="float:left; position:relative;top:-48px;left:-60px;display:none;cursor:pointer;"><img src="/res/del-attach.png" style="width:64px;"></div></div></div><div id="MessageS" style="float:left;width:7%;position:relative;top:+40px;cursor:pointer;border:0px solid green;" onclick="sendMessage()"><img src="/res/send.png" style="float:left;height:100%;width:63px;"></div></div>	
+<div style="clear:both"></div>
+<div id="emoticons" style="position:absolute; width: 130px; height:69px; background-color:#FFFFFF; border:1px solid black;display:none;">
+  <?php foreach ($EMOTICONS as $key => $val): ?>
+     <div style="float:left;width:30px;cursor:pointer;" onclick="insertEmotIcon('<?php echo($key);?>');"><?php echo($val);?></div>  
+  <?php endforeach; ?>
+</div>
 <div style="clear:both"></div>
   </div>  
 		
