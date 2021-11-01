@@ -637,9 +637,9 @@ function updateHistory(&$update, $maxItems) {
 <tr>
 <td style="width:100%;background:#e4f5f7;">    
 <?php if ($user!="MASTER"): ?>
-    <div class="friend-header-ve" style="float:left;width:31%;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="https://github.com/par7133/Homomm" style="text-decoration:none;color:black;">on github</a></div>
-    <div class="friend-header-ve" style="float:left;width:31%;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="mailto:info@homomm.org" style="text-decoration:none;color:black;">for feedback</a></div>
-    <div class="friend-header-ve" style="float:left;width:31%;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="tel:+39-331-4029415" style="text-decoration:none;color:black;">get support</a></div>
+    <div class="friend-header-ve" style="float:left;width:31%;font-size:14px;padding:4px;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="https://github.com/par7133/Homomm" style="text-decoration:none;color:black;">on github</a></div>
+    <div class="friend-header-ve" style="float:left;width:31%;font-size:14px;padding:4px;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="mailto:info@homomm.org" style="text-decoration:none;color:black;">for feedback</a></div>
+    <div class="friend-header-ve" style="float:left;width:31%;font-size:14px;padding:4px;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="tel:+39-331-4029415" style="text-decoration:none;color:black;">get support</a></div>
 <?php else: ?>
     <?php foreach($CONFIG['AUTH'] as $key => $val): 
             $myusername = $val['USERNAME'];
@@ -647,7 +647,7 @@ function updateHistory(&$update, $maxItems) {
             if ($myusername == $userHint) {
               $currentChatClass = "friend-header-ve-selected";
             }  
-            echo("<div class=\"friend-header-ve $currentChatClass\" onclick=\"changeChat('$myusername')\" style=\"float:left;width:24%;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;\">&nbsp;&nbsp;$myusername</div>");
+            echo("<div class=\"friend-header-ve $currentChatClass\" onclick=\"changeChat('$myusername')\" style=\"float:left;width:31%;border:3px solid #e4f5f7;font-size:14px;padding:4px;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;\">&nbsp;&nbsp;$myusername</div>");
       endforeach; ?> 
 <?php endif; ?>  
 </td>
@@ -659,7 +659,7 @@ function updateHistory(&$update, $maxItems) {
 <div id="sidebar" style="clear:both; float:left; padding:8px; width:25%; max-width:250px; height:100%; text-align:center; border-right: 1px solid #2c2f34;">
     <?php if ($user!="MASTER"): ?>
     <br><br>
-    <img src="/res/HMMgenius.png" alt="HC Genius" title="HC Genius" style="position:relative; left:+6px; width:90%; border: 1px dashed #EEEEEE;">
+    <img src="/res/HMMgenius.png" alt="HMM Genius" title="HMM Genius" style="position:relative; left:+6px; width:90%; border: 1px dashed #EEEEEE;">
     <?php else: ?>
     <div style="text-align:left;">&nbsp;Friends</div><br>
     <div style="position:relative;top:-10px;left:+6px; width:90%; overflow-y:auto; height:244px; border: 1px dashed #EEEEEE;">
@@ -669,15 +669,15 @@ function updateHistory(&$update, $maxItems) {
               if ($myusername == $userHint) {
                 $currentChatClass = "friend-selected";
               }  
-              echo("<div class=\"friend $currentChatClass\" onclick=\"changeChat('$myusername')\" style=\"text-align:left;cursor:pointer;\">&nbsp;&nbsp;$myusername</div>");
+              echo("<div class=\"friend $currentChatClass\" onclick=\"changeChat('$myusername')\" style=\"padding:10px;text-align:left;font-size:14px;cursor:pointer;\">&nbsp;&nbsp;$myusername</div>");
             endforeach; ?> 
     </div>  
     <?php endif; ?>
     <div id="upload-cont"><input id="files" name="files[]" type="file" accept=".gif,.png,.jpg,.jpeg" style="visibility: hidden;"></div>
     &nbsp;<br><br>
     <div style="text-align:left;white-space:nowrap;">
-    &nbsp;&nbsp;<input type="text" id="Password" name="Password" placeholder="password" style="font-size:10px; background:#393939; color:#ffffff; width: 60%; border-radius:3px;" value="<?php echo($password);?>" autocomplete="off">&nbsp;<input type="submit" value="Go" style="text-align:left;width:25%;"><br>
-    &nbsp;&nbsp;<input type="text" id="Salt" placeholder="salt" style="position:relative; top:+5px; font-size:10px; background:#393939; color:#ffffff; width: 90%; border-radius:3px;" autocomplete="off"><br>
+    &nbsp;&nbsp;<input type="text" id="Password" name="Password" placeholder="password" style="font-size:13px; background:#393939; color:#ffffff; width: 60%; border-radius:3px;" value="<?php echo($password);?>" autocomplete="off">&nbsp;<input type="submit" value="Go" style="text-align:left;width:25%;"><br>
+    &nbsp;&nbsp;<input type="text" id="Salt" placeholder="salt" style="position:relative; top:+5px; font-size:13px; background:#393939; color:#ffffff; width: 90%; border-radius:3px;" autocomplete="off"><br>
     <div style="text-align:center;">
     <a href="#" onclick="showEncodedPassword();" style="position:relative; left:-2px; top:+5px; color:#000000; font-size:12px;">Hash Me!</a>     
     </div>
