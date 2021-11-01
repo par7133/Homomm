@@ -51,6 +51,7 @@ body {
 .friend-selected {
   background-color: #33aced;
   color: #FFFFFF;
+  font-weight:900;
 }
 #footerCont {
   position: fixed; 
