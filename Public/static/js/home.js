@@ -204,21 +204,23 @@ window.addEventListener("load", function() {
   
   if ($("#frmHC").css("display")==="none") {
     setTimeout("setContentPos()", 5200);  
+    setTimeout("setFooterPos()", 5300);
   } else {
     setTimeout("setContentPos()", 200);
+    setTimeout("setFooterPos()", 3000);
   }      
-  setTimeout("setFooterPos()", 3000);
   
 }, true);
 
 window.addEventListener("resize", function() {
 
   if ($("#frmHC").css("display")==="none") {
-    setTimeout("setContentPos()", 5200);  
+    setTimeout("setContentPos()", 5200);
+    setTimeout("setFooterPos()", 5300);  
   } else {
     setTimeout("setContentPos()", 200);
+    setTimeout("setFooterPos()", 3000);
   }      
-  setTimeout("setFooterPos()", 3000);
 
 }, true);
 
