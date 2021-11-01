@@ -24,6 +24,8 @@
  * @copyrights (c) 2021, 2024, the Open Gallery's contributors     
  */
 
+var bBurgerMenuVisible = false;
+
 $(document).ready(function() {
  $("#Password").on("keydown",function(e){
    key = e.which;
@@ -31,6 +33,19 @@ $(document).ready(function() {
    $("#userHint").val("");
    if (key===13) {
    e.preventDefault();
+   frmHC.submit();
+   } else { 
+   //e.preventDefault();
+   }
+ });
+
+ $("#Password2").on("keydown",function(e){
+   key = e.which;
+   //alert(key);
+   $("#userHint").val("");
+   if (key===13) {
+   e.preventDefault();
+   $("#Password").val("");
    frmHC.submit();
    } else { 
    //e.preventDefault();
@@ -47,6 +62,15 @@ $(document).ready(function() {
      //e.preventDefault();
    }
  });
+});
+
+$("#burger-menu").on("click",function(){
+  if (!bBurgerMenuVisible) {
+    $(".friend-header").css("display", "table");
+  } else {
+    $(".friend-header").css("display", "none");
+  }    
+  bBurgerMenuVisible=!bBurgerMenuVisible;  
 });
 
 function changeChat(user) {
@@ -81,11 +105,34 @@ function sendMessage() {
  //  alert("First, write your message!");
  //  return; 
  //}
- $("#CommandLine").val("sendmsg");
- frmHC.submit();
+  $("#CommandLine").val("sendmsg");
+  frmHC.submit();
 }
 
 function setContentPos() {
+  if (window.innerWidth<650) {
+    $("#ahome").attr("href","/");
+    $("#agithub").css("display","none");
+    $("#afeedback").css("display","none");
+    $("#asupport").css("display","none");
+    $("#pwd2").css("display","inline");    
+    $("#sidebar").css("display","none");
+    $("#burger-menu").css("display","inline");
+    $("#messagebar").css("width","100%");
+    $("#logo-hmm").css("display","none");
+  } else {  
+    $("#ahome").attr("href","http://homomm.org");
+    $("#agithub").css("display","inline");
+    $("#afeedback").css("display","inline");
+    $("#asupport").css("display","inline");  
+    $("#pwd2").css("display","none");
+    $("#sidebar").css("display","inline");
+    $("#burger-menu").css("display","none");
+    $("#messagebar").css("width","75%");
+    $("#logo-hmm").css("display","inline");
+    $(".friend-header").css("display", "none");
+    bBurgerMenuVisible=false;  
+  }
   if (window.innerWidth<900) {
     $("#MessageL").css("width","97%");
     $("#MessageK").css("width","89%");
@@ -95,20 +142,25 @@ function setContentPos() {
     $("#MessageK").css("width","93%");  
     $("#del-attach").css("top","-34px");
   }    
+  newConsoleHeight = parseInt(window.innerHeight-250);
+  $("#Console").css("height", newConsoleHeight + "px");
+  //$("#Messagep").css("top", (newConsoleHeight - 433) + "px");
   msgKrect=document.getElementById("MessageK").getBoundingClientRect();
   $("#MessageS").css("height",parseInt(msgKrect.height));
+  window.scroll(0, 0);
+  $(document.body).css("overflow-y", "hidden");
 }  
 
 function setFooterPos() {
-  if (document.getElementById("footerCont")) {
-	if ($("#Password").val() === "") {  
-      tollerance = 48;
-    } else {
+  //if (document.getElementById("footerCont")) {
+	//if ($("#Password").val() === "") {  
+  //  tollerance = 48;
+  //} else {
 	  tollerance = 15;
-	}  	  
+	//}  	  
     $("#footerCont").css("top", parseInt( window.innerHeight - $("#footerCont").height() - tollerance ) + "px");
     $("#footer").css("top", parseInt( window.innerHeight - $("#footer").height() - tollerance ) + "px");
-  }
+  //}
 }
 
 function showEncodedPassword() {
@@ -151,9 +203,9 @@ $("#Salt").on("keydown", function(e){
 window.addEventListener("load", function() {
   
   if ($("#frmHC").css("display")==="none") {
-    setTimeout("setContentPos()", 6000);  
+    setTimeout("setContentPos()", 5200);  
   } else {
-    setTimeout("setContentPos()", 1000);
+    setTimeout("setContentPos()", 200);
   }      
   setTimeout("setFooterPos()", 3000);
   
@@ -162,9 +214,9 @@ window.addEventListener("load", function() {
 window.addEventListener("resize", function() {
 
   if ($("#frmHC").css("display")==="none") {
-    setTimeout("setContentPos()", 6000);  
+    setTimeout("setContentPos()", 5200);  
   } else {
-    setTimeout("setContentPos()", 1000);
+    setTimeout("setContentPos()", 200);
   }      
   setTimeout("setFooterPos()", 3000);
 
