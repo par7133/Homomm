@@ -25,6 +25,7 @@
  */
 
 var bBurgerMenuVisible = false;
+var bIconsVisible = false;
 
 $(document).ready(function() {
  $("#Password").on("keydown",function(e){
@@ -73,10 +74,43 @@ $("#burger-menu").on("click",function(){
   bBurgerMenuVisible=!bBurgerMenuVisible;  
 });
 
+function hideBurgerMenu() {
+  $(".friend-header").css("display", "none");
+  bBurgerMenuVisible=false;  
+}
+
 function changeChat(user) {
  $("#userHint").val(user);
  frmHC.submit();
 }
+
+$("#pop-icons").on("click", function() {
+  if (!bIconsVisible) {
+    tollerance = 450 / window.scrollY;
+    msgLineRect = document.getElementById("MessageLine").getBoundingClientRect(); 
+    //mytop = parseInt(msgLineRect.top - window.scrollY - 350 - tollerance) + "px";
+    left = parseInt(msgLineRect.left + msgLineRect.width - 260) + "px";
+    if (window.innerWidth < 650) {
+      left = parseInt(msgLineRect.left + msgLineRect.width - 0) + "px";
+    }  
+    //$("#emoticons").css("top", mytop);
+    $("#emoticons").css("left", left);
+    $("#emoticons").css("display", "inline");
+    $("#emoticons").css("z-index", "99999");
+  } else {
+    $("#emoticons").css("display", "none");
+  }
+  bIconsVisible = !bIconsVisible;
+});
+
+function hideIcons() {
+  $("#emoticons").css("display", "none");
+  IconsVisible = false;
+}  
+
+function insertEmotIcon(icon) {
+  $("#MessageLine").val($("#MessageLine").val() + icon);  
+}  
 
 function closeSplash() {
   $("#hideSplash").val("1");
@@ -130,9 +164,9 @@ function setContentPos() {
     $("#burger-menu").css("display","none");
     $("#messagebar").css("width","75%");
     $("#logo-hmm").css("display","inline");
-    $(".friend-header").css("display", "none");
-    bBurgerMenuVisible=false;  
   }
+  hideBurgerMenu();
+  hideIcons();
   if (window.innerWidth<900) {
     $("#MessageL").css("width","97%");
     $("#MessageK").css("width","89%");
