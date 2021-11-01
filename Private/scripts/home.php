@@ -390,13 +390,16 @@ function updateHistory(&$update, $maxItems) {
   
   
  $password = filter_input(INPUT_POST, "Password");
+ if ($password==PHP_STR) {
+   $password = filter_input(INPUT_POST, "Password2");
+ }  
  $command = filter_input(INPUT_POST, "CommandLine");
  $message = filter_input(INPUT_POST, "MessageLine");
  $sendSMS1 = filter_input(INPUT_POST, "chkSMS");
  $oldMsgSign = filter_input(INPUT_POST, "old-msg-sign");
  $msgSign = filter_input(INPUT_POST, "msg-sign");
  
- if ($sendSMS1!="") {
+ if ($sendSMS1!=PHP_STR) {
    $sendSMS = true;
  } else {
    $sendSMS = false;
@@ -433,6 +436,7 @@ function updateHistory(&$update, $maxItems) {
     if ($hash==$val['HASH']) {
       $user = $key;
       if ($userHintResolved==PHP_STR) {
+        $userHint=$val['USERNAME'];
         $userHintResolved = $key;
       }  
       $found=true;
@@ -451,7 +455,7 @@ function updateHistory(&$update, $maxItems) {
  } 
  
  $curPath = APP_REPO_PATH;
- if ($pwd!==PHP_STR) {
+ if ($pwd!=PHP_STR) {
    if (left($pwd, strlen(APP_REPO_PATH)) === APP_REPO_PATH) {
      $curPath = $pwd;
      chdir($curPath);
@@ -470,7 +474,7 @@ function updateHistory(&$update, $maxItems) {
  $curDir = substr($curPath, $ipos);
  
  
- if ($password !== PHP_STR) {
+ if ($password != PHP_STR) {
    
    $msgHistory = file($curPath . DIRECTORY_SEPARATOR . ".HMM_history");
    
@@ -624,10 +628,35 @@ function updateHistory(&$update, $maxItems) {
 <form id="frmHC" method="POST" action="/" target="_self" enctype="multipart/form-data" style="display:<?php echo(($hideHCSplash==="1"?"inline":"none"));?>;">
 
 <div class="header">
-   <a href="http://homomm.org" target="_blank" style="color:black; text-decoration: none;"><img src="/res/HMMlogo2.png" style="width:48px;">&nbsp;Homomm</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/par7133/Homomm" style="color:#000000"><span style="color:#119fe2">on</span> github</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="mailto:info@homomm.org" style="color:#000000"><span style="color:#119fe2">for</span> feedback</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="tel:+39-331-4029415" style="font-size:13px;background-color:#15c60b;border:2px solid #15c60b;color:black;height:27px;text-decoration:none;">&nbsp;&nbsp;get support&nbsp;&nbsp;</a>
+   <a id="burger-menu" href="#" style="display:none;"><img src="/res/burger-menu2.png" style="width:58px;"></a><a id="ahome" href="http://homomm.org" target="_blank" style="color:black; text-decoration: none;"><img id="logo-hmm" src="/res/HMMlogo2.png" style="width:48px;">&nbsp;Homomm</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="agithub" href="https://github.com/par7133/Homomm" style="color:#000000"><span style="color:#119fe2">on</span> github</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="afeedback" href="mailto:info@homomm.org" style="color:#000000"><span style="color:#119fe2">for</span> feedback</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="asupport" href="tel:+39-331-4029415" style="font-size:13px;background-color:#15c60b;border:2px solid #15c60b;color:black;height:27px;text-decoration:none;">&nbsp;&nbsp;get support&nbsp;&nbsp;</a><div id="pwd2" style="float:right;position:relative;top:+13px;display:none"><input type="text" id="Password2" name="Password2" placeholder="password" style="font-size:13px; background:#393939; color:#ffffff; width: 125px; border-radius:3px;" value="<?php echo($password);?>" autocomplete="off"></div>
 </div>
+
+<div style="clear:both;"></div>
+
+<table class="friend-header" style="width:100%;border:3px solid #e4f5f7;display:none;">
+<tr>
+<td style="width:100%;background:#e4f5f7;">    
+<?php if ($user!="MASTER"): ?>
+    <div class="friend-header-ve" style="float:left;width:31%;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="https://github.com/par7133/Homomm" style="text-decoration:none;color:black;">on github</a></div>
+    <div class="friend-header-ve" style="float:left;width:31%;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="mailto:info@homomm.org" style="text-decoration:none;color:black;">for feedback</a></div>
+    <div class="friend-header-ve" style="float:left;width:31%;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="tel:+39-331-4029415" style="text-decoration:none;color:black;">get support</a></div>
+<?php else: ?>
+    <?php foreach($CONFIG['AUTH'] as $key => $val): 
+            $myusername = $val['USERNAME'];
+            $currentChatClass = PHP_STR;
+            if ($myusername == $userHint) {
+              $currentChatClass = "friend-header-ve-selected";
+            }  
+            echo("<div class=\"friend-header-ve $currentChatClass\" onclick=\"changeChat('$myusername')\" style=\"float:left;width:24%;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;\">&nbsp;&nbsp;$myusername</div>");
+      endforeach; ?> 
+<?php endif; ?>  
+</td>
+</tr>
+</table>  
+
+<div style="clear:both;"></div>
 	
-<div style="clear:both; float:left; padding:8px; width:25%; max-width:250px; height:100%; text-align:center;">
+<div id="sidebar" style="clear:both; float:left; padding:8px; width:25%; max-width:250px; height:100%; text-align:center; border-right: 1px solid #2c2f34;">
     <?php if ($user!="MASTER"): ?>
     <br><br>
     <img src="/res/HMMgenius.png" alt="HC Genius" title="HC Genius" style="position:relative; left:+6px; width:90%; border: 1px dashed #EEEEEE;">
@@ -655,7 +684,7 @@ function updateHistory(&$update, $maxItems) {
     </div>
 </div>
 
-<div style="float:left; width:75%; max-width:950px; height:600px; padding:8px; border-left: 1px solid #2c2f34;">
+<div id="messagebar" style="float:left; width:75%; max-width:950px; height:600px; padding:8px; border:0px solid red;">
 	
 	<?php if (APP_SPLASH): ?>
 	<?php if ($hideSplash !== PHP_STR): ?>
@@ -698,22 +727,16 @@ function updateHistory(&$update, $maxItems) {
 	<?php endif; ?>
 	
 	&nbsp;Message board&nbsp;<a href="#" onclick="refresh();"><img src="/res/refresh.png" style="position:relative;top:+0px;"></a><br>
-	<div id="Console" style="height:433px; overflow-y:auto; margin-top:10px;">
-  <!--<div id="Console" style="height:493px; margin-top:10px;">-->
-	<div id="Consolep" style="min-height:433px;margin-left:5px;padding:10px;border:0px solid green;background:url('/res/console-bg.png'); background-size:cover; color: #000000;">
+	<div id="Console" style="float:left; width:100%; height:433px; overflow-y:auto; background:url('/res/console-bg.png'); background-size:cover; margin-top:10px; border:0px solid red;">
+	<div id="Consolep" style="min-height:433px;margin-left:5px;padding:10px;border:0px solid green; color: #000000;">
 <?php showHistory($msgHistory); ?>
   </div>	
   </div>
-	<div id="Messagep" style="min-height:105px;position:relative;top:-1px;margin-left:5px;padding:10px;padding-top:0px;border:0px solid red;background:url('/res/console-bg.png'); background-size:cover; color: #000000;">
+	<div id="Messagep" style="float:left; width:100%;min-height:105px;position:relative;top:-1px;margin-left:0px;padding:10px;padding-top:0px;border:0px solid red;background:url('/res/console-bg.png'); background-size:cover; color: #000000;">
 <div id="MessageL" style="width:100%;position:relative;white-space:nowrap;top:-23px;border:0px solid black;"><div id="MessageK" style="float:left;width:93%;background:#FFFFFF;;white-space:nowrap;position:relative; top:+40px;border:0px solid red;"><textarea id="MessageLine" name="MessageLine" type="text" autocomplete="off" rows="3" placeholder="Message" style="float:left;position:relative;top:+1px;width:80%;resize:none; background-color:white; color:black; border:0px; border-bottom: 1px dashed #EEEEEE;font-weight:900;"></textarea><div id="sendOptions" style="float:left;position:relative;top:+1px;left:+2px;background-color:#FFFFFF;width:16%;min-width:50px;height:59px;white-space:nowrap;padding:3px;font-weight:900;"><div style="float:right;"><input type="checkbox" name="chkSMS" value="sms">&nbsp;SMS&nbsp;</div><div onclick="upload();" style="float:right;position:relative;top:+5px;left:-5px;cursor:pointer;"><img src="/res/upload.png" style="width:32px;"></div><div id="del-attach" onclick="clearUpload()" style="float:left; position:relative;top:-48px;left:-60px;display:none;cursor:pointer;"><img src="/res/del-attach.png" style="width:64px;"></div></div></div><div id="MessageS" style="float:left;width:7%;position:relative;top:+40px;cursor:pointer;border:0px solid green;" onclick="sendMessage()"><img src="/res/send.png" style="float:left;height:100%;width:63px;"></div></div>	
 <div style="clear:both"></div>
   </div>  
 		
-</div>
-
-<div class="footer">
-<div id="footerCont">&nbsp;</div>
-<div id="footer"><span style="background:#FFFFFF;opacity:1.0;margin-right:10px;">&nbsp;&nbsp;A <a href="http://5mode.com">5 Mode</a> project and <a href="http://wysiwyg.systems">WYSIWYG</a> system. Some rights reserved.</span></div>	
 </div>
 
 <input type="hidden" id="CommandLine" name="CommandLine">
@@ -724,6 +747,11 @@ function updateHistory(&$update, $maxItems) {
 <input type="hidden" name="msg-sign" value="<?php echo(mt_rand(1000000, 9999999)); ?>">
 
 </form>
+
+<div class="footer">
+<div id="footerCont">&nbsp;</div>
+<div id="footer"><span style="background:#FFFFFF;opacity:1.0;margin-right:10px;">&nbsp;&nbsp;A <a href="http://5mode.com">5 Mode</a> project and <a href="http://wysiwyg.systems">WYSIWYG</a> system. Some rights reserved.</span></div>	
+</div>
 
 </body>	 
 </html>	 
