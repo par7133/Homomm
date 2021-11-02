@@ -39,7 +39,7 @@ define('APP_SALT', "yoursalt");
 define('APP_REPO_PATH', "/var/www/YourWebApp/Private/Repo");
 define('APP_PIC_PATH', "/var/www/YourWebApp/Public/static/hmm-img");
 
-define('CMDLINE_VALIDCMDS', "~|sendmsg|refreshbrd|");
+define('CMDLINE_VALIDCMDS', "~|sendmsg|refreshbrd|delmsg|delpic|");
 
 define('HISTORY_MAX_ITEMS', 50);
 
@@ -110,7 +110,7 @@ $CONFIG = [
    ],  
    
   'CMDLINE' => [
-     'VALIDCMDS' => "~|sendmsg|refreshbrd|"  
+     'VALIDCMDS' => "~|sendmsg|refreshbrd|delmsg|delpic|"  
     ],
 
   'HISTORY' => [
