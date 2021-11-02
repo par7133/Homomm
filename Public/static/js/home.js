@@ -180,7 +180,10 @@ function setContentPos() {
   $("#Console").css("height", newConsoleHeight + "px");
   //$("#Messagep").css("top", (newConsoleHeight - 433) + "px");
   msgKrect=document.getElementById("MessageK").getBoundingClientRect();
-  $("#MessageS").css("height",parseInt(msgKrect.height));
+  msgLineRect=document.getElementById("MessageLine").getBoundingClientRect();
+  $("#MessageS").css("height",parseInt(msgLineRect.height));
+  $("#MessageS").css("max-height",parseInt(msgLineRect.height));
+  $("#MessageLine").css("width", parseInt(msgKrect.width - 115) + "px");
   window.scroll(0, 0);
   $(document.body).css("overflow-y", "hidden");
 }  
@@ -240,7 +243,7 @@ window.addEventListener("load", function() {
     setTimeout("setContentPos()", 5200);  
     setTimeout("setFooterPos()", 5300);
   } else {
-    setTimeout("setContentPos()", 200);
+    setTimeout("setContentPos()", 100);
     setTimeout("setFooterPos()", 3000);
   }      
   
@@ -252,7 +255,7 @@ window.addEventListener("resize", function() {
     setTimeout("setContentPos()", 5200);
     setTimeout("setFooterPos()", 5300);  
   } else {
-    setTimeout("setContentPos()", 200);
+    setTimeout("setContentPos()", 100);
     setTimeout("setFooterPos()", 3000);
   }      
 
