@@ -264,47 +264,61 @@ function updateHistory(&$update, $maxItems) {
        //updateHistoryWithErr("No file uploaded.", false);
        return;
      } 
- 
+
+     $google = "abcdefghijklmnopqrstuvwxyz";
+     if (count($uploads)>strlen($google)) {
+       //echo("Too many uploaded files."); 
+       return;
+     }
+
+     // Checking for repeated upload cause ie. caching prb..
+     $duplicateMsgs = glob($picPath . DIRECTORY_SEPARATOR . date("Ymd-H") . "*-$msgSign*.*");
+     if (!empty($duplicateMsgs)) {
+       //echo("destination already exists");
+       return;
+     }	   
+
+     $i=1;
      foreach($uploads as &$upload) {
 		
        switch ($upload['error']) {
        case PHP_UPLOAD_ERR_OK:
          break;
        case PHP_UPLOAD_ERR_NO_FILE:
-         //updateHistoryWithErr("One or more uploaded files are missing.", false);
+         //echo("One or more uploaded files are missing.");
          return;
        case PHP_UPLOAD_ERR_INI_SIZE:
-         //updateHistoryWithErr("File exceeded INI size limit.", false);
+         //echo("File exceeded INI size limit.");
          return;
        case PHP_UPLOAD_ERR_FORM_SIZE:
-         //updateHistoryWithErr("File exceeded form size limit.", false);
+         //echo("File exceeded form size limit.");
          return;
        case PHP_UPLOAD_ERR_PARTIAL:
-         //updateHistoryWithErr("File only partially uploaded.", false);
+         //echo("File only partially uploaded.");
          return;
        case PHP_UPLOAD_ERR_NO_TMP_DIR:
-         //updateHistoryWithErr("TMP dir doesn't exist.", false);
+         //echo("TMP dir doesn't exist.");
          return;
        case PHP_UPLOAD_ERR_CANT_WRITE:
-         //updateHistoryWithErr("Failed to write to the disk.", false);
+         //echo("Failed to write to the disk.");
          return;
        case PHP_UPLOAD_ERR_EXTENSION:
-         //updateHistoryWithErr("A PHP extension stopped the file upload.", false);
+         //echo("A PHP extension stopped the file upload.");
          return;
        default:
-         //updateHistoryWithErr("Unexpected error happened.", false);
+         //echo("Unexpected error happened.");
          return;
        }
       
        if (!is_uploaded_file($upload['tmp_name'])) {
-         //updateHistoryWithErr("One or more file have not been uploaded.", false);
+         //echo("One or more file have not been uploaded.");
          return;
        }
       
        // name	 
        $name = (string)substr((string)filter_var($upload['name']), 0, 255);
        if ($name == PHP_STR) {
-         //updateHistoryWithErr("Invalid file name: " . $name, false);
+         //echo("Invalid file name: " . $name);
          return;
        } 
        $upload['name'] = $name;
@@ -316,7 +330,7 @@ function updateHistory(&$update, $maxItems) {
        // tmp_name
        $tmp_name = substr((string)filter_var($upload['tmp_name']), 0, 300);
        if ($tmp_name == PHP_STR || !file_exists($tmp_name)) {
-         //updateHistoryWithErr("Invalid file temp path: " . $tmp_name, false);
+         //echo("Invalid file temp path: " . $tmp_name);
          return;
        } 
        $upload['tmp_name'] = $tmp_name;
@@ -324,7 +338,7 @@ function updateHistory(&$update, $maxItems) {
        //size
        $size = substr((string)filter_var($upload['size'], FILTER_SANITIZE_NUMBER_INT), 0, 12);
        if ($size == "") {
-         //updateHistoryWithErr("Invalid file size.", false);
+         //echo("Invalid file size.");
          return;
        } 
        $upload["size"] = $size;
@@ -337,26 +351,24 @@ function updateHistory(&$update, $maxItems) {
 
        $date = date("Ymd-His");
        $rnd = $msgSign;    
-   
+       
        if ($originalFileExt!==PHP_STR) {
          //$destFileName = $originalFilename . "." . $fileExt;
          if ($user == "MASTER") {
-           $destFileName = $date . "-" . $rnd . "-master.$fileExt";
+           $destFileName = $date . "-" . $rnd . substr($google, $i-1, 1) . "-master.$fileExt";
          } else {
-           $destFileName = $date . "-" . $rnd . "-$userName.$fileExt";
+           $destFileName = $date . "-" . $rnd . substr($google, $i-1, 1) . "-$userName.$fileExt";
          }  
        } else {
          return; 
        }	   
        $destFullPath = $picPath . DIRECTORY_SEPARATOR . $destFileName;
 
-       $duplicateMsgs = glob($picPath . DIRECTORY_SEPARATOR . date("Ymd-H") . "*-$msgSign*.$fileExt");
-       
-       if (file_exists($destFullPath) || !empty($duplicateMsgs)) {
-         //updateHistoryWithErr("destination already exists", false);
+       if (file_exists($destFullPath)) {
+         //echo("destination already exists");
          return;
        }	   
-        
+
        copy($tmpFullPath, $destFullPath);
 
        // Updating history..
@@ -368,6 +380,8 @@ function updateHistory(&$update, $maxItems) {
       
        // Delete the tmp file..
        unlink($tmpFullPath); 
+       
+       $i++;
         
      }	 
  
@@ -918,7 +932,7 @@ function updateHistory(&$update, $maxItems) {
             endforeach; ?> 
     </div>  
     <?php endif; ?>
-    <div id="upload-cont"><input id="files" name="files[]" type="file" accept=".gif,.png,.jpg,.jpeg" style="visibility: hidden;"></div>
+    <div id="upload-cont"><input id="files" name="files[]" type="file" accept=".gif,.png,.jpg,.jpeg" style="visibility: hidden;" multiple></div>
     &nbsp;<br><br>
     <div style="text-align:left;white-space:nowrap;">
     &nbsp;&nbsp;<input type="text" id="Password" name="Password" placeholder="password" style="font-size:13px; background:#393939; color:#ffffff; width: 60%; border-radius:3px;" value="<?php echo($password);?>" autocomplete="off">&nbsp;<input type="submit" value="Go" style="text-align:left;width:25%;"><br>
