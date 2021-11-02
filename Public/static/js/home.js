@@ -143,6 +143,16 @@ function sendMessage() {
   frmHC.submit();
 }
 
+function deletePic(pic) {
+  $("#CommandLine").val("delpic " + pic);
+  frmHC.submit();  
+}  
+
+function deleteMsg(msg) {
+  $("#CommandLine").val("delmsg " + msg);
+  frmHC.submit();  
+}  
+
 function setContentPos() {
   if (window.innerWidth<650) {
     $("#ahome").attr("href","/");
