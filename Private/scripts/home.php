@@ -715,7 +715,7 @@ function updateHistory(&$update, $maxItems) {
      Homomm name comes from the two words: "homines" meaning our choise to give chance to the human beings to come first  
      and "mm" for "multimedia messaging".<br><br>
      
-     Homomm doesn't want to be a replacement of Whats App, Telegram, Wechat, etc. but simply wants to be their alter ago.<br><br>
+     Homomm doesn't want to be a replacement of Whats App, Telegram, Wechat, etc. but their alter ago.<br><br>
      
 	   First step, use the left side panel password and salt fields to create the hash to insert in the config file for every user. Remember to manually set there also the salt value.<br><br>
 	   
