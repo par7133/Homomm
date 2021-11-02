@@ -49,12 +49,18 @@
    global $EMOTICONS;
    
    $i = 1;	 
-   //echo "curPath=$curPath<br>"; 
+   
+   $totMsgs = count($msgHistory);
+    
    $oldDate = "";
+   $m = 1;
    foreach($msgHistory as $val) {
+     
+     $delFunc = false;
+     
      if ((mb_stripos($val, "-master") !== false) && ($user == "MASTER")) {
        $float = "right";
-       $bgcolor = "#E3FAE3";
+       $bgcolor = "#E3FAE3"; 
      } else if ((mb_stripos($val, "-master") === false) && ($user != "MASTER")) {
        $float = "right";
        $bgcolor = "#E3FAE3";
@@ -65,8 +71,8 @@
      echo("<div style='width:100%;height:auto;border:0px solid red;margin-bottom:12px;'>");
      $val = rtrim($val,"\n");
      // grab the date
-     $date = left($val, 8);
-     $date = date("l j F", mktime(0,0,0,substr($date,4,2),right($date,2),left($date,4))); 
+     $dateori = left($val, 8);
+     $date = date("l j F", mktime(0,0,0,substr($dateori,4,2),right($dateori,2),left($dateori,4))); 
      
      if ($LOCALE["Monday"]!=PHP_STR) {
        $date = str_replace(array_keys($LOCALE),array_values($LOCALE), $date);
@@ -78,14 +84,37 @@
      }  
      // grab the time
      preg_match('/^.+-(\d{6})-/i', $val, $matches);
-     $time = $matches[1];
-     $time = ltrim(left($time,2),"0") . ":" . substr($time,2,2);
+     $timereg = $matches[1];
+     $time = ltrim(left($timereg,2),"0") . ":" . substr($timereg,2,2);
+     
+     // Checking for del functionality..
+     // If it is one of the logged user msg..
+     if ((($m==$totMsgs) || ($m==$totMsgs-1)) && ($float === "right")) {
+       // file date
+       $origin = new DateTime(substr($dateori,4,2) ."-". right($dateori,2) ."-". left($dateori,4) . " " . left($timereg,2) .":". substr($timereg,2,2) .":". "00");
+       // current date
+       $target = new DateTime();
+       $interval = $origin->diff($target);
+       $minInterval = $interval->format("%i");
+       
+       if ($minInterval<2) {
+         $delFunc = true; 
+       } 
+     }
+     
      // parsing for file ext
      $fileext = strtolower(pathinfo($val, PATHINFO_EXTENSION));
      if ($fileext === "png" || $fileext === "jpg" || $fileext === "jpeg" || $fileext === "gif") {
        // display the img
        $img = substr($picPath, strlen(APP_PATH)) . DIRECTORY_SEPARATOR . $val; 
-       echo("<div style='background-color:$bgcolor;float:$float;padding:5px;max-width:300px;min-width:260px;border-radius:2px;'><img src='$img' style='width:100%;'><div style='float:right;font-size:9px;'>$time</div></div><br><br><br>");
+       
+       $deldiv=PHP_STR;
+       if ($delFunc) {
+         $deldiv = "<div style='float:right;width:17px;position:relative;top:-4px;height:11px;cursor:pointer' onclick=\"deletePic('$val')\"><img src='/res/del.png' style='width:11px;'></div>";  
+       }  
+       
+       echo("<div style='background-color:$bgcolor;float:$float;padding:5px;max-width:300px;min-width:260px;border-radius:2px;'><img src='$img' style='width:100%;'><div style='float:right;font-size:9px;'>$time</div>$deldiv</div><br><br><br>");
+
      } else {  
        // display the msg
        $msg = HTMLencode(file_get_contents($curPath . DIRECTORY_SEPARATOR . "msgs" . DIRECTORY_SEPARATOR . $val));
@@ -97,13 +126,18 @@
          $msg = str_replace(array_keys($EMOTICONS),array_values($EMOTICONS), $msg);
        }
 
+       $deldiv=PHP_STR;
+       if ($delFunc) {
+         $deldiv = "<div style='float:right;width:17px;position:relative;top:-4px;height:11px;cursor:pointer' onclick=\"deleteMsg('$val')\"><img src='/res/del.png' style='width:11px;'></div>";  
+       }  
 
-       echo("<div style='background-color:$bgcolor;float:$float;padding:5px;max-width:300px;min-width:260px;border-radius:2px;white-space:normal;'>".str_replace("\n", "<br>", $msg)."<div style='float:right;font-size:9px;'>$time</div></div><br><br><br>");
+       echo("<div style='background-color:$bgcolor;float:$float;padding:5px;max-width:300px;min-width:260px;border-radius:2px;white-space:normal;'>".str_replace("\n", "<br>", $msg)."<div style='float:right;font-size:9px;'>$time</div>$deldiv</div><br><br><br>");
      }	   
-     echo("<div style='clear:both;' style='height:2px;'></div>");
+
+     echo("<div style='clear:both;'></div>");
      echo("</div>");
 
-	   $i++;   
+	   $m++;   
    }
  }
  
@@ -397,9 +431,196 @@ function updateHistory(&$update, $maxItems) {
         sendSMS($message, SMS_API_URL, SMS_USERNAME, SMS_PASSWORD);
       }      
     }
-    
  }
+ 
+ function delMsgParamValidation() 
+ {
+
+	global $curPath;
+	global $opt;
+	global $param1;
+	global $param2; 
+	global $param3;
+
+	//opt!=""
+  if ($opt!==PHP_STR) {
+	  //updateHistoryWithErr("invalid options");	
+    return false;
+  }	
+	//param1!="" and isword  
+	if (($param1===PHP_STR) || !is_word($param1)) {
+	  //updateHistoryWithErr("invalid msg file");	
+    return false;
+  }
+	//param2==""
+	if ($param2!==PHP_STR) {
+    //updateHistoryWithErr("invalid parameters");
+    return false;
+  }
+  //param3==""
+  if ($param3!==PHP_STR) {
+    //updateHistoryWithErr("invalid parameters");
+    return false;
+  }
+	//param1 exist
+	$path = $curPath . DIRECTORY_SEPARATOR . "msgs" . DIRECTORY_SEPARATOR . $param1;
+	if (!file_exists($path)) {
+    //updateHistoryWithErr("file must exists");	
+	  return false;
+	}  	
+	//param1 is_file
+	if (!is_file($path)) {
+    //updateHistoryWithErr("invalid msg file");	
+	  return false;
+	}  	
+  //param1 file extension == msg
+  $fileExt = strtolower(pathinfo($param1, PATHINFO_EXTENSION));
+  if ($fileExt !== "msg") {
+	  //updateHistoryWithErr("invalid msg file");	
+	  return false;
+  }    
+
+  // Checking file date
   
+  // grab date
+  $dateori = left($param1, 8);
+  // grab time
+  preg_match('/^.+-(\d{6})-/i', $param1, $matches);
+  $timereg = $matches[1];
+  
+  $origin = new DateTime(substr($dateori,4,2) ."-". right($dateori,2) ."-". left($dateori,4) . " " . left($timereg,2) .":". substr($timereg,2,2) .":". "00");
+  // current date
+  $target = new DateTime();
+  $interval = $origin->diff($target);
+  $minInterval = $interval->format("%i");
+         
+  if ($minInterval>=2) {
+    return false; 
+  } 
+  
+	return true;
+   
+ }  
+  
+ 
+ function myExecDelMsgCommand() {
+   
+   global $curPath;
+   global $param1;
+   global $msgHistory;
+   
+   // searching the file name in the msgHsitory
+   $msgkey = array_search($param1."\n", $msgHistory);
+   if ($msgkey !== false) {
+   
+     // Clearing out the msg from the history..
+     unset($msgHistory[$msgkey]);
+     $hpath = $curPath . DIRECTORY_SEPARATOR . ".HMM_history";
+     file_put_contents($hpath, implode('', $msgHistory));	 
+     
+     // Deleting the msg file..
+     $msgpath = $curPath . DIRECTORY_SEPARATOR . "msgs" . DIRECTORY_SEPARATOR . $param1;
+     if (file_exists($msgpath)) {
+       unlink($msgpath); 
+     }  
+   }     
+ }   
+  
+
+ function delPicParamValidation() 
+ {
+
+	global $picPath;
+	global $opt;
+	global $param1;
+	global $param2; 
+	global $param3;
+
+	//opt!=""
+  if ($opt!==PHP_STR) {
+	  //updateHistoryWithErr("invalid options");	
+    return false;
+  }	
+	//param1!="" and isword  
+	if (($param1===PHP_STR) || !is_word($param1)) {
+	  //updateHistoryWithErr("invalid pic file");	
+    return false;
+  }
+	//param2==""
+	if ($param2!==PHP_STR) {
+    //updateHistoryWithErr("invalid parameters");
+    return false;
+  }
+  //param3==""
+  if ($param3!==PHP_STR) {
+    //updateHistoryWithErr("invalid parameters");
+    return false;
+  }
+	//param1 exist
+	$path = $picPath . DIRECTORY_SEPARATOR . $param1;
+	if (!file_exists($path)) {
+    //updateHistoryWithErr("pic must exists");	
+	  return false;
+	}  	
+	//param1 is_file
+	if (!is_file($path)) {
+    //updateHistoryWithErr("invalid pic file");	
+	  return false;
+	}  	
+  //param1 file extension == gif | png | jpg | jpeg |
+  $fileExt = strtolower(pathinfo($param1, PATHINFO_EXTENSION));
+  if ($fileExt !== "gif" && $fileExt !== "png" && $fileExt !== "jpg" && $fileExt !== "jpeg") {
+	  //updateHistoryWithErr("invalid pic file");	
+	  return false;
+  }    
+
+  // Checking file date
+  
+  // grab date
+  $dateori = left($param1, 8);
+  // grab time
+  preg_match('/^.+-(\d{6})-/i', $param1, $matches);
+  $timereg = $matches[1];
+  
+  $origin = new DateTime(substr($dateori,4,2) ."-". right($dateori,2) ."-". left($dateori,4) . " " . left($timereg,2) .":". substr($timereg,2,2) .":". "00");
+  // current date
+  $target = new DateTime();
+  $interval = $origin->diff($target);
+  $minInterval = $interval->format("%i");
+         
+  if ($minInterval>=2) {
+    return false; 
+  } 
+  
+	return true;
+   
+ }  
+  
+ 
+ function myExecDelPicCommand() {
+   
+   global $picPath; 
+   global $curPath;
+   global $param1;
+   global $msgHistory;
+   
+   // searching the file name in the msgHistory
+   $msgkey = array_search($param1."\n", $msgHistory);
+   if ($msgkey !== false) {
+   
+     // Clearing out the msg from the history..
+     unset($msgHistory[$msgkey]);
+     $hpath = $curPath . DIRECTORY_SEPARATOR . ".HMM_history";
+     file_put_contents($hpath, implode('', $msgHistory));	 
+     
+     // Deleting the pic file..
+     $picpath = $picPath . DIRECTORY_SEPARATOR . $param1;
+     if (file_exists($picpath)) {
+       unlink($picpath); 
+     }  
+   }     
+ }   
+
   
  $password = filter_input(INPUT_POST, "Password");
  if ($password==PHP_STR) {
@@ -508,8 +729,20 @@ function updateHistory(&$update, $maxItems) {
      } else if ($command === "refreshbrd") {
        // refreshing Msg Board..
      }
+
   
    } else if (mb_stripos(CMDLINE_VALIDCMDS, "|" . $cmd . "|")) {
+
+     if ($cmd === "delmsg") {
+       if (delMsgParamValidation()) {
+         myExecDelMsgCommand();
+       }	
+     } else if ($cmd === "delpic") {
+       if (delPicParamValidation()) {
+         myExecDelPicCommand();
+       }	
+     }
+
        
    } else {
      
