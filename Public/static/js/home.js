@@ -186,8 +186,13 @@ function setContentPos() {
     $("#MessageK").css("width","93%");  
     $("#del-attach").css("top","-34px");
   }    
+  if (window.innerWidth<650) {
+    $("#MessageL").css("width", parseInt(window.innerWidth-65) + "px"); 
+  }    
   newConsoleHeight = parseInt(window.innerHeight-250);
-  $("#Console").css("height", newConsoleHeight + "px");
+  if (newConsoleHeight>288) {
+    $("#Console").css("height", newConsoleHeight + "px");
+  }  
   //$("#Messagep").css("top", (newConsoleHeight - 433) + "px");
   msgKrect=document.getElementById("MessageK").getBoundingClientRect();
   msgLineRect=document.getElementById("MessageLine").getBoundingClientRect();
@@ -205,6 +210,13 @@ function setFooterPos() {
   //} else {
 	  tollerance = 15;
 	//}  	  
+  
+    if (window.innerWidth<450) {
+      $(".no-sm").css("display", "none");
+    } else {
+      $(".no-sm").css("display", "inline");
+    }
+    
     $("#footerCont").css("top", parseInt( window.innerHeight - $("#footerCont").height() - tollerance ) + "px");
     $("#footer").css("top", parseInt( window.innerHeight - $("#footer").height() - tollerance ) + "px");
   //}
@@ -253,7 +265,7 @@ window.addEventListener("load", function() {
     setTimeout("setContentPos()", 5200);  
     setTimeout("setFooterPos()", 5300);
   } else {
-    setTimeout("setContentPos()", 100);
+    setTimeout("setContentPos()", 1500);
     setTimeout("setFooterPos()", 3000);
   }      
   
@@ -265,7 +277,7 @@ window.addEventListener("resize", function() {
     setTimeout("setContentPos()", 5200);
     setTimeout("setFooterPos()", 5300);  
   } else {
-    setTimeout("setContentPos()", 100);
+    setTimeout("setContentPos()", 1500);
     setTimeout("setFooterPos()", 3000);
   }      
 
