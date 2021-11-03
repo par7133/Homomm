@@ -91,7 +91,8 @@
      // If it is one of the logged user msg..
      if ((($m==$totMsgs) || ($m==$totMsgs-1)) && ($float === "right")) {
        // file date
-       $origin = new DateTime(substr($dateori,4,2) ."-". right($dateori,2) ."-". left($dateori,4) . " " . left($timereg,2) .":". substr($timereg,2,2) .":". "00");
+       $origin = new DateTime(left($dateori,4) ."-". substr($dateori,4,2) ."-". right($dateori,2) . " " . left($timereg,2) .":". substr($timereg,2,2) .":". "00");
+       //echo($origin->format("YMd H:i:s"));
        // current date
        $target = new DateTime();
        $interval = $origin->diff($target);
@@ -502,7 +503,8 @@ function updateHistory(&$update, $maxItems) {
   preg_match('/^.+-(\d{6})-/i', $param1, $matches);
   $timereg = $matches[1];
   
-  $origin = new DateTime(substr($dateori,4,2) ."-". right($dateori,2) ."-". left($dateori,4) . " " . left($timereg,2) .":". substr($timereg,2,2) .":". "00");
+  $origin = new DateTime(left($dateori,4) ."-". substr($dateori,4,2) ."-". right($dateori,2) . " " . left($timereg,2) .":". substr($timereg,2,2) .":". "00");
+  //echo($origin->format("YMd H:i:s"));
   // current date
   $target = new DateTime();
   $interval = $origin->diff($target);
@@ -596,7 +598,8 @@ function updateHistory(&$update, $maxItems) {
   preg_match('/^.+-(\d{6})-/i', $param1, $matches);
   $timereg = $matches[1];
   
-  $origin = new DateTime(substr($dateori,4,2) ."-". right($dateori,2) ."-". left($dateori,4) . " " . left($timereg,2) .":". substr($timereg,2,2) .":". "00");
+  $origin = new DateTime(left($dateori,4) ."-". substr($dateori,4,2) ."-". right($dateori,2) . " " . left($timereg,2) .":". substr($timereg,2,2) .":". "00");
+  //echo($origin->format("YMd H:i:s"));
   // current date
   $target = new DateTime();
   $interval = $origin->diff($target);
@@ -986,7 +989,7 @@ function updateHistory(&$update, $maxItems) {
 	<?php endif; ?>
 	
 	&nbsp;Message board&nbsp;<a href="#" onclick="refresh();"><img src="/res/refresh.png" style="position:relative;top:+0px;"></a><br>
-	<div id="Console" style="float:left; width:100%; height:433px; overflow-y:auto; background:url('/res/console-bg.png'); background-size:cover; margin-top:10px; border:0px solid red;">
+	<div id="Console" style="float:left; width:100%; height:288px; min-height:288px; overflow-y:auto; background:url('/res/console-bg.png'); background-size:cover; margin-top:10px; border:0px solid red;">
 	<div id="Consolep" style="min-height:433px;margin-left:5px;padding:10px;border:0px solid green; color: #000000;">
 <?php showHistory($msgHistory); ?>
   </div>	
@@ -1015,7 +1018,7 @@ function updateHistory(&$update, $maxItems) {
 
 <div class="footer">
 <div id="footerCont">&nbsp;</div>
-<div id="footer"><span style="background:#FFFFFF;opacity:1.0;margin-right:10px;">&nbsp;&nbsp;A <a href="http://5mode.com">5 Mode</a> project and <a href="http://wysiwyg.systems">WYSIWYG</a> system. Some rights reserved.</span></div>	
+<div id="footer"><span style="background:#FFFFFF;opacity:1.0;margin-right:10px;">&nbsp;&nbsp;A <a href="http://5mode.com">5 Mode</a> project <span class="no-sm">and <a href="http://wysiwyg.systems">WYSIWYG</a> system</span>. Some rights reserved.</span></div>	
 </div>
 
 </body>	 
