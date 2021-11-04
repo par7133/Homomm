@@ -233,10 +233,15 @@ function next_link_replacement1($matches)
 {
   global $replacement_for_links1;
   global $i_replacement1;
+
+  //echo(strtolower(left($matches[0],4))."+".$matches[0]);
   
-  $i_replacement1++;
-  
-  //echo "*".$replacement_for_links1[$i_replacement1]."*";
+  if (strtolower(left($matches[0],4))==="http") {
+    $i_replacement1++;
+    $ret = $replacement_for_links1[$i_replacement1]??"";
+  } else {
+    $ret = "";
+  }  
     
   // as usual: $matches[0] is the complete match
   // $matches[1] the match for the first subpattern
@@ -249,14 +254,19 @@ function next_link_replacement2($matches)
   global $replacement_for_links2;
   global $i_replacement2;
   
-  $i_replacement2++;
+  //echo(strtolower(substr($matches[0],1,4))."+".$matches[0]);
   
-  //echo "@".$replacement_for_links2[$i_replacement2]."@";
+  if (strtolower(substr($matches[0],1,4))==="link") {
+    $i_replacement2++;
+    $ret = $replacement_for_links2[$i_replacement2]??"";
+  } else {
+    $ret = "";
+  }  
     
   // as usual: $matches[0] is the complete match
   // $matches[1] the match for the first subpattern
   // enclosed in '(...)' and so on
-  return $replacement_for_links2[$i_replacement2]??"";
+  return $ret;
 }
 
  
@@ -269,7 +279,9 @@ function HTMLencode(?string $s, bool $withBR = false): string
   global $i_replacement2;
   
   $safe_for_links = [];
-  
+  $replacement_for_links1 = [];
+  $replacement_for_links2 = [];
+    
   if (!isset($s)) {
     return PHP_STR;
   }
@@ -280,18 +292,21 @@ function HTMLencode(?string $s, bool $withBR = false): string
   
   preg_match_all("/(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,8})(\/?[\da-zA-Z\-\?\/\&\#\=]+)?/i", $s, $safe_for_links, PREG_SET_ORDER);
   
+  //echo("safe:<br>");
   //print_r($safe_for_links);
   
   $i=0;
   foreach($safe_for_links as $val) {
-    $replacement_for_links1[] = "|LINK #".$i."|";
+    $replacement_for_links1[] = "|LINK #$i|";
     $i++;  
   }  
+  
+  //echo("rep1:<br>");
+  //print_r($replacement_for_links1);
   
   if ($safe_for_links) {
     $i_replacement1 = -1;
       
-    //$s = preg_replace("/(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,8})(\/?[\da-zA-Z\-\?\/\&\#\=]+)?/i", "<a href='\\0' target=\"_blank\">\\0</a>", $text);
     $s = preg_replace_callback("/(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,8})(\/?[\da-zA-Z\-\?\/\&\#\=]+)?/i",
                                "next_link_replacement1",
                                $s); 
@@ -306,6 +321,9 @@ function HTMLencode(?string $s, bool $withBR = false): string
       $i++;  
     }  
 
+    //echo("rep2:<br>");
+    //print_r($replacement_for_links2);
+
     $i_replacement2 = -1;
 
     $s = preg_replace_callback("/\|LINK \#\d+|\|/",
@@ -317,15 +335,6 @@ function HTMLencode(?string $s, bool $withBR = false): string
     $s = htmlspecialchars($s, ENT_QUOTES |ENT_IGNORE | ENT_HTML5, "UTF-8");
   
   }
-  
-  //$s = str_ireplace(";", PHP_STR, $s);
-  //if (mb_stripos($s, ";") === false) {
-  //  $s = str_ireplace("&", "|COMMERCIAL E|", $s);
-  //}
-  
-  //if (mb_stripos($s, ";") === false) {
-  //  $s = str_ireplace("|COMMERCIAL E|", "&", $s);
-  //}
   
   if ($withBR) {
     $s = str_ireplace(chr(10), PHP_BR, $s);
