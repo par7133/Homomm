@@ -71,6 +71,122 @@ function enableLinks(string $text): string
 }  
 }
 
+if (!function_exists("date_add1")) {
+ /**
+  * Add the specified interval to the given date
+  *
+  * @param string $intervalType the type of interval to add to the string
+  *               it can be one of the followin values: 
+  *
+  *               Y - Year
+  *               m - Month
+  *               W - Weeks 
+  *               d - Day
+  *               H - Hour
+  *               i - Minute
+  *               s - Second
+  *
+  * @param int $interval the interval to add (or subtract if negtive)
+  * @param mixed $date the date to add the interval to
+  * 
+  * @return the resulting date otherwise false in case of error
+  *
+  * @see https://github.com/par7133/PHP-Classic-ASP-polyfills
+  *
+  */
+  function date_add1(string $intervalType, int $interval, $date = null)
+  {
+
+     if (!isset($intervalType) || !isset($interval)) {
+       return false;
+     }
+     
+     // Parsing $date
+     if (isset($date) && ($date instanceof DateTime)) {
+       $d = $date;
+     } else if (isset($date) && (is_string($date) && is_date($date))) { 
+       $d = new DateTime($date);
+     } else if (!isset($date)) {
+       $d = new DateTime();
+     } else {
+       // any other case than..
+       return false;      
+     }   
+
+     if ($interval === 0) {
+       if (isset($d)) {
+         return $d;
+       } else {
+         return false;
+       }  
+     }
+     
+     if ($interval > 0) {
+     
+       switch($intervalType)
+       {
+         case "Y":
+           date_add($d, date_interval_create_from_date_string($interval . ' years'));
+           break;
+         case "m":
+           date_add($d, date_interval_create_from_date_string($interval . ' months'));
+           break;
+         case "W":
+           $days = $interval * 7;
+           date_add($d, date_interval_create_from_date_string($days . ' days'));
+           break;
+         case "d":
+           date_add($d, date_interval_create_from_date_string($interval . ' days'));
+           break;
+         case "H":
+           date_add($d, date_interval_create_from_date_string($interval . ' hours'));
+           break;
+         case "i":
+           date_add($d, date_interval_create_from_date_string($interval . ' minutes'));
+           break;
+         case "s":
+           date_add($d, date_interval_create_from_date_string($interval . ' seconds'));
+           break;
+         default:
+           return false;  
+       }
+
+     } else { 
+
+       switch($intervalType)
+       {
+         case "Y":
+           date_sub($d, date_interval_create_from_date_string(abs($interval) . ' years'));
+           break;
+         case "m":
+           date_sub($d, date_interval_create_from_date_string(abs($interval) . ' months'));
+           break;
+         case "W":
+           $days = $interval * 7;
+           date_sub($d, date_interval_create_from_date_string(abs($days) . ' days'));
+           break;
+         case "d":
+           date_sub($d, date_interval_create_from_date_string(abs($interval) . ' days'));
+           break;
+         case "H":
+           date_sub($d, date_interval_create_from_date_string(abs($interval) . ' hours'));
+           break;
+         case "i":
+           date_sub($d, date_interval_create_from_date_string(abs($interval) . ' minutes'));
+           break;
+         case "s":
+           date_sub($d, date_interval_create_from_date_string(abs($interval) . ' seconds'));
+           break;
+         default:
+           return false;  
+       }
+
+     }
+     
+     return $d;
+  }
+}
+
 if (!function_exists("fixMultipleFileUpload")) { 
 /**
  * Fix multiple file uploaded array ($_FILE)
