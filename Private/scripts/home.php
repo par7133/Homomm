@@ -45,6 +45,7 @@
    global $user;
    global $curPath;
    global $picPath;
+   global $CONFIG;
    global $LOCALE;
    global $EMOTICONS;
    
@@ -70,9 +71,12 @@
      }
      echo("<div style='width:100%;height:auto;border:0px solid red;margin-bottom:12px;'>");
      $val = rtrim($val,"\n");
-     // grab the date
-     $dateori = left($val, 8);
-     $date = date("l j F", mktime(0,0,0,substr($dateori,4,2),right($dateori,2),left($dateori,4))); 
+     // grab the date converting to the given time zone..
+     //$dateori = left($val, 8);
+     $dated = new DateTime(left($val,4)."-".substr($val,4,2)."-".substr($val,6,2)." ".substr($val,9,2).":".substr($val,11,2).":".substr($val,13,2));
+     $dated = date_add1("H", ltrim($CONFIG['AUTH'][$user]['TIMEZONE'],"+")-APP_SERVER_TIMEZONE, $dated); 
+     $date = $dated->format("l j F");
+     //$date = date("l j F", mktime(0,0,0,substr($dateori,4,2),right($dateori,2),left($dateori,4))); 
      
      if ($LOCALE["Monday"]!=PHP_STR) {
        $date = str_replace(array_keys($LOCALE),array_values($LOCALE), $date);
@@ -83,19 +87,20 @@
        $oldDate = $date;
      }  
      // grab the time
-     preg_match('/^.+-(\d{6})-/i', $val, $matches);
-     $timereg = $matches[1];
-     $time = ltrim(left($timereg,2),"0") . ":" . substr($timereg,2,2);
+     //preg_match('/^.+-(\d{6})-/i', $val, $matches);
+     //$timereg = $matches[1];
+     //$time = ltrim(left($timereg,2),"0") . ":" . substr($timereg,2,2);
+     $time = $dated->format("H:i");
      
      // Checking for del functionality..
      // If it is one of the logged user msg..
      if ((($m==$totMsgs) || ($m==$totMsgs-1)) && ($float === "right")) {
        // file date
-       $origin = new DateTime(left($dateori,4) ."-". substr($dateori,4,2) ."-". right($dateori,2) . " " . left($timereg,2) .":". substr($timereg,2,2) .":". "00");
-       //echo($origin->format("YMd H:i:s"));
+       //$origin = new DateTime(left($dateori,4) ."-". substr($dateori,4,2) ."-". right($dateori,2) . " " . left($timereg,2) .":". substr($timereg,2,2) .":". "00");
+       //echo($dated->format("YMd H:i:s"));
        // current date
        $target = new DateTime();
-       $interval = $origin->diff($target);
+       $interval = $dated->diff($target);
        $minInterval = $interval->format("%i");
        
        if ($minInterval<2) {
@@ -503,7 +508,7 @@ function updateHistory(&$update, $maxItems) {
   preg_match('/^.+-(\d{6})-/i', $param1, $matches);
   $timereg = $matches[1];
   
-  $origin = new DateTime(left($dateori,4) ."-". substr($dateori,4,2) ."-". right($dateori,2) . " " . left($timereg,2) .":". substr($timereg,2,2) .":". "00");
+  $origin = new DateTime(left($dateori,4) ."-". substr($dateori,4,2) ."-". right($dateori,2) . " " . left($timereg,2) .":". substr($timereg,2,2) .":". right($timereg,2));
   //echo($origin->format("YMd H:i:s"));
   // current date
   $target = new DateTime();
@@ -598,7 +603,7 @@ function updateHistory(&$update, $maxItems) {
   preg_match('/^.+-(\d{6})-/i', $param1, $matches);
   $timereg = $matches[1];
   
-  $origin = new DateTime(left($dateori,4) ."-". substr($dateori,4,2) ."-". right($dateori,2) . " " . left($timereg,2) .":". substr($timereg,2,2) .":". "00");
+  $origin = new DateTime(left($dateori,4) ."-". substr($dateori,4,2) ."-". right($dateori,2) . " " . left($timereg,2) .":". substr($timereg,2,2) .":". right($timereg,2));
   //echo($origin->format("YMd H:i:s"));
   // current date
   $target = new DateTime();
@@ -995,7 +1000,7 @@ function updateHistory(&$update, $maxItems) {
   </div>	
   </div>
 	<div id="Messagep" style="float:left; width:100%;min-height:105px;position:relative;top:-1px;margin-left:0px;padding:10px;padding-top:0px;border:0px solid red;background:url('/res/console-bg.png'); background-size:cover; color: #000000;">
-<div id="MessageL" style="width:100%;position:relative;white-space:nowrap;top:-23px;border:0px solid black;"><div id="MessageK" style="float:left;width:93%;background:#FFFFFF;;white-space:nowrap;position:relative; top:+40px;border:0px solid red;"><textarea id="MessageLine" name="MessageLine" type="text" autocomplete="off" rows="3" placeholder="Message" style="float:left;position:relative;top:+1px;width:75%;resize:none; background-color:white; color:black; border:0px; border-bottom: 1px dashed #EEEEEE;font-weight:900;"></textarea><div id="sendOptions" style="float:left;position:relative;top:+1px;left:+2px;background-color:#FFFFFF;width:105px;max-width:105px;height:59px;white-space:nowrap;padding:3px;font-weight:900;"><div id="pop-icons" style="float:left;text-align:center;margin:3px;margin-top:0px;width:30px;cursor:pointer;border:0px solid black;">&#128578;</div><div style="float:right;position:relative:top:-2px;border:0px solid blue;"><input type="checkbox" name="chkSMS" value="sms" style="font-size:10px;vertical-align:middle;">&nbsp;SMS&nbsp;</div><br><div onclick="upload();" style="float:right;position:relative;top:+5px;left:0px;cursor:pointer;border:0px solid red;"><img src="/res/upload.png" style="width:26px;"></div><div id="del-attach" onclick="clearUpload()" style="float:left; position:relative;top:-48px;left:-60px;display:none;cursor:pointer;"><img src="/res/del-attach.png" style="width:64px;"></div></div></div><div id="MessageS" style="float:left;width:7%;position:relative;top:+40px;cursor:pointer;border:0px solid green;" onclick="sendMessage()"><img src="/res/send.png" style="float:left;height:100%;width:63px;"></div></div>	
+<div id="MessageL" style="width:100%;position:relative;white-space:nowrap;top:-23px;border:0px solid black;"><div id="MessageK" style="float:left;width:93%;background:#FFFFFF;;white-space:nowrap;position:relative; top:+40px;border:0px solid red;"><textarea id="MessageLine" name="MessageLine" type="text" autocomplete="off" rows="3" placeholder="Message" style="float:left;position:relative;top:+1px;width:75%;resize:none; background-color:white; color:black; border:0px; border-bottom: 1px dashed #EEEEEE;font-weight:900;"></textarea><div id="sendOptions" style="float:left;position:relative;top:+1px;left:+2px;background-color:#FFFFFF;width:105px;max-width:105px;height:59px;white-space:nowrap;padding:3px;font-weight:900;"><div id="pop-icons" style="float:left;text-align:center;margin:3px;margin-top:0px;width:30px;cursor:pointer;border:0px solid black;">&#128578;</div><div style="float:right;position:relative:top:-2px;border:0px solid blue;"><input type="checkbox" name="chkSMS" value="sms" style="font-size:10px;vertical-align:middle;">&nbsp;SMS&nbsp;</div><br><div onclick="upload();" style="float:right;position:relative;top:+5px;left:0px;cursor:pointer;border:0px solid red;"><img src="/res/upload.png" style="width:26px;"></div><div id="del-attach" onclick="clearUpload()" style="float:left; position:relative;top:-8px;left:-60px;display:none;cursor:pointer;"><img src="/res/del-attach.png" style="width:48px;"></div></div></div><div id="MessageS" style="float:left;width:7%;position:relative;top:+40px;cursor:pointer;border:0px solid green;" onclick="sendMessage()"><img src="/res/send.png" style="float:left;height:100%;width:63px;"></div></div>	
 <div style="clear:both"></div>
 <div id="emoticons" style="position:absolute; width: 130px; height:69px; background-color:#FFFFFF; border:1px solid black;display:none;">
   <?php foreach ($EMOTICONS as $key => $val): ?>
@@ -1021,5 +1026,11 @@ function updateHistory(&$update, $maxItems) {
 <div id="footer"><span style="background:#FFFFFF;opacity:1.0;margin-right:10px;">&nbsp;&nbsp;A <a href="http://5mode.com">5 Mode</a> project <span class="no-sm">and <a href="http://wysiwyg.systems">WYSIWYG</a> system</span>. Some rights reserved.</span></div>	
 </div>
 
+<script>
+if (document.getElementsByClassName("friend-selected")[0]) {
+  document.getElementsByClassName("friend-selected")[0].scrollIntoView();  
+}  
+</script>
+  
 </body>	 
 </html>	 
