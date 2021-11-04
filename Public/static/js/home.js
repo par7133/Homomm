@@ -180,14 +180,17 @@ function setContentPos() {
   if (window.innerWidth<900) {
     $("#MessageL").css("width","97%");
     $("#MessageK").css("width","89%");
-    $("#del-attach").css("top","-42px");  
+    //$("#del-attach").css("top","-42px");  
   } else {
     $("#MessageL").css("width","100%");
     $("#MessageK").css("width","93%");  
-    $("#del-attach").css("top","-34px");
+    //$("#del-attach").css("top","-34px");
   }    
   if (window.innerWidth<650) {
-    $("#MessageL").css("width", parseInt(window.innerWidth-65) + "px"); 
+    $("#MessageL").css("width", parseInt(window.innerWidth-65) + "px");
+  } else {
+    consoleRect=document.getElementById("Console").getBoundingClientRect();
+    $("#MessageL").css("width", parseInt(consoleRect.width-33) + "px");   
   }    
   newConsoleHeight = parseInt(window.innerHeight-250);
   if (newConsoleHeight>288) {
@@ -247,7 +250,7 @@ $("input#files").on("change", function(e) {
 });
 
 function clearUpload() {
-  $("#upload-cont").html("<input id='files' name='files[]' type='file' accept='.gif,.png,.jpg,.jpeg' style='visibility: hidden;'>"); 
+  $("#upload-cont").html("<input id='files' name='files[]' type='file' accept='.gif,.png,.jpg,.jpeg' style='visibility: hidden;' multiple>"); 
   $("#del-attach").css("display", "none");
 }  
 
@@ -265,7 +268,7 @@ window.addEventListener("load", function() {
     setTimeout("setContentPos()", 5200);  
     setTimeout("setFooterPos()", 5300);
   } else {
-    setTimeout("setContentPos()", 1500);
+    setTimeout("setContentPos()", 1000);
     setTimeout("setFooterPos()", 3000);
   }      
   
@@ -277,7 +280,7 @@ window.addEventListener("resize", function() {
     setTimeout("setContentPos()", 5200);
     setTimeout("setFooterPos()", 5300);  
   } else {
-    setTimeout("setContentPos()", 1500);
+    setTimeout("setContentPos()", 1000);
     setTimeout("setFooterPos()", 3000);
   }      
 
