@@ -887,6 +887,22 @@ function updateHistory(&$update, $maxItems) {
 </head>
 <body>
 
+<?php
+
+  // Sorting friend list..
+
+  function sort_friends_coll($a, $b) 
+  {
+     return strcmp($a["USERNAME"], $b["USERNAME"]);    
+  }  
+
+  $AUTH = $CONFIG['AUTH'];
+ 
+  usort($AUTH, "sort_friends_coll");
+ 
+  //print_r($AUTH);
+?>
+
 <div id="HCsplash" style="padding-top: 160px; text-align:center;color:#ffffff;display:none;">
    <div id="myh1"><H1>Homomm</H1></div><br>
    <img src="./Public/static/res/HMMlogo2.png" style="width:310px;">
@@ -908,7 +924,7 @@ function updateHistory(&$update, $maxItems) {
     <div class="friend-header-ve" style="float:left;width:31%;font-size:14px;padding:4px;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="mailto:info@homomm.org" style="text-decoration:none;color:black;">for feedback</a></div>
     <div class="friend-header-ve" style="float:left;width:31%;font-size:14px;padding:4px;border:3px solid #e4f5f7;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;">&nbsp;&nbsp;<a href="tel:+39-331-4029415" style="text-decoration:none;color:black;">get support</a></div>
 <?php else: ?>
-    <?php foreach($CONFIG['AUTH'] as $key => $val): 
+    <?php foreach($AUTH as $key => $val): 
             $myusername = $val['USERNAME'];
             $currentChatClass = PHP_STR;
             if ($myusername == $userHint) {
@@ -930,7 +946,7 @@ function updateHistory(&$update, $maxItems) {
     <?php else: ?>
     <div style="text-align:left;">&nbsp;Friends</div><br>
     <div style="position:relative;top:-10px;left:+6px; width:90%; overflow-y:auto; height:244px; border: 1px dashed #EEEEEE;">
-      <?php foreach($CONFIG['AUTH'] as $key => $val): 
+      <?php foreach($AUTH as $key => $val): 
               $myusername = $val['USERNAME'];
               $currentChatClass = PHP_STR;
               if ($myusername == $userHint) {
