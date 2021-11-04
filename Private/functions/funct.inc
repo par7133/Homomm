@@ -46,7 +46,7 @@ function enableEmails(string $text, bool $masked = false): string
     return "<a href='mailto:$result'>$result</a>";
   };
 
-  $regexPattern = "/(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}/";
+  $regexPattern = "/(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}/i";
   
   if ($masked) {
     $callable = $callable_masked;
@@ -68,7 +68,7 @@ if (!function_exists("enableLinks")) {
 function enableLinks(string $text): string
 {
   //return preg_replace("/(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,8})(\/?.+)?/", "<a href='\\0' target=\"_blank\">\\0</a>", $text);
-  return preg_replace("/(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,8})(\/?[\da-zA-Z\-\?\/\&\#\=]+)?/", "<a href='\\0' target=\"_blank\">\\0</a>", $text);
+  return preg_replace("/(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,8})(\/?[\da-zA-Z\-\?\/\&\#\=]+)?/i", "<a href='\\0' target=\"_blank\">\\0</a>", $text);
 }  
 }
 
@@ -221,8 +221,55 @@ if (!function_exists("HTMLencode")) {
  * @param bool $withBR keep the BR tag, true/false
  * @return string the string encoded
  */
+ 
+$replacement_for_links1 = []; 
+$i_replacement1 = -1;
+
+$replacement_for_links2 = []; 
+$i_replacement2 = -1;
+
+
+function next_link_replacement1($matches)
+{
+  global $replacement_for_links1;
+  global $i_replacement1;
+  
+  $i_replacement1++;
+  
+  //echo "*".$replacement_for_links1[$i_replacement1]."*";
+    
+  // as usual: $matches[0] is the complete match
+  // $matches[1] the match for the first subpattern
+  // enclosed in '(...)' and so on
+  return $replacement_for_links1[$i_replacement1]??"";
+}
+
+function next_link_replacement2($matches)
+{
+  global $replacement_for_links2;
+  global $i_replacement2;
+  
+  $i_replacement2++;
+  
+  //echo "@".$replacement_for_links2[$i_replacement2]."@";
+    
+  // as usual: $matches[0] is the complete match
+  // $matches[1] the match for the first subpattern
+  // enclosed in '(...)' and so on
+  return $replacement_for_links2[$i_replacement2]??"";
+}
+
+ 
 function HTMLencode(?string $s, bool $withBR = false): string 
 {
+  global $replacement_for_links1;
+  global $i_replacement1;
+
+  global $replacement_for_links2;
+  global $i_replacement2;
+  
+  $safe_for_links = [];
+  
   if (!isset($s)) {
     return PHP_STR;
   }
@@ -231,15 +278,54 @@ function HTMLencode(?string $s, bool $withBR = false): string
   $s = str_ireplace("&#34;", "\"", $s);
   $s = str_ireplace("\\n", "", $s);
   
-  if (mb_stripos($s, ";") === false) {
-    $s = str_ireplace("&", "|COMMERCIAL E|", $s);
+  preg_match_all("/(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,8})(\/?[\da-zA-Z\-\?\/\&\#\=]+)?/i", $s, $safe_for_links, PREG_SET_ORDER);
+  
+  //print_r($safe_for_links);
+  
+  $i=0;
+  foreach($safe_for_links as $val) {
+    $replacement_for_links1[] = "|LINK #".$i."|";
+    $i++;  
+  }  
+  
+  if ($safe_for_links) {
+    $i_replacement1 = -1;
+      
+    //$s = preg_replace("/(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,8})(\/?[\da-zA-Z\-\?\/\&\#\=]+)?/i", "<a href='\\0' target=\"_blank\">\\0</a>", $text);
+    $s = preg_replace_callback("/(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,8})(\/?[\da-zA-Z\-\?\/\&\#\=]+)?/i",
+                               "next_link_replacement1",
+                               $s); 
+
+    $s = htmlspecialchars($s, ENT_QUOTES |ENT_IGNORE | ENT_HTML5, "UTF-8");
+
+    $replacement_for_links2 = []; 
+
+    $i=0;
+    foreach($safe_for_links as $val) {
+      $replacement_for_links2[] = $val[0];
+      $i++;  
+    }  
+
+    $i_replacement2 = -1;
+
+    $s = preg_replace_callback("/\|LINK \#\d+|\|/",
+                               "next_link_replacement2",
+                               $s); 
+                               
+  } else {
+  
+    $s = htmlspecialchars($s, ENT_QUOTES |ENT_IGNORE | ENT_HTML5, "UTF-8");
+  
   }
   
-  $s = htmlspecialchars($s, ENT_QUOTES |ENT_IGNORE | ENT_HTML5, "UTF-8");
+  //$s = str_ireplace(";", PHP_STR, $s);
+  //if (mb_stripos($s, ";") === false) {
+  //  $s = str_ireplace("&", "|COMMERCIAL E|", $s);
+  //}
   
-  if (mb_stripos($s, ";") === false) {
-    $s = str_ireplace("|COMMERCIAL E|", "&", $s);
-  }
+  //if (mb_stripos($s, ";") === false) {
+  //  $s = str_ireplace("|COMMERCIAL E|", "&", $s);
+  //}
   
   if ($withBR) {
     $s = str_ireplace(chr(10), PHP_BR, $s);
