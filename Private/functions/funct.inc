@@ -67,7 +67,8 @@ if (!function_exists("enableLinks")) {
  */
 function enableLinks(string $text): string
 {
-  return preg_replace("/(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,8})(\/?.+)?$/", "<a href='\\0' target=\"_blank\">\\0</a>", $text);
+  //return preg_replace("/(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,8})(\/?.+)?/", "<a href='\\0' target=\"_blank\">\\0</a>", $text);
+  return preg_replace("/(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,8})(\/?[\da-zA-Z\-\?\/\&\#\=]+)?/", "<a href='\\0' target=\"_blank\">\\0</a>", $text);
 }  
 }
 
@@ -229,8 +230,17 @@ function HTMLencode(?string $s, bool $withBR = false): string
   $s = str_ireplace("&#39;", "'", $s); 
   $s = str_ireplace("&#34;", "\"", $s);
   $s = str_ireplace("\\n", "", $s);
+  
+  if (mb_stripos($s, ";") === false) {
+    $s = str_ireplace("&", "|COMMERCIAL E|", $s);
+  }
+  
   $s = htmlspecialchars($s, ENT_QUOTES |ENT_IGNORE | ENT_HTML5, "UTF-8");
-    
+  
+  if (mb_stripos($s, ";") === false) {
+    $s = str_ireplace("|COMMERCIAL E|", "&", $s);
+  }
+  
   if ($withBR) {
     $s = str_ireplace(chr(10), PHP_BR, $s);
   }  
