@@ -38,6 +38,7 @@ define('APP_ERROR_PATH', "/var/www/YourWebApp/Private/error");
 define('APP_SALT', "yoursalt");
 define('APP_REPO_PATH', "/var/www/YourWebApp/Private/Repo");
 define('APP_PIC_PATH', "/var/www/YourWebApp/Public/static/hmm-img");
+define('APP_SERVER_TIMEZONE', "+2");
 
 define('CMDLINE_VALIDCMDS', "~|sendmsg|refreshbrd|delmsg|delpic|");
 
@@ -67,7 +68,8 @@ $CONFIG = [
       'ERROR_PATH' => "/var/www/YourWebApp/Private/error",
       'SALT' => "yoursalt",
       'REPO_PATH' => "/var/www/YourWebApp/Private/Repo",
-      'PIC_PATH' => "/var/www/YourWebApp/Public/static/hmm-img"
+      'PIC_PATH' => "/var/www/YourWebApp/Public/static/hmm-img",
+      'SERVER_TIMEZONE' => "+2"
       ],
      
    'AUTH' =>  [
@@ -78,7 +80,8 @@ $CONFIG = [
          'PIC_FOLDER' => "master",
           // password: yourpassword
           // salt: yoursalt
-         'HASH' => ""
+         'HASH' => "",
+         'TIMEZONE' => "+2"
       ],
     'FRIEND_0' => [
          'USERNAME' => "John",
@@ -87,7 +90,8 @@ $CONFIG = [
          'PIC_FOLDER' => "user",
           // password: yourpassword
           // salt: yoursalt
-         'HASH' => ""
+         'HASH' => "",
+         'TIMEZONE' => "+2"
       ],
     'FRIEND_1' => [
          'USERNAME' => "John",
@@ -96,7 +100,8 @@ $CONFIG = [
          'PIC_FOLDER' => "user",
           // password: yourpassword
           // salt: yoursalt
-         'HASH' => ""
+         'HASH' => "",
+         'TIMEZONE' => "+2"
       ],
     'FRIEND_2' => [
          'USERNAME' => "John",
@@ -105,7 +110,8 @@ $CONFIG = [
          'PIC_FOLDER' => "user",
           // password: yourpassword
           // salt: yoursalt
-         'HASH' => ""
+         'HASH' => "",
+         'TIMEZONE' => "+2"
       ],
    ],  
    
