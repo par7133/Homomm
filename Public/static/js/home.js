@@ -134,6 +134,10 @@ function refresh() {
  frmHC.submit();
 }
 
+function closePlayer() {
+  refresh();
+}
+
 function sendMessage() {
  //if ($("#MessageLine").val()==="") {
  //  alert("First, write your message!");
@@ -152,6 +156,11 @@ function deleteMsg(msg) {
   $("#CommandLine").val("delmsg " + msg);
   frmHC.submit();  
 }  
+
+function openPic(pic) {
+  $("#CommandLine").val("openpic " + pic)
+  frmHC.submit();
+}
 
 function setContentPos() {
   if (window.innerWidth<650) {
