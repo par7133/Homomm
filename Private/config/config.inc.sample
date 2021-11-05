@@ -94,7 +94,7 @@ $CONFIG = [
          'TIMEZONE' => "+2"
       ],
     'FRIEND_1' => [
-         'USERNAME' => "John",
+         'USERNAME' => "Nickname",
          'PHONE' => "+16061234567",
          'REPO_FOLDER' => "user",
          'PIC_FOLDER' => "user",
@@ -104,7 +104,7 @@ $CONFIG = [
          'TIMEZONE' => "+2"
       ],
     'FRIEND_2' => [
-         'USERNAME' => "John",
+         'USERNAME' => "Nickname",
          'PHONE' => "+16061234567",
          'REPO_FOLDER' => "user",
          'PIC_FOLDER' => "user",
