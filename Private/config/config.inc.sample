@@ -40,7 +40,7 @@ define('APP_REPO_PATH', "/var/www/YourWebApp/Private/Repo");
 define('APP_PIC_PATH', "/var/www/YourWebApp/Public/static/hmm-img");
 define('APP_SERVER_TIMEZONE', "+2");
 
-define('CMDLINE_VALIDCMDS', "~|sendmsg|refreshbrd|delmsg|delpic|");
+define('CMDLINE_VALIDCMDS', "~|sendmsg|refreshbrd|delmsg|delpic|openpic|");
 
 define('HISTORY_MAX_ITEMS', 50);
 
@@ -74,7 +74,7 @@ $CONFIG = [
      
    'AUTH' =>  [
      'MASTER' => [
-         'USERNAME' => "John",
+         'USERNAME' => "Dan",
          'PHONE' => "+160612345567",
          'REPO_FOLDER' => "master",
          'PIC_FOLDER' => "master",
@@ -116,7 +116,7 @@ $CONFIG = [
    ],  
    
   'CMDLINE' => [
-     'VALIDCMDS' => "~|sendmsg|refreshbrd|delmsg|delpic|"  
+     'VALIDCMDS' => "~|sendmsg|refreshbrd|delmsg|delpic|openpic|"  
     ],
 
   'HISTORY' => [
