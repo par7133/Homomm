@@ -4,13 +4,32 @@
 Hello and welcome to Homomm!   
 	   
 Homomm is a light and simple software on premise to exchange multimedia messages with friends.  
-	   
+
+## What do we need to make Homomm succeed?
+- Design / programming forces  
+- Money to give away Twilio sms for free to users.  
+- Social media advertisement  
+- Merchandising  
+- etc.  
+  
+What 5 Mode can offer in exchange:  
+- % of the income from support/installation service  
+- free advertisement on all the websites produced.  
+
+If you want access to Homomm on my dev installation feel free to contact me on my25mb@aol.com.
+
+## License
+ 
 Homomm is released under GPLv3 license, it is supplied AS-IS and we do not take any responsibility for its misusage.  
-	   
+	
+## Name and purpose   
+   
 Homomm name comes from the two words: "homines" meaning our choise to give chance to the human beings to come first and "mm" for "multimedia messaging".  
      
 Homomm doesn't want to be a replacement of Whats App, Telegram, Wechat, etc. but their alter ago.   
-     
+
+## Configuration  
+    
 First step, use the left side panel password and salt fields to create the hash to insert in the config file for every user. Remember to manually set there also the salt value.   
 
 As you are going to run Homomm in the PHP process context, using a limited web server or phpfpm user, you must follow some simple directives for an optimal first setup:  
@@ -30,3 +49,4 @@ Hope you can enjoy it and let us know about any feedback: <a href="mailto:info@h
  ![Homomm on desktop](/Public/static/res/screenshot1.png)   
      
  ![Homomm on mobile](/Public/static/res/screenshot2.png)
+
