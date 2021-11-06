@@ -768,15 +768,21 @@ function updateHistory(&$update, $maxItems) {
   
   if ($password != PHP_STR) {
     $userName = $CONFIG['AUTH'][$user]['USERNAME'];
-    $pwd = APP_REPO_PATH . DIRECTORY_SEPARATOR . $CONFIG['AUTH'][$userHintResolved]['REPO_FOLDER'];
+    // xxx
+    //$pwd = APP_REPO_PATH . DIRECTORY_SEPARATOR . $CONFIG['AUTH'][$userHintResolved]['REPO_FOLDER'];
+    $pwd = $CONFIG['AUTH'][$userHintResolved]['REPO_FOLDER'];
     $picPath =  APP_PIC_PATH . DIRECTORY_SEPARATOR . $CONFIG['AUTH'][$userHintResolved]['PIC_FOLDER'];
   }   
  } 
  
  $curPath = APP_REPO_PATH;
  if ($pwd!=PHP_STR) {
-   if (left($pwd, strlen(APP_REPO_PATH)) === APP_REPO_PATH) {
-     $curPath = $pwd;
+   //if (left($pwd, strlen(APP_REPO_PATH)) === APP_REPO_PATH) {
+   //  $curPath = $pwd;
+   if (file_exists(APP_REPO_PATH . DIRECTORY_SEPARATOR . $pwd)) {
+     
+     $curPath = APP_REPO_PATH . DIRECTORY_SEPARATOR . $pwd;
+     
      chdir($curPath);
      
      if (!file_exists($curPath . DIRECTORY_SEPARATOR . ".HMM_history")) {
@@ -787,8 +793,17 @@ function updateHistory(&$update, $maxItems) {
      if (!file_exists($curPath . DIRECTORY_SEPARATOR . "msgs")) {
        mkdir("msgs", 0777);
      }
-   }	    
- }	 
+     
+   } else {
+     // xxx
+     $password = PHP_STR;
+   }
+   
+ } else {
+   // xxx
+   $password = PHP_STR;
+ }
+   	 
  $ipos = strripos($curPath, PHP_SLASH);
  $curDir = substr($curPath, $ipos);
  
@@ -1135,7 +1150,6 @@ function updateHistory(&$update, $maxItems) {
 </div>
 
 <input type="hidden" id="CommandLine" name="CommandLine">
-<input type="hidden" name="pwd" value="<?php echo($curPath); ?>" style="color:black">
 <input type="hidden" id="userHint" name="userHint" value="<?php echo($userHint); ?>">
 <input type="hidden" name="hideSplash" value="<?php echo($hideSplash); ?>">
 <input type="hidden" name="hideHCSplash" value="1">
