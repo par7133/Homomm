@@ -81,8 +81,11 @@
      $date = $dated->format("l j F");
      //$date = date("l j F", mktime(0,0,0,substr($dateori,4,2),right($dateori,2),left($dateori,4))); 
      
+     if ($curLocale == "CN" || $curLocale == "JP") {
+       $date = str_phrase_reverse($date);
+     }  
      $date = getResource($date, $curLocale);
-
+     
      if ($date!=$oldDate) {
        echo("<div style='text-align:center;'><span style='background-color:gray;color:#FFFFFF'>$date</span></div><br>");  
        $oldDate = $date;
