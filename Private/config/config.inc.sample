@@ -81,7 +81,8 @@ $CONFIG = [
           // password: yourpassword
           // salt: yoursalt
          'HASH' => "",
-         'TIMEZONE' => "+2"
+         'TIMEZONE' => "+2",
+         'LOCALE' => "EN"
       ],
     'FRIEND_0' => [
          'USERNAME' => "John",
@@ -91,7 +92,8 @@ $CONFIG = [
           // password: yourpassword
           // salt: yoursalt
          'HASH' => "",
-         'TIMEZONE' => "+2"
+         'TIMEZONE' => "+2",
+         'LOCALE' => "EN"
       ],
     'FRIEND_1' => [
          'USERNAME' => "Nickname",
@@ -101,7 +103,8 @@ $CONFIG = [
           // password: yourpassword
           // salt: yoursalt
          'HASH' => "",
-         'TIMEZONE' => "+2"
+         'TIMEZONE' => "+2",
+         'LOCALE' => "EN"
       ],
     'FRIEND_2' => [
          'USERNAME' => "Nickname",
@@ -111,8 +114,9 @@ $CONFIG = [
           // password: yourpassword
           // salt: yoursalt
          'HASH' => "",
-         'TIMEZONE' => "+2"
-      ],
+         'TIMEZONE' => "+2",
+         'LOCALE' => "EN"
+      ]
    ],  
    
   'CMDLINE' => [
@@ -135,25 +139,87 @@ $CONFIG = [
 
 
 $LOCALE = [
-    'Monday' => "",
-    'Tuesday' => "",
-    'Wednesday' => "",
-    'Thursday' => "",
-    'Friday' => "",
-    'Saturday' => "",
-    'Sunday' => "",
-    'January' => "",
-    'February' => "",
-    'March' => "",
-    'April' => "",
-    'May' => "",
-    'June' => "",
-    'July' => "",
-    'August' => "",
-    'September' => "",
-    'October' => "",
-    'November' => "",
-    'December' => ""
+
+  'CN' => [
+    'Monday' => "星期一",
+    'Tuesday' => "星期二",
+    'Wednesday' => "星期三",
+    'Thursday' => "星期四",
+    'Friday' => "星期五",
+    'Saturday' => "星期六",
+    'Sunday' => "星期天",
+    'January' => "一月",
+    'February' => "二月",
+    'March' => "三月",
+    'April' => "四月",
+    'May' => "五月",
+    'June' => "六月",
+    'July' => "七月",
+    'August' => "八月",
+    'September' => "九月",
+    'October' => "十月",
+    'November' => "十一月",
+    'December' => "十二月",
+    'Friends' => "朋友",
+    'Message board' => "留言板",
+    'Message' => "消息",
+    'Go' => "发送",
+    'Hash me' => "散列这个"
+    ],
+
+  'DE' => [
+    'Monday' => "Montag",
+    'Tuesday' => "Dienstag",
+    'Wednesday' => "Mittwoch",
+    'Thursday' => "Donnerstag",
+    'Friday' => "Freitag",
+    'Saturday' => "Samstag",
+    'Sunday' => "Sonntag",
+    'January' => "Januar",
+    'February' => "Februar",
+    'March' => "März",
+    'April' => "April",
+    'May' => "Mai",
+    'June' => "Juni",
+    'July' => "Juli",
+    'August' => "August",
+    'September' => "September",
+    'October' => "Oktober",
+    'November' => "November",
+    'December' => "Dezember",
+    'Friends' => "Freunde",
+    'Message board' => "Brett",
+    'Message' => "Nachricht",
+    'Go' => "Go",
+    'Hash me' => "Hash mich"
+    ],
+
+  'IT' => [
+    'Monday' => "Lunedì",
+    'Tuesday' => "Martedì",
+    'Wednesday' => "Mercoledì",
+    'Thursday' => "Giovedì",
+    'Friday' => "Venerdì",
+    'Saturday' => "Sabato",
+    'Sunday' => "Domenica",
+    'January' => "Gennaio",
+    'February' => "Febbraio",
+    'March' => "Marzo",
+    'April' => "Aprile",
+    'May' => "Maggio",
+    'June' => "Giugno",
+    'July' => "Luglio",
+    'August' => "Agosto",
+    'September' => "Settembre",
+    'October' => "Ottobre",
+    'November' => "Novembre",
+    'December' => "Dicembre",
+    'Friends' => "Amici",
+    'Message board' => "Messaggeria",
+    'Message' => "Messaggio",
+    'Go' => "Vai",
+    'Hash me' => "Hashmi"
+    ]
  ];
  
   
