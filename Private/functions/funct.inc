@@ -576,3 +576,20 @@ function sendSMS($post_body, string $url, string $username, string $password) {
   return $output;
 }
 }
+
+
+if (!function_exists("str_phrase_reverse")) {
+/**
+ * Reverse the words in the given phrase
+ * 
+ * @param string $string the string being reversed
+ * @return string the resulting reversed string
+ */
+function str_phrase_reverse(string $string): string 
+{
+  settype($aWords, "array");
+  $aWords = explode(PHP_SPACE, $string);
+  $aWords = array_reverse($aWords);
+  return implode(PHP_SPACE, $aWords);
+}
+}
