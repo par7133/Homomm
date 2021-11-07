@@ -164,7 +164,7 @@ $LOCALE = [
     'Message board' => "留言板",
     'Message' => "消息",
     'Go' => "发送",
-    'Hash me' => "散列这个"
+    'Hash me' => "哈希这个"
     ],
 
   'DE' => [
