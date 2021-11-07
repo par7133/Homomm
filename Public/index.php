@@ -39,6 +39,11 @@ $scriptPath = APP_SCRIPT_PATH;
 $url = strtolower(rtrim(substr(filter_input(INPUT_GET, "url", FILTER_SANITIZE_STRING), 0, 300), "/"));
 
 switch ($url) {
+  case "pushmessages":
+    $scriptPath = APP_AJAX_PATH;
+    define("SCRIPT_NAME", "pushmessages");
+    define("SCRIPT_FILENAME", "pushmessages.php");
+    break;      
   case "":
   case "home":
     define("SCRIPT_NAME", "home");
