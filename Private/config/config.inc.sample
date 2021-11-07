@@ -39,6 +39,7 @@ define('APP_ERROR_PATH', "/var/www/YourWebApp/Private/error");
 define('APP_SALT', "yoursalt");
 define('APP_REPO_PATH', "/var/www/YourWebApp/Private/Repo");
 define('APP_PIC_PATH', "/var/www/YourWebApp/Public/static/hmm-img");
+// Timezone in +N format (without leading zero)
 define('APP_SERVER_TIMEZONE', "+2");
 
 define('CMDLINE_VALIDCMDS', "~|sendmsg|refreshbrd|delmsg|delpic|openpic|");
