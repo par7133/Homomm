@@ -34,6 +34,7 @@ define('APP_SPLASH', true);
 
 define('APP_PATH', "/var/www/YourWebApp/Public/static");
 define('APP_SCRIPT_PATH', "/var/www/YourWebApp/Private/scripts");
+define('APP_AJAX_PATH', "/var/www/YourWebApp/Private/scripts_ajax");
 define('APP_ERROR_PATH', "/var/www/YourWebApp/Private/error");
 define('APP_SALT', "yoursalt");
 define('APP_REPO_PATH', "/var/www/YourWebApp/Private/Repo");
@@ -65,6 +66,7 @@ $CONFIG = [
       'SPLASH' => true,
       'PATH' => "/var/www/YourWebApp/Public/static",
       'SCRIPT_PATH' => "/var/www/YourWebApp/Private/scripts",
+      'AJAX_PATH' => "/var/www/YourWebApp/Private/scripts_ajax",
       'ERROR_PATH' => "/var/www/YourWebApp/Private/error",
       'SALT' => "yoursalt",
       'REPO_PATH' => "/var/www/YourWebApp/Private/Repo",
