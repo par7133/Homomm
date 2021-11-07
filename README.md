@@ -3,7 +3,7 @@
 
 Hello and welcome to Homomm!   
 	   
-Homomm is a light and simple software on premise to exchange multimedia messages with friends, whats app like .  
+Homomm is a light and simple software on premise to exchange multimedia messages with friends, whats app like.  
 
 ## What do we need to make Homomm successful?
 <ol>
