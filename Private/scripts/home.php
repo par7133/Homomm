@@ -39,6 +39,7 @@
  $userHintResolved = PHP_STR;
  $picPath = PHP_STR;
  $curPicture = PHP_STR;
+ $curLocale = "EN";
  
 
  function showHistory() {
@@ -47,6 +48,7 @@
    global $curPath;
    global $picPath;
    global $CONFIG;
+   global $curLocale;
    global $LOCALE;
    global $EMOTICONS;
    
@@ -79,9 +81,7 @@
      $date = $dated->format("l j F");
      //$date = date("l j F", mktime(0,0,0,substr($dateori,4,2),right($dateori,2),left($dateori,4))); 
      
-     if ($LOCALE["Monday"]!=PHP_STR) {
-       $date = str_replace(array_keys($LOCALE),array_values($LOCALE), $date);
-     }
+     $date = getResource($date, $curLocale);
 
      if ($date!=$oldDate) {
        echo("<div style='text-align:center;'><span style='background-color:gray;color:#FFFFFF'>$date</span></div><br>");  
@@ -109,9 +109,7 @@
        } 
      }
      
-     // parsing for file ext
-     $fileext = strtolower(pathinfo($val, PATHINFO_EXTENSION));
-     if ($fileext === "png" || $fileext === "jpg" || $fileext === "jpeg" || $fileext === "gif") {
+     if (is_image($val)) {
        // display the img
        $img = substr($picPath, strlen(APP_PATH)) . DIRECTORY_SEPARATOR . $val; 
        
@@ -128,11 +126,8 @@
        
        $msg = enableEmails($msg);
        $msg = enableLinks($msg);
-
-       if ($EMOTICONS) {
-         $msg = str_replace(array_keys($EMOTICONS),array_values($EMOTICONS), $msg);
-       }
-
+       $msg = enableEmoticons($msg);
+       
        $deldiv=PHP_STR;
        if ($delFunc) {
          $deldiv = "<div style='float:right;width:17px;position:relative;top:-4px;height:11px;cursor:pointer' onclick=\"deleteMsg('$val')\"><img src='/res/del.png' style='width:11px;'></div>";  
@@ -257,10 +252,6 @@ function updateHistory(&$update, $maxItems) {
    global $picPath;
    global $msgSign;
 
-   //if (trim($message,"\n")!==PHP_STR) {
-   //  myExecSendMessage();  
-   //}  
-
    //if (!empty($_FILES['files'])) {
    if (!empty($_FILES['files']['tmp_name'][0])) {
 	   
@@ -268,20 +259,20 @@ function updateHistory(&$update, $maxItems) {
      
      //no file uploaded
      if ($uploads[0]['error'] === PHP_UPLOAD_ERR_NO_FILE) {
-       //updateHistoryWithErr("No file uploaded.", false);
+       echo("WARNING: No file uploaded.");
        return;
      } 
 
      $google = "abcdefghijklmnopqrstuvwxyz";
      if (count($uploads)>strlen($google)) {
-       //echo("Too many uploaded files."); 
+       echo("WARNING: Too many uploaded files."); 
        return;
      }
 
      // Checking for repeated upload cause ie. caching prb..
      $duplicateMsgs = glob($picPath . DIRECTORY_SEPARATOR . date("Ymd-H") . "*-$msgSign*.*");
      if (!empty($duplicateMsgs)) {
-       //echo("destination already exists");
+       echo("WARNING: destination already exists");
        return;
      }	   
 
@@ -292,40 +283,40 @@ function updateHistory(&$update, $maxItems) {
        case PHP_UPLOAD_ERR_OK:
          break;
        case PHP_UPLOAD_ERR_NO_FILE:
-         //echo("One or more uploaded files are missing.");
+         echo("WARNING: One or more uploaded files are missing.");
          return;
        case PHP_UPLOAD_ERR_INI_SIZE:
-         //echo("File exceeded INI size limit.");
+         echo("WARNING: File exceeded INI size limit.");
          return;
        case PHP_UPLOAD_ERR_FORM_SIZE:
-         //echo("File exceeded form size limit.");
+         echo("WARNING: File exceeded form size limit.");
          return;
        case PHP_UPLOAD_ERR_PARTIAL:
-         //echo("File only partially uploaded.");
+         echo("WARNING: File only partially uploaded.");
          return;
        case PHP_UPLOAD_ERR_NO_TMP_DIR:
-         //echo("TMP dir doesn't exist.");
+         echo("WARNING: TMP dir doesn't exist.");
          return;
        case PHP_UPLOAD_ERR_CANT_WRITE:
-         //echo("Failed to write to the disk.");
+         echo("WARNING: Failed to write to the disk.");
          return;
        case PHP_UPLOAD_ERR_EXTENSION:
-         //echo("A PHP extension stopped the file upload.");
+         echo("WARNING: A PHP extension stopped the file upload.");
          return;
        default:
-         //echo("Unexpected error happened.");
+         echo("WARNING: Unexpected error happened.");
          return;
        }
       
        if (!is_uploaded_file($upload['tmp_name'])) {
-         //echo("One or more file have not been uploaded.");
+         echo("WARNING: One or more file have not been uploaded.");
          return;
        }
       
        // name	 
        $name = (string)substr((string)filter_var($upload['name']), 0, 255);
        if ($name == PHP_STR) {
-         //echo("Invalid file name: " . $name);
+         echo("WARNING: Invalid file name: " . $name);
          return;
        } 
        $upload['name'] = $name;
@@ -337,7 +328,7 @@ function updateHistory(&$update, $maxItems) {
        // tmp_name
        $tmp_name = substr((string)filter_var($upload['tmp_name']), 0, 300);
        if ($tmp_name == PHP_STR || !file_exists($tmp_name)) {
-         //echo("Invalid file temp path: " . $tmp_name);
+         echo("WARNING: Invalid file temp path: " . $tmp_name);
          return;
        } 
        $upload['tmp_name'] = $tmp_name;
@@ -345,7 +336,7 @@ function updateHistory(&$update, $maxItems) {
        //size
        $size = substr((string)filter_var($upload['size'], FILTER_SANITIZE_NUMBER_INT), 0, 12);
        if ($size == "") {
-         //echo("Invalid file size.");
+         echo("WARNING: Invalid file size.");
          return;
        } 
        $upload["size"] = $size;
@@ -360,7 +351,6 @@ function updateHistory(&$update, $maxItems) {
        $rnd = $msgSign;    
        
        if ($originalFileExt!==PHP_STR) {
-         //$destFileName = $originalFilename . "." . $fileExt;
          if ($user == "MASTER") {
            $destFileName = $date . "-" . $rnd . substr($google, $i-1, 1) . "-master.$fileExt";
          } else {
@@ -372,7 +362,7 @@ function updateHistory(&$update, $maxItems) {
        $destFullPath = $picPath . DIRECTORY_SEPARATOR . $destFileName;
 
        if (file_exists($destFullPath)) {
-         //echo("destination already exists");
+         echo("WARNING: destination already exists");
          return;
        }	   
 
@@ -391,9 +381,9 @@ function updateHistory(&$update, $maxItems) {
        $i++;
         
      }	 
- 
    }
- }	  
+ }
+ 	  
   
  function myExecSendMessage() {
     
@@ -495,8 +485,7 @@ function updateHistory(&$update, $maxItems) {
 	  return false;
 	}  	
   //param1 file extension == msg
-  $fileExt = strtolower(pathinfo($param1, PATHINFO_EXTENSION));
-  if ($fileExt !== "msg") {
+  if (!is_msg($param1)) {
 	  //updateHistoryWithErr("invalid msg file");	
 	  return false;
   }    
@@ -589,10 +578,9 @@ function updateHistory(&$update, $maxItems) {
     //updateHistoryWithErr("invalid pic file");	
 	  return false;
 	}  	
-  //param1 file extension == gif | png | jpg | jpeg |
-  $fileExt = strtolower(pathinfo($param1, PATHINFO_EXTENSION));
-  if ($fileExt !== "gif" && $fileExt !== "png" && $fileExt !== "jpg" && $fileExt !== "jpeg") {
-	  //updateHistoryWithErr("invalid pic file");	
+  //param1 is_image
+  if (!is_image($param1)) {
+  	//updateHistoryWithErr("invalid pic file");	
 	  return false;
   }    
 
@@ -685,9 +673,8 @@ function updateHistory(&$update, $maxItems) {
     //updateHistoryWithErr("invalid pic file");	
 	  return false;
 	}  	
-  //param1 file extension == gif | png | jpg | jpeg |
-  $fileExt = strtolower(pathinfo($param1, PATHINFO_EXTENSION));
-  if ($fileExt !== "gif" && $fileExt !== "png" && $fileExt !== "jpg" && $fileExt !== "jpeg") {
+  //param1 is_image
+  if (!is_image($param1)) {
 	  //updateHistoryWithErr("invalid pic file");	
 	  return false;
   }    
@@ -772,6 +759,7 @@ function updateHistory(&$update, $maxItems) {
     //$pwd = APP_REPO_PATH . DIRECTORY_SEPARATOR . $CONFIG['AUTH'][$userHintResolved]['REPO_FOLDER'];
     $pwd = $CONFIG['AUTH'][$userHintResolved]['REPO_FOLDER'];
     $picPath =  APP_PIC_PATH . DIRECTORY_SEPARATOR . $CONFIG['AUTH'][$userHintResolved]['PIC_FOLDER'];
+    $curLocale = $CONFIG['AUTH'][$user]['LOCALE'];
   }   
  } 
  
@@ -1065,7 +1053,7 @@ function updateHistory(&$update, $maxItems) {
     <br><br>
     <img src="/res/HMMgenius.png" alt="HMM Genius" title="HMM Genius" style="position:relative; left:+6px; width:90%; border: 1px dashed #EEEEEE;">
     <?php else: ?>
-    <div style="text-align:left;">&nbsp;Friends</div><br>
+    <div style="text-align:left;">&nbsp;<?php echo(getResource("Friends", $curLocale));?></div><br>
     <div style="position:relative;top:-10px;left:+6px; width:90%; overflow-y:auto; height:244px; border: 1px dashed #EEEEEE;">
       <?php foreach($AUTH as $key => $val): 
               $myusername = $val['USERNAME'];
@@ -1080,10 +1068,10 @@ function updateHistory(&$update, $maxItems) {
     <div id="upload-cont"><input id="files" name="files[]" type="file" accept=".gif,.png,.jpg,.jpeg" style="visibility: hidden;" multiple></div>
     &nbsp;<br><br>
     <div style="text-align:left;white-space:nowrap;">
-    &nbsp;&nbsp;<input type="text" id="Password" name="Password" placeholder="password" style="font-size:13px; background:#393939; color:#ffffff; width: 60%; border-radius:3px;" value="<?php echo($password);?>" autocomplete="off">&nbsp;<input type="submit" value="Go" style="text-align:left;width:25%;"><br>
+    &nbsp;&nbsp;<input type="text" id="Password" name="Password" placeholder="password" style="font-size:13px; background:#393939; color:#ffffff; width: 60%; border-radius:3px;" value="<?php echo($password);?>" autocomplete="off">&nbsp;<input type="submit" value="<?php echo(getResource("Go", $curLocale));?>" style="text-align:left;width:25%;"><br>
     &nbsp;&nbsp;<input type="text" id="Salt" placeholder="salt" style="position:relative; top:+5px; font-size:13px; background:#393939; color:#ffffff; width: 90%; border-radius:3px;" autocomplete="off"><br>
     <div style="text-align:center;">
-    <a href="#" onclick="showEncodedPassword();" style="position:relative; left:-2px; top:+5px; color:#000000; font-size:12px;">Hash Me!</a>     
+    <a href="#" onclick="showEncodedPassword();" style="position:relative; left:-2px; top:+5px; color:#000000; font-size:12px;"><?php echo(getResource("Hash Me", $curLocale));?>!</a>     
     </div>
     </div>
 </div>
@@ -1130,14 +1118,14 @@ function updateHistory(&$update, $maxItems) {
 	<?php endif; ?>
 	<?php endif; ?>
 	
-	&nbsp;Message board&nbsp;<a href="#" onclick="refresh();"><img src="/res/refresh.png" style="position:relative;top:+0px;"></a><br>
+	&nbsp;<?php echo(getResource("Message board", $curLocale));?>&nbsp;<a href="#" onclick="refresh();"><img src="/res/refresh.png" style="position:relative;top:+0px;"></a><br>
 	<div id="Console" style="float:left; width:100%; height:288px; min-height:288px; overflow-y:auto; background:url('/res/console-bg.png'); background-size:cover; margin-top:10px; border:0px solid red;">
 	<div id="Consolep" style="min-height:433px;margin-left:5px;padding:10px;border:0px solid green; color: #000000;">
 <?php showHistory($msgHistory); ?>
   </div>	
   </div>
 	<div id="Messagep" style="float:left; width:100%;min-height:105px;position:relative;top:-1px;margin-left:0px;padding:10px;padding-top:0px;border:0px solid red;background:url('/res/console-bg.png'); background-size:cover; color: #000000;">
-<div id="MessageL" style="width:100%;position:relative;white-space:nowrap;top:-23px;border:0px solid black;"><div id="MessageK" style="float:left;width:93%;background:#FFFFFF;;white-space:nowrap;position:relative; top:+40px;border:0px solid red;"><textarea id="MessageLine" name="MessageLine" type="text" autocomplete="off" rows="3" placeholder="Message" style="float:left;position:relative;top:+1px;width:75%;resize:none; background-color:white; color:black; border:0px; border-bottom: 1px dashed #EEEEEE;font-weight:900;"></textarea><div id="sendOptions" style="float:left;position:relative;top:+1px;left:+2px;background-color:#FFFFFF;width:105px;max-width:105px;height:59px;white-space:nowrap;padding:3px;font-weight:900;"><div id="pop-icons" style="float:left;text-align:center;margin:3px;margin-top:0px;width:30px;cursor:pointer;border:0px solid black;">&#128578;</div><div style="float:right;position:relative:top:-2px;border:0px solid blue;"><input type="checkbox" name="chkSMS" value="sms" style="font-size:10px;vertical-align:middle;">&nbsp;SMS&nbsp;</div><br><div onclick="upload();" style="float:right;position:relative;top:+5px;left:0px;cursor:pointer;border:0px solid red;"><img src="/res/upload.png" style="width:26px;"></div><div id="del-attach" onclick="clearUpload()" style="float:left; position:relative;top:-8px;left:-60px;display:none;cursor:pointer;"><img src="/res/del-attach.png" style="width:48px;"></div></div></div><div id="MessageS" style="float:left;width:7%;position:relative;top:+40px;cursor:pointer;border:0px solid green;" onclick="sendMessage()"><img src="/res/send.png" style="float:left;height:100%;width:63px;"></div></div>	
+<div id="MessageL" style="width:100%;position:relative;white-space:nowrap;top:-23px;border:0px solid black;"><div id="MessageK" style="float:left;width:93%;background:#FFFFFF;;white-space:nowrap;position:relative; top:+40px;border:0px solid red;"><textarea id="MessageLine" name="MessageLine" type="text" autocomplete="off" rows="3" placeholder="<?php echo(getResource("Message", $curLocale));?>" style="float:left;position:relative;top:+1px;width:75%;resize:none; background-color:white; color:black; border:0px; border-bottom: 1px dashed #EEEEEE;font-weight:900;"></textarea><div id="sendOptions" style="float:left;position:relative;top:+1px;left:+2px;background-color:#FFFFFF;width:105px;max-width:105px;height:59px;white-space:nowrap;padding:3px;font-weight:900;"><div id="pop-icons" style="float:left;text-align:center;margin:3px;margin-top:0px;width:30px;cursor:pointer;border:0px solid black;">&#128578;</div><div style="float:right;position:relative:top:-2px;border:0px solid blue;"><input type="checkbox" name="chkSMS" value="sms" style="font-size:10px;vertical-align:middle;">&nbsp;SMS&nbsp;</div><br><div onclick="upload();" style="float:right;position:relative;top:+5px;left:0px;cursor:pointer;border:0px solid red;"><img src="/res/upload.png" style="width:26px;"></div><div id="del-attach" onclick="clearUpload()" style="float:left; position:relative;top:-8px;left:-60px;display:none;cursor:pointer;"><img src="/res/del-attach.png" style="width:48px;"></div></div></div><div id="MessageS" style="float:left;width:7%;position:relative;top:+40px;cursor:pointer;border:0px solid green;" onclick="sendMessage()"><img src="/res/send.png" style="float:left;height:100%;width:63px;"></div></div>	
 <div style="clear:both"></div>
 <div id="emoticons" style="position:absolute; width: 130px; height:69px; background-color:#FFFFFF; border:1px solid black;display:none;">
   <?php foreach ($EMOTICONS as $key => $val): ?>
