@@ -40,6 +40,7 @@
  $picPath = PHP_STR;
  $curPicture = PHP_STR;
  $curLocale = "EN";
+ $lastMessage = PHP_STR;
  
 
  function showHistory() {
@@ -51,6 +52,7 @@
    global $curLocale;
    global $LOCALE;
    global $EMOTICONS;
+   global $lastMessage;
    
    $i = 1;	 
    
@@ -142,6 +144,7 @@
      echo("<div style='clear:both;'></div>");
      echo("</div>");
 
+     $lastMessage = hash("sha256", $val . APP_SALT, false);
 	   $m++;   
    }
  }
@@ -1144,7 +1147,8 @@ function updateHistory(&$update, $maxItems) {
 <input type="hidden" id="userHint" name="userHint" value="<?php echo($userHint); ?>">
 <input type="hidden" name="hideSplash" value="<?php echo($hideSplash); ?>">
 <input type="hidden" name="hideHCSplash" value="1">
-<input type="hidden" name="msg-sign" value="<?php echo(mt_rand(1000000, 9999999)); ?>">
+<input type="hidden" name="msg-sign" value="<?php echo(mt_rand(1000000, 9999999)); ?>">     
+<input type="hidden" id="last_message" value="<?php echo($lastMessage); ?>">
 
 </form>
 
@@ -1201,6 +1205,10 @@ window.addEventListener("load", function() {
   <?php if ($hidePlayer == "0"): ?>
   setPPlayer();
   <?php endif; ?>
+  
+  <?php if ($password != PHP_STR): ?>
+  setInterval("checkServer()", 90000);
+  <?PHP endif; ?>
 }, true);
 
 window.addEventListener("resize", function() {
