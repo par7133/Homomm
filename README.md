@@ -16,7 +16,7 @@ What 5 Mode can offer in exchange:
 - % of the income from support/installation service  
 - free advertisement on all the websites produced.  
 
-If you want access to Homomm on my dev installation feel free to contact me on my25mb@aol.com.
+If you want access to Homomm on my dev installation: my25mb@aol.com.
 
 ## License
  
