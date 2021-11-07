@@ -893,15 +893,15 @@ function updateHistory(&$update, $maxItems) {
   <meta name="author" content="5 Mode"/> 
   <meta name="robots" content="noindex"/>
   
-  <script src="./js/jquery-3.1.0.min.js" type="text/javascript"></script>
-  <script src="./js/common.js" type="text/javascript"></script>
-  <script src="./js/bootstrap.min.js" type="text/javascript"></script>
-  <script src="./js/sha.js" type="text/javascript"></script>
+  <script src="/js/jquery-3.1.0.min.js" type="text/javascript"></script>
+  <script src="/js/common.js" type="text/javascript"></script>
+  <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="/js/sha.js" type="text/javascript"></script>
   
-  <script src="./js/home.js?v=<?php echo(time()); ?>" type="text/javascript" defer></script>
+  <script src="/js/home.js?v=<?php echo(time()); ?>" type="text/javascript" defer></script>
   
-  <link href="./css/bootstrap.min.css" type="text/css" rel="stylesheet">
-  <link href="./css/style.css?v=<?php echo(time()); ?>" type="text/css" rel="stylesheet">
+  <link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+  <link href="/css/style.css?v=<?php echo(time()); ?>" type="text/css" rel="stylesheet">
      
   <script>
 	
@@ -976,7 +976,7 @@ function updateHistory(&$update, $maxItems) {
 
 <div id="HCsplash" style="padding-top: 160px; text-align:center;color:#ffffff;display:none;">
    <div id="myh1"><H1>Homomm</H1></div><br>
-   <img src="./Public/static/res/HMMlogo2.png" style="width:310px;">
+   <img src="/res/HMMlogo2.png" style="width:310px;">
 </div>
 
 <?php
@@ -1068,7 +1068,7 @@ function updateHistory(&$update, $maxItems) {
     <div id="upload-cont"><input id="files" name="files[]" type="file" accept=".gif,.png,.jpg,.jpeg" style="visibility: hidden;" multiple></div>
     &nbsp;<br><br>
     <div style="text-align:left;white-space:nowrap;">
-    &nbsp;&nbsp;<input type="text" id="Password" name="Password" placeholder="password" style="font-size:13px; background:#393939; color:#ffffff; width: 60%; border-radius:3px;" value="<?php echo($password);?>" autocomplete="off">&nbsp;<input type="submit" value="<?php echo(getResource("Go", $curLocale));?>" style="text-align:left;width:25%;"><br>
+    &nbsp;&nbsp;<input type="password" id="Password" name="Password" placeholder="password" style="font-size:13px; background:#393939; color:#ffffff; width: 60%; border-radius:3px;" value="<?php echo($password);?>" autocomplete="off">&nbsp;<input type="submit" value="<?php echo(getResource("Go", $curLocale));?>" style="text-align:left;width:25%;"><br>
     &nbsp;&nbsp;<input type="text" id="Salt" placeholder="salt" style="position:relative; top:+5px; font-size:13px; background:#393939; color:#ffffff; width: 90%; border-radius:3px;" autocomplete="off"><br>
     <div style="text-align:center;">
     <a href="#" onclick="showEncodedPassword();" style="position:relative; left:-2px; top:+5px; color:#000000; font-size:12px;"><?php echo(getResource("Hash Me", $curLocale));?>!</a>     
