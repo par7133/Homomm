@@ -81,7 +81,7 @@
      $date = $dated->format("l j F");
      //$date = date("l j F", mktime(0,0,0,substr($dateori,4,2),right($dateori,2),left($dateori,4))); 
      
-     if ($curLocale == "CN" || $curLocale == "JP") {
+     if (in_array($curLocale, ["CN", "JP", "KR"])) {
        $date = str_phrase_reverse($date);
      }  
      $date = getResource($date, $curLocale);
