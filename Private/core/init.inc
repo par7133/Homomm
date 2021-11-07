@@ -63,5 +63,4 @@ if (DEBUG) {
 header("Expires: 0");
 header("Pragma: no-cache");
 // HTTP/1.1 support
-//header("Cache-Control: no-cache,no-store,max-age=0,s-maxage=0,must-revalidate");
 header("Cache-Control: private,no-cache,max-age=0,s-maxage=0,must-revalidate");
