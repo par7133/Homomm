@@ -162,6 +162,36 @@ function openPic(pic) {
   frmHC.submit();
 }
 
+function checkServer() {
+
+  $.ajax({
+    method: "POST",
+    async: false,
+    url: "/pushmessages",
+    dataType: "json",
+    jsonp: false,
+    data: {
+      userHint: $("input#userHint").val() 
+    },
+    success: function( data ) {
+      // Handle 'no match' indicated by [ "" ] response
+      //response( data.length === 1 && data[0].length === 0 ? [] : data );
+
+      if (data.length === 2 && data[0] === 200) {
+      
+        if ($("input#last_message").val() !== data[1]) {
+          refresh();
+        }
+
+      } 
+    },
+    error: function (responseData, textStatus, errorThrown) {
+      alert('POST failed: ' + errorThrown);
+    }
+  });  
+
+}
+
 function setContentPos() {
   if (window.innerWidth<650) {
     $("#ahome").attr("href","/");
