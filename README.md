@@ -8,7 +8,7 @@ Homomm is a light and simple software on premise to exchange multimedia messages
 ## What do we need to make Homomm successful?
 - Design / programming forces  
 - Website mirrors   
-- Money to give away Twilio sms for free to users.  
+- Money to give away <a href="http://twilio.com" style="color:#e6d236;"o>Twilio</a> sms for free to users.  
 - Social media advertisement  
 - Merchandising  
 - etc.  
