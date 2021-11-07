@@ -72,6 +72,26 @@ function enableLinks(string $text): string
 }  
 }
 
+ 
+if (!function_exists("enableEmoticons")) { 
+/**
+ * Enable the emoticons of the given text
+ * 
+ * @param string $text the text being parsed for emoticons
+ * @return the text with enabled emoticons
+ */
+function enableEmoticons(string $text): string
+{ 
+  global $EMOTICONS;
+  
+  if ($EMOTICONS) {
+    return str_ireplace(array_keys($EMOTICONS),array_values($EMOTICONS), $text);
+  }  
+}  
+}
+
+
+
 if (!function_exists("date_add1")) {
  /**
   * Add the specified interval to the given date
@@ -211,6 +231,32 @@ function fixMultipleFileUpload(&$f): array
     return $files;
 }
 }
+
+
+if (!function_exists("getResource")) {
+/**
+ * Determine if the given file is an image 
+ * 
+ * @param string $string the string to get translated
+ * @param string $destLocale the destination locale
+ * @return string the translated resource    
+ */  
+function getResource(string $string, string $destLocale = "EN"): string
+{
+  
+  global $LOCALE;
+  
+  if ($destLocale === "EN") {
+    return $string; 
+  }    
+
+  if ($LOCALE[$destLocale]["Monday"]==PHP_STR) {
+    return $string; 
+  }    
+
+  return str_ireplace(array_keys($LOCALE[$destLocale]),array_values($LOCALE[$destLocale]), $string);
+}
+}
  
  
 if (!function_exists("HTMLencode")) { 
@@ -344,6 +390,43 @@ function HTMLencode(?string $s, bool $withBR = false): string
 } 
 }
 
+
+if (!function_exists("is_image")) {
+/**
+ * Determine if the given file is an image 
+ * 
+ * @param string $file the file being checked
+ * @return bool true/false if a file is an image    
+ */  
+function is_image(string $file) {
+  $fileExt = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+  if ($fileExt === "gif" || $fileExt === "png" || $fileExt === "jpg" || $fileExt === "jpeg") {
+    return true;
+  } else {
+    return false;
+  }      
+} 
+}  
+
+
+if (!function_exists("is_msg")) {
+/**
+ * Determine if the given file is a msg 
+ * 
+ * @param string $file the file being checked
+ * @return bool true/false if a file is a msg    
+ */  
+function is_msg(string $file) {
+  $fileExt = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+  if ($fileExt === "msg") {
+    return true;
+  } else {
+    return false;
+  }      
+} 
+}  
+
+
 if (!function_exists("is_word")) {
 /**
  * Determine if the given string is a word 
@@ -351,7 +434,8 @@ if (!function_exists("is_word")) {
  * @param string $string the string being checked
  * @return bool true/false if it a word o not    
  */
- function is_word(string $string) {
+ function is_word(string $string): bool 
+ {
 	 
    if (($string === ".") || ($string === "..")) {
 	  return false;
