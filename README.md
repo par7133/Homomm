@@ -5,8 +5,9 @@ Hello and welcome to Homomm!
 	   
 Homomm is a light and simple software on premise to exchange multimedia messages with friends.  
 
-## What do we need to make Homomm succeed?
+## What do we need to make Homomm successful?
 - Design / programming forces  
+- Websites mirrors   
 - Money to give away Twilio sms for free to users.  
 - Social media advertisement  
 - Merchandising  
