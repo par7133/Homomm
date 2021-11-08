@@ -9,8 +9,9 @@
   <li>The static content hosted should be just of this kind: html, css, js, png, jpg, jpeg, gif, mp3, wav, fonts, map, ico</li>   
   <li>Example of Nginx minimal configuration:
       
-     
-     
+       
+        
+        
      
      server {   
      
@@ -42,8 +43,9 @@
          gzip_min_length 1000;
 
          expires 30d;
-      }
-   }   
+      }      
+   }     
+     
      
   </li>
   </ol>  
