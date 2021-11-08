@@ -52,6 +52,7 @@ As you are going to run Homomm in the PHP process context, using a limited web s
 <li>In hmm-img path create a "user" folder for each user and give to this folder the write permission. Set it appropriately in the config file.</li>  	
 <li>In the config file, set every "user" information appropriately like in the examples given.</li>
 <li>Configure your <a href="http://twilio.com" style="color:#e6d236;">Twilio</a> account information appropriately to send out sms notification.</li>	      
+<li>Configure the server pushing interval to be notified on new chat messages.</li>
 <li>Configure the max history items as required (default: 50).</li>	      
 </ol>	
      
