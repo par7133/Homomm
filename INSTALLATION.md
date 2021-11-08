@@ -8,7 +8,8 @@
   <ol>  
   <li>The static content hosted should be just of this kind: html, css, js, png, jpg, jpeg, gif, mp3, wav, fonts, map, ico</li>   
   <li>Example of Nginx minimal configuration:
-      <br><br>   
+      
+      
       location ~* ^.+\.(php)$ {     
         proxy_set_header Host $host;     
         proxy_set_header X-Real_IP $remote_addr;     
