@@ -15,36 +15,36 @@
      
       server {   
      
-       listen 80 http2;
-       listen [::]:80 http2;
+        listen 80 http2;
+        listen [::]:80 http2;
     
-       server_name yourname-homomm.com;
+        server_name yourname-homomm.com;
      
-       root /var/www/Homomm/Public/static;
-       index index.php; 
+        root /var/www/Homomm/Public/static;
+        index index.php; 
        
-       location ~* ^.+\.(php)$ {     
-         proxy_set_header Host $host;     
-         proxy_set_header X-Real_IP $remote_addr;     
-         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;    
+        location ~* ^.+\.(php)$ {     
+          proxy_set_header Host $host;     
+          proxy_set_header X-Real_IP $remote_addr;     
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;    
          
-         proxy_http_version 1.1;     
-         proxy_set_header Connection "";     
+          proxy_http_version 1.1;     
+          proxy_set_header Connection "";     
         
-         proxy_pass http://apache;        
-       }
+          proxy_pass http://apache;        
+        }
         
-       location ~* ^.+\.(js|map|css|jpg|jpeg|gif|png|ttf|woff|woff2|eot|pdf|html|htm|zip|flv|swf|ico|xml|txt|wav|mp3)$ {
+        location ~* ^.+\.(js|map|css|jpg|jpeg|gif|png|ttf|woff|woff2|eot|pdf|html|htm|zip|flv|swf|ico|xml|txt|wav|mp3)$ {
      
-         gzip on;
-         #gzip_http_version 1.1;
-         gzip_comp_level 6;
-         gzip_types text/css text/javascript application/x-javascript text/html;
-         gzip_min_length 1000;
+          gzip on;
+          #gzip_http_version 1.1;
+          gzip_comp_level 6;
+          gzip_types text/css text/javascript application/x-javascript text/html;
+          gzip_min_length 1000;
 
-         expires 30d;
-      }      
-     }     
+          expires 30d;
+        }      
+      }     
      
      
   </li>
