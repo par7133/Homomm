@@ -41,6 +41,8 @@ define('APP_REPO_PATH', "/var/www/YourWebApp/Private/Repo");
 define('APP_PIC_PATH', "/var/www/YourWebApp/Public/static/hmm-img");
 // Timezone in +N format (without leading zero)
 define('APP_SERVER_TIMEZONE', "+2");
+// Default Locale, in two letters format
+define('APP_LOCALE', "EN");
 // Server pushing interval in ms
 define('APP_PUSH_INTERVAL', "25000");
 
@@ -76,6 +78,8 @@ $CONFIG = [
       'PIC_PATH' => "/var/www/YourWebApp/Public/static/hmm-img",
        // Timezone in +N format (without leading zero)
       'SERVER_TIMEZONE' => "+2",
+       // Default Locale, in two letters format
+      'LOCALE' => "EN",
        // Server pushing interval in ms
       'PUSH_INTERVAL' => "25000"
       ],
