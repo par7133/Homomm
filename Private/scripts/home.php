@@ -39,7 +39,7 @@
  $userHintResolved = PHP_STR;
  $picPath = PHP_STR;
  $curPicture = PHP_STR;
- $curLocale = "EN";
+ $curLocale = APP_LOCALE;
  $lastMessage = PHP_STR;
  
 
@@ -766,7 +766,7 @@ function updateHistory(&$update, $maxItems) {
     $pwd = $CONFIG['AUTH'][$userHintResolved]['REPO_FOLDER'];
     $picPath =  APP_PIC_PATH . DIRECTORY_SEPARATOR . $CONFIG['AUTH'][$userHintResolved]['PIC_FOLDER'];
     $curLocale = $CONFIG['AUTH'][$user]['LOCALE'];
-  }   
+  }    
  } 
  
  $curPath = APP_REPO_PATH;
