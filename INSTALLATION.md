@@ -13,7 +13,7 @@
         
         
      
-     server {   
+      server {   
      
        listen 80 http2;
        listen [::]:80 http2;
@@ -44,7 +44,7 @@
 
          expires 30d;
       }      
-   }     
+     }     
      
      
   </li>
