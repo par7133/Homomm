@@ -10,7 +10,8 @@
   <li>Example of Nginx minimal configuration:
       
       
-      location ~* ^.+\.(php)$ {     
+      
+     location ~* ^.+\.(php)$ {     
         proxy_set_header Host $host;     
         proxy_set_header X-Real_IP $remote_addr;     
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;    
@@ -20,7 +21,7 @@
       
         proxy_pass http://apache;        
      }
-     <br><br>
+        
      location ~* ^.+\.(js|map|css|jpg|jpeg|gif|png|ttf|woff|woff2|eot|pdf|html|htm|zip|flv|swf|ico|xml|txt|wav|mp3)$ {
      
         gzip on;
