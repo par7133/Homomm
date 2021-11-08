@@ -1084,7 +1084,7 @@ function updateHistory(&$update, $maxItems) {
   Maybe doesn't support the audio..
 </audio>  
 
-<input type="button" id="myPlayButton" onclick="playmybeep()" value="Try the Beep">
+<input type="button" id="myPlayButton" onclick="playmybeep()" value="<?php echo(getResource("Try the Beep", $curLocale));?>">
 
 <script>
   function playmybeep() {
