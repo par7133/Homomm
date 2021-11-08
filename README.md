@@ -5,6 +5,10 @@ Hello and welcome to Homomm!
 	   
 Homomm is a light and simple software on premise to exchange multimedia messages with friends, whats app like.  
 
+Note*: Please contact me diectly to have access to Homomm dev installation.  
+  
+Note**: I invite anyone from China and not who has access to Homomm.org to mirror it. If you get any problem downloading Homomm, please contact me directly.  
+  
 ## What do we need to make Homomm successful?
 <ol>
 <li>Design / programming forces</li>  
