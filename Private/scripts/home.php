@@ -919,10 +919,8 @@ function updateHistory(&$update, $maxItems) {
 		 <?php if($password===PHP_STR):?>
 		    $("#Password").addClass("emptyfield");
 		 <?php endif; ?>
-     maxY = document.getElementById("Console").scrollHeight;
-     //alert(maxY);
+     readyToType();
      document.getElementById("MessageLine").focus();
-     document.getElementById("Console").scrollTop=maxY;
 	 }, true);
 
   function hideTitle() {
@@ -1223,7 +1221,7 @@ window.addEventListener("load", function() {
   <?php endif; ?>
   
   <?php if ($password != PHP_STR): ?>
-  setInterval("checkServer()", 25000);
+  setInterval("checkServer()", <?php echo(APP_PUSH_INTERVAL);?>);
   <?PHP endif; ?>
 }, true);
 
