@@ -35,6 +35,10 @@ Homomm name comes from the two words: "homines" meaning our choise to give chanc
      
 Homomm doesn't want to be a replacement of Whats App, Telegram, Wechat, etc. but their alter ago.   
 
+## Installation
+
+Please refer to <a href="INSTALLATION.md" style="color:#e6d236;">Installation</a>
+
 ## Configuration  
     
 First step, use the left side panel password and salt fields to create the hash to insert in the config file for every user. Remember to manually set there also the salt value.   
