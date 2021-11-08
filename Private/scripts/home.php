@@ -863,11 +863,9 @@ function updateHistory(&$update, $maxItems) {
  
 
 <!DOCTYPE html>
-<html lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	
   <meta charset="UTF-8"/>
-  <meta name="style" content="day1"/>
   
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   
@@ -893,7 +891,7 @@ function updateHistory(&$update, $maxItems) {
     
   <title>Homomm: every person its messages..</title>
 	
-  <link rel="shortcut icon" href="/res/favicon.ico?v=<?php echo(time()); ?>" />
+  <link rel="shortcut icon" href="/favicon.ico?v=<?php echo(time()); ?>" />
     
   <meta name="description" content="Welcome to <?php echo(APP_NAME); ?>"/>
   <meta name="author" content="5 Mode"/> 
@@ -1078,6 +1076,24 @@ function updateHistory(&$update, $maxItems) {
     &nbsp;&nbsp;<input type="text" id="Salt" placeholder="salt" style="position:relative; top:+5px; font-size:13px; background:#393939; color:#ffffff; width: 90%; border-radius:3px;" autocomplete="off"><br>
     <div style="text-align:center;">
     <a href="#" onclick="showEncodedPassword();" style="position:relative; left:-2px; top:+5px; color:#000000; font-size:12px;"><?php echo(getResource("Hash Me", $curLocale));?>!</a>     
+    
+    <br><br><br>
+    
+<audio id="mybeep">
+  <source src="https://dev-homomm.from.craft2.cyou/media/R2D2-hey-you.mp3" type="audio/mpeg">
+  Maybe doesn't support the audio..
+</audio>  
+
+<input type="button" id="myPlayButton" onclick="playmybeep()" value="Try the Beep">
+
+<script>
+  function playmybeep() {
+    document.getElementById("mybeep").volume = 1;
+    document.getElementById("mybeep").play(); 
+    return false;
+  }  
+</script> 
+
     </div>
     </div>
 </div>
@@ -1207,7 +1223,7 @@ window.addEventListener("load", function() {
   <?php endif; ?>
   
   <?php if ($password != PHP_STR): ?>
-  setInterval("checkServer()", 90000);
+  setInterval("checkServer()", 25000);
   <?PHP endif; ?>
 }, true);
 
@@ -1218,6 +1234,6 @@ window.addEventListener("resize", function() {
 }, true);
 
 </script>
-  
+
 </body>	 
 </html>	 
