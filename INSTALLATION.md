@@ -8,8 +8,18 @@
   <ol>  
   <li>The static content hosted should be just of this kind: html, css, js, png, jpg, jpeg, gif, mp3, wav, fonts, map, ico</li>   
   <li>Example of Nginx minimal configuration:
-      
-      
+  
+         
+     
+  server {   
+     
+     listen 80 http2;
+     listen [::]:80 http2;
+
+     server_name yourname-homomm.com;
+     
+     root /var/www/Homomm/Public/static;
+     index index.php; 
       
      location ~* ^.+\.(php)$ {     
         proxy_set_header Host $host;     
@@ -32,6 +42,8 @@
 
         expires 30d;
      }
+  }   
+     
   </li>
   </ol>  
   
