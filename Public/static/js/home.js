@@ -117,18 +117,6 @@ function closeSplash() {
   $("#splash").hide();	
 }
 
-/**
- * Encrypt the given string
- * 
- * @param {string} string - The string to encrypt
- * @returns {string} the encrypted string
- */
-function encryptSha2(string) {
-  var jsSHAo = new jsSHA("SHA-256", "TEXT", 1);
-  jsSHAo.update(string);
-  return jsSHAo.getHash("HEX");
-}
-
 function refresh() {
  $("#CommandLine").val("refreshbrd");
  frmHC.submit();
@@ -158,7 +146,7 @@ function deleteMsg(msg) {
 }  
 
 function openPic(pic) {
-  $("#CommandLine").val("openpic " + pic)
+  $("#CommandLine").val("openpic " + pic);
   frmHC.submit();
 }
 
@@ -180,7 +168,8 @@ function checkServer() {
       if (data.length === 2 && data[0] === 200) {
       
         if ($("input#last_message").val() !== data[1]) {
-          refresh();
+          $("#myPlayButton").click();
+          setTimeout("refresh()", 12000);
         }
 
       } 
