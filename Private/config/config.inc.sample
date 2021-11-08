@@ -176,7 +176,8 @@ $LOCALE = [
     'Message board' => "留言板",
     'Message' => "消息",
     'Go' => "发送",
-    'Hash me' => "哈希这个"
+    'Hash me' => "哈希这个",
+    'Try the Beep' => '试试哔声'
     ],
 
   'DE' => [
@@ -203,7 +204,8 @@ $LOCALE = [
     'Message board' => "Brett",
     'Message' => "Nachricht",
     'Go' => "Go",
-    'Hash me' => "Hash mich"
+    'Hash me' => "Hash mich",
+    'Try the Beep' => "Teste den Bip"
     ],
 
   'ES' => [
@@ -230,7 +232,8 @@ $LOCALE = [
     'Message board' => "Mensajeria",
     'Message' => "Mensaje",
     'Go' => "Go",
-    'Hash me' => "Hash me"
+    'Hash me' => "Hash me",
+    'Try The Beep' => "Prueba el Bip"
     ],
 
   'FR' => [
@@ -257,7 +260,8 @@ $LOCALE = [
     'Message board' => "Messagerie",
     'Message' => "Message",
     'Go' => "Go",
-    'Hash me' => "Hash cet"
+    'Hash me' => "Hash cet",
+    'Try the Beep' => "Lancer le Bip"
     ],
 
   'IT' => [
@@ -284,7 +288,8 @@ $LOCALE = [
     'Message board' => "Messaggeria",
     'Message' => "Messaggio",
     'Go' => "Vai",
-    'Hash me' => "Hashmi"
+    'Hash me' => "Hashmi",
+    'Try the Beep' => "Prova il Bip"
     ]
  ];
  
