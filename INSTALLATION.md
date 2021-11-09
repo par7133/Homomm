@@ -31,7 +31,7 @@
           proxy_http_version 1.1;     
           proxy_set_header Connection "";     
         
-          proxy_pass http://apache;        
+          proxy_pass http://127.0.0.1:8081;        
         }
         
         location ~* ^.+\.(js|map|css|jpg|jpeg|gif|png|ttf|woff|woff2|eot|pdf|html|htm|zip|flv|swf|ico|xml|txt|wav|mp3)$ {
