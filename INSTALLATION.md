@@ -20,7 +20,7 @@
     
         server_name yourname-homomm.com;
      
-        root /var/www/Homomm/Public/static;
+        root /var/www/YourHomomm/Public/static;
         index index.php; 
        
         location ~* ^.+\.(php)$ {     
