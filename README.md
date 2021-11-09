@@ -57,6 +57,8 @@ As you are going to run Homomm in the PHP process context, using a limited web s
 </ol>	
      
 Hope you can enjoy it and let us know about any feedback: <a href="mailto:info@homomm.org" style="color:#e6d236;">info@homomm.org</a>
+
+## Screenshots
 	   
  ![Homomm on desktop](/Public/static/res/screenshot1.png)   
      
