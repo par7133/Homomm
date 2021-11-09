@@ -150,6 +150,14 @@ function openPic(pic) {
   frmHC.submit();
 }
 
+timeForReload = false;
+document.getElementById("mybeep").addEventListener("ended", function() {
+  if (timeForReload) {
+    refresh();
+  }  
+  timeForReload = false;  
+}, true);  
+
 function checkServer() {
 
   $.ajax({
@@ -169,17 +177,23 @@ function checkServer() {
       
         if ($("input#last_message").val() !== data[1]) {
           $("#myPlayButton").click();
-          setTimeout("refresh()", 12000);
+          timeForReload = true;
         }
 
       } 
     },
     error: function (responseData, textStatus, errorThrown) {
-      alert('POST failed: ' + errorThrown);
+      //alert('POST failed: ' + errorThrown);
     }
   });  
-
 }
+
+
+function readyToType() {
+  maxY = document.getElementById("Console").scrollHeight;
+  document.getElementById("Console").scrollTop=maxY;
+}  
+
 
 function setContentPos() {
   if (window.innerWidth<650) {
@@ -295,9 +309,11 @@ window.addEventListener("load", function() {
   if ($("#frmHC").css("display")==="none") {
     setTimeout("setContentPos()", 5200);  
     setTimeout("setFooterPos()", 5300);
+    setTimeout("readyToType()", 5400);
   } else {
     setTimeout("setContentPos()", 1000);
-    setTimeout("setFooterPos()", 3000);
+    setTimeout("setFooterPos()", 2000);
+    setTimeout("readyToType()", 2100);
   }      
   
 }, true);
@@ -306,10 +322,12 @@ window.addEventListener("resize", function() {
 
   if ($("#frmHC").css("display")==="none") {
     setTimeout("setContentPos()", 5200);
-    setTimeout("setFooterPos()", 5300);  
+    setTimeout("setFooterPos()", 5300);
+    setTimeout("readyToType()", 5400);  
   } else {
     setTimeout("setContentPos()", 1000);
-    setTimeout("setFooterPos()", 3000);
+    setTimeout("setFooterPos()", 2000);
+    setTimeout("readyToType()", 2100);
   }      
 
 }, true);
