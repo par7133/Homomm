@@ -31,7 +31,7 @@ Homomm is released under GPLv3 license, it is supplied AS-IS and we do not take 
 	
 ## Name and purpose   
    
-Homomm name comes from the two words: "homines" meaning our choise to give chance to the human beings to come first and "mm" for "multimedia messaging".  
+Homomm name comes from the two words: "homines" meaning our choise to give chance to the human beings to come first and "mm" for multimedia messaging.  
      
 Homomm doesn't want to be a replacement of Whats App, Telegram, Wechat, etc. but their alter ago.   
 
