@@ -1077,7 +1077,7 @@ function updateHistory(&$update, $maxItems) {
     
     <br><br><br>
     
-<audio id="mybeep">
+<audio id="mybeep" preload="auto">
   <source src="https://dev-homomm.from.craft2.cyou/media/R2D2-hey-you.mp3" type="audio/mpeg">
   Maybe doesn't support the audio..
 </audio>  
@@ -1088,7 +1088,6 @@ function updateHistory(&$update, $maxItems) {
   function playmybeep() {
     document.getElementById("mybeep").volume = 1;
     document.getElementById("mybeep").play(); 
-    return false;
   }  
 </script> 
 
