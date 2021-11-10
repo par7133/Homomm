@@ -31,7 +31,7 @@ $(document).ready(function() {
  $("#Password").on("keydown",function(e){
    key = e.which;
    //alert(key);
-   $("#userHint").val("");
+   $("#chatHint").val("");
    if (key===13) {
    e.preventDefault();
    frmHC.submit();
@@ -43,7 +43,7 @@ $(document).ready(function() {
  $("#Password2").on("keydown",function(e){
    key = e.which;
    //alert(key);
-   $("#userHint").val("");
+   $("#chatHint").val("");
    if (key===13) {
    e.preventDefault();
    $("#Password").val("");
@@ -80,7 +80,7 @@ function hideBurgerMenu() {
 }
 
 function changeChat(user) {
- $("#userHint").val(user);
+ $("#chatHint").val(user);
  frmHC.submit();
 }
 
@@ -167,7 +167,7 @@ function checkServer() {
     dataType: "json",
     jsonp: false,
     data: {
-      userHint: $("input#userHint").val() 
+      chatHint: $("input#chatHint").val() 
     },
     success: function( data ) {
       // Handle 'no match' indicated by [ "" ] response
@@ -176,8 +176,10 @@ function checkServer() {
       if (data.length === 2 && data[0] === 200) {
       
         if ($("input#last_message").val() !== data[1]) {
-          $("#myPlayButton").click();
-          timeForReload = true;
+          if ($("#MessageLine").val()==="") {
+            $("#myPlayButton").click();
+            timeForReload = true;
+          }  
         }
 
       } 
