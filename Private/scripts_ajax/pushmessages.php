@@ -7,17 +7,17 @@ if ($requestMethod != "POST") {
 }  
 
 //userHint
-$userHintResolved = PHP_STR;
-$userHint = substr((string)filter_input(INPUT_POST, "userHint"), 0, 50);
+$chatHintResolved = PHP_STR;
+$chatHint = substr((string)filter_input(INPUT_POST, "chatHint"), 0, 50);
 
-if ($userHint == PHP_STR) {
-  die("Wrong user hint!");
+if ($chatHint == PHP_STR) {
+  die("Wrong chat hint!");
 } else {
  
    $found=false;
    foreach ($CONFIG['AUTH'] as $key => $val) {
-     if ($userHint==$val['USERNAME']) {
-       $userHintResolved = $key;
+     if ($chatHint==$val['USERNAME']) {
+       $chatHintResolved = $key;
        $found=true;
        break;
      }      
@@ -27,7 +27,7 @@ if ($userHint == PHP_STR) {
    }  
 }    
 
-$pwd = $CONFIG['AUTH'][$userHintResolved]['REPO_FOLDER'];
+$pwd = $CONFIG['AUTH'][$chatHintResolved]['REPO_FOLDER'];
 $curPath = APP_REPO_PATH . DIRECTORY_SEPARATOR . $pwd;
 
 $mysha = PHP_STR;
