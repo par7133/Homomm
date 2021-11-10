@@ -924,56 +924,6 @@ function updateHistory(&$update, $maxItems) {
   <link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet">
   <link href="/css/style.css?v=<?php echo(time()); ?>" type="text/css" rel="stylesheet">
      
-  <script>
-	
-   function upload() {
-   <?PHP if ($password!==PHP_STR): ?>
-     $("input#files").click();
-   <?PHP endif; ?>  
-   } 
-    
-   window.addEventListener("load", function() {		 
-		 <?php if($password===PHP_STR):?>
-		    $("#Password").addClass("emptyfield");
-		 <?php endif; ?>
-     readyToType();
-     document.getElementById("MessageLine").focus();
-	 }, true);
-
-  function hideTitle() {
-    $("#myh1").hide("slow");
-  }
-  
-  function startApp() {
-	  $("#HCsplash").hide("slow");
-    $(document.body).css("background","#ffffff");
-	  $("#frmHC").show();
-    
-    <?php if (APP_SPLASH): ?>
-    $(document.body).css("overflow-y","auto");    
-    <?php endif; ?>
-	}			
-  <?php if($hideHCSplash!=="1"): ?>
-	window.addEventListener("load", function() {
-	
-	  //$("#HCsplash").show();	  
-	  //setTimeout("startApp()", 5000);
-	  $(document.body).css("background","#000000");
-	  $("#HCsplash").show("slow");	  
-	  setTimeout("hideTitle()", 2000);
-    setTimeout("startApp()", 4000);
-    
-	}, true);
-	<?php else: ?>
-  window.addEventListener("load", function() {
-		  
-	  startApp();
-	  
-	});	
-  <?php endif; ?>
-
-  </script>    
-    
 </head>
 <body>
 
@@ -1002,8 +952,16 @@ function updateHistory(&$update, $maxItems) {
   if ($curPicture != PHP_STR) {
     
     $apic = glob($picPath . DIRECTORY_SEPARATOR . "*");
+    
+    $i=0;
     foreach($apic as &$path) {
-      $path=basename($path);
+      $fileName = basename($path);
+      if (is_file($picPath . DIRECTORY_SEPARATOR . $fileName)) {
+        $path=$fileName;
+      } else {
+        unset($apic[$i]); 
+      } 
+      $i++;  
     }
       
     $i=array_search(basename($curPicture), $apic);
@@ -1193,6 +1151,12 @@ if (document.getElementsByClassName("friend-selected")[0]) {
   document.getElementsByClassName("friend-selected")[0].scrollIntoView();  
 }  
 
+function upload() {
+ <?PHP if ($password!==PHP_STR): ?>
+   $("input#files").click();
+ <?PHP endif; ?>  
+} 
+
 function setPPlayer() {
   
   $("#picPlayer").css("height", parseInt(window.innerHeight)+"px");
@@ -1224,6 +1188,39 @@ function setPPlayer() {
   $(document.body).css("overflow-x","hidden");
 }  
 
+function hideTitle() {
+  $("#myh1").hide("slow");
+}
+
+function startApp() {
+  $("#HCsplash").hide("slow");
+  $(document.body).css("background","#ffffff");
+  $("#frmHC").show();
+  
+  <?php if (APP_SPLASH): ?>
+  $(document.body).css("overflow-y","auto");    
+  <?php endif; ?>
+}			
+
+<?php if($hideHCSplash!=="1"): ?>
+window.addEventListener("load", function() {
+
+  //$("#HCsplash").show();	  
+  //setTimeout("startApp()", 5000);
+  $(document.body).css("background","#000000");
+  $("#HCsplash").show("slow");	  
+  setTimeout("hideTitle()", 2000);
+  setTimeout("startApp()", 4000);
+  
+}, true);
+<?php else: ?>
+window.addEventListener("load", function() {
+    
+  startApp();
+  
+});	
+<?php endif; ?>
+
 window.addEventListener("load", function() {
   <?php if ($hideHCSplash != "1" || $hidePlayer != "1"): ?>
   $(document.body).css("backgrond","#000000");
@@ -1231,6 +1228,14 @@ window.addEventListener("load", function() {
   $(document.body).css("backgrond","#FFFFFF");
   <?php endif; ?>
 });
+
+window.addEventListener("load", function() {		 
+  <?php if($password===PHP_STR):?>
+    $("#Password").addClass("emptyfield");
+  <?php endif; ?>
+  readyToType();
+  document.getElementById("MessageLine").focus();
+}, true);
 
 window.addEventListener("load", function() {
   <?php if ($hidePlayer == "0"): ?>
@@ -1248,7 +1253,7 @@ window.addEventListener("resize", function() {
   <?php endif; ?>
 }, true);
 
-</script>
+</script> 
 
 </body>	 
 </html>	 
