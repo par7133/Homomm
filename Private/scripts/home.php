@@ -35,8 +35,8 @@
    
  $user = PHP_STR;
  $userName = PHP_STR;
- $userHint = PHP_STR;
- $userHintResolved = PHP_STR;
+ $chatHint = PHP_STR;
+ $chatHintResolved = PHP_STR;
  $picPath = PHP_STR;
  $curPicture = PHP_STR;
  $curLocale = APP_LOCALE;
@@ -399,7 +399,7 @@ function updateHistory(&$update, $maxItems) {
     global $userName;
     global $sendSMS;
     global $CONFIG;
-    global $userHintResolved; 
+    global $chatHintResolved; 
     global $msgSign;
     
     $date = date("Ymd-His");
@@ -432,7 +432,7 @@ function updateHistory(&$update, $maxItems) {
       updateHistory($output, HISTORY_MAX_ITEMS);
       
       if ($user == "MASTER") {
-        $smsUser = $userHintResolved; 
+        $smsUser = $chatHintResolved; 
       } else {
         $smsUser = "MASTER";
       }  
@@ -718,14 +718,15 @@ function updateHistory(&$update, $maxItems) {
  }    
  $pwd = PHP_STR;
  
- $userHint = filter_input(INPUT_POST, "userHint"); 
+ $chatHint = filter_input(INPUT_POST, "chatHint"); 
  
- $userHintResolved = PHP_STR;
- if ($userHint!=PHP_STR) {
+ // chat validation
+ $chatHintResolved = PHP_STR;
+ if ($chatHint!=PHP_STR) {
    $found=false;
    foreach ($CONFIG['AUTH'] as $key => $val) {
-     if ($userHint==$val['USERNAME']) {
-       $userHintResolved = $key;
+     if ($chatHint==$val['USERNAME']) {
+       $chatHintResolved = $key;
        $found=true;
        break;
      }      
@@ -734,6 +735,9 @@ function updateHistory(&$update, $maxItems) {
      die("Invalid chat!"); 
    }  
  }
+ 
+//echo ("chatHint*=".$chatHint."<br>");
+//echo ("chatHintResolved*=".$chatHintResolved."<br>");
   
  $hideSplash = filter_input(INPUT_POST, "hideSplash");
  $hideHCSplash = filter_input(INPUT_POST, "hideHCSplash");
@@ -746,12 +750,25 @@ function updateHistory(&$update, $maxItems) {
   foreach ($CONFIG['AUTH'] as $key => $val) {
     //echo ("username=".$val['USERNAME']."<br>");
     if ($hash==$val['HASH']) {
-      $user = $key;
-      if ($userHintResolved==PHP_STR) {
-        $userHint=$val['USERNAME'];
-        $userHintResolved = $key;
-      }  
+      $user = $key;          
+      if ($chatHintResolved==PHP_STR) {
+        $chatHint=$val['USERNAME'];
+        $chatHintResolved = $key;
+      } else {
+        if ($user != "MASTER") {
+          if ($user != $chatHintResolved) {
+            $found=false;
+            break;
+          } 
+        }
+      }   
+      
       $found=true;
+          
+      //echo ("user=".$user."<br>");
+      //echo ("chatHint**=".$chatHint."<br>");
+      //echo ("chatHintResolved**=".$chatHintResolved."<br>");
+      
       break;
     }    
   }  
@@ -762,9 +779,9 @@ function updateHistory(&$update, $maxItems) {
   if ($password != PHP_STR) {
     $userName = $CONFIG['AUTH'][$user]['USERNAME'];
     // xxx
-    //$pwd = APP_REPO_PATH . DIRECTORY_SEPARATOR . $CONFIG['AUTH'][$userHintResolved]['REPO_FOLDER'];
-    $pwd = $CONFIG['AUTH'][$userHintResolved]['REPO_FOLDER'];
-    $picPath =  APP_PIC_PATH . DIRECTORY_SEPARATOR . $CONFIG['AUTH'][$userHintResolved]['PIC_FOLDER'];
+    //$pwd = APP_REPO_PATH . DIRECTORY_SEPARATOR . $CONFIG['AUTH'][$chatHintResolved]['REPO_FOLDER'];
+    $pwd = $CONFIG['AUTH'][$chatHintResolved]['REPO_FOLDER'];
+    $picPath =  APP_PIC_PATH . DIRECTORY_SEPARATOR . $CONFIG['AUTH'][$chatHintResolved]['PIC_FOLDER'];
     $curLocale = $CONFIG['AUTH'][$user]['LOCALE'];
   }    
  } 
@@ -1038,7 +1055,7 @@ function updateHistory(&$update, $maxItems) {
     <?php foreach($AUTH as $key => $val): 
             $myusername = $val['USERNAME'];
             $currentChatClass = PHP_STR;
-            if ($myusername == $userHint) {
+            if ($myusername == $chatHint) {
               $currentChatClass = "friend-header-ve-selected";
             }  
             echo("<div class=\"friend-header-ve $currentChatClass\" onclick=\"changeChat('$myusername')\" style=\"float:left;width:31%;border:3px solid #e4f5f7;font-size:14px;padding:4px;margin-top:2px;margin-right:2px;margin-bottom:2px;text-align:left;cursor:pointer;\">&nbsp;&nbsp;$myusername</div>");
@@ -1060,7 +1077,7 @@ function updateHistory(&$update, $maxItems) {
       <?php foreach($AUTH as $key => $val): 
               $myusername = $val['USERNAME'];
               $currentChatClass = PHP_STR;
-              if ($myusername == $userHint) {
+              if ($myusername == $chatHint) {
                 $currentChatClass = "friend-selected";
               }  
               echo("<div class=\"friend $currentChatClass\" onclick=\"changeChat('$myusername')\" style=\"padding:10px;text-align:left;font-size:14px;cursor:pointer;\">&nbsp;&nbsp;$myusername</div>");
@@ -1158,7 +1175,7 @@ function updateHistory(&$update, $maxItems) {
 </div>
 
 <input type="hidden" id="CommandLine" name="CommandLine">
-<input type="hidden" id="userHint" name="userHint" value="<?php echo($userHint); ?>">
+<input type="hidden" id="chatHint" name="chatHint" value="<?php echo($chatHint); ?>">
 <input type="hidden" name="hideSplash" value="<?php echo($hideSplash); ?>">
 <input type="hidden" name="hideHCSplash" value="1">
 <input type="hidden" name="msg-sign" value="<?php echo(mt_rand(1000000, 9999999)); ?>">     
