@@ -235,7 +235,7 @@ function fixMultipleFileUpload(&$f): array
 
 if (!function_exists("getResource")) {
 /**
- * Determine if the given file is an image 
+ * Get a resource translated 
  * 
  * @param string $string the string to get translated
  * @param string $destLocale the destination locale
