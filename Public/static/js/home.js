@@ -36,6 +36,7 @@ $(document).ready(function() {
    e.preventDefault();
    frmHC.submit();
    } else { 
+   $("#Password2").val($(this).val());
    //e.preventDefault();
    }
  });
