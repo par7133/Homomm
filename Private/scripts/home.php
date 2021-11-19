@@ -221,14 +221,25 @@ function updateHistory(&$update, $maxItems) {
 	 }	     
    }
    
-   $ipos = stripos($str, PHP_SPACE);
-   if ($ipos > 0) {
-     $param1 = left($str, $ipos);
-     $str = substr($str, $ipos+1);
-   } else {
-	 $param1 = $str;
-	 return;
-   }	     
+   if (left($str, 1) === "'") {
+     $ipos = stripos($str, "'", 1);
+     if ($ipos > 0) {
+       $param1 = substr($str, 0, $ipos+1);
+       $str = substr($str, $ipos+1);
+     } else {
+       $param1 = $str;
+       return;
+     }  
+   } else {   
+     $ipos = stripos($str, PHP_SPACE);
+     if ($ipos > 0) {
+       $param1 = left($str, $ipos);
+       $str = substr($str, $ipos+1);
+     } else {
+       $param1 = $str;
+       return;
+     }	     
+   } 
   
    $ipos = stripos($str, PHP_SPACE);
    if ($ipos > 0) {
@@ -1053,7 +1064,7 @@ function updateHistory(&$update, $maxItems) {
     <br><br><br>
     
 <audio id="mybeep" preload="auto">
-  <source src="https://dev-homomm.from.craft2.cyou/media/R2D2-hey-you.mp3" type="audio/mpeg">
+  <source src="/media/R2D2-hey-you.mp3" type="audio/mpeg">
   Maybe doesn't support the audio..
 </audio>  
 
