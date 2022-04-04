@@ -925,7 +925,7 @@ function updateHistory(&$update, $maxItems) {
   <meta name="author" content="5 Mode"/> 
   <meta name="robots" content="noindex"/>
   
-  <script src="/js/jquery-3.1.0.min.js" type="text/javascript"></script>
+  <script src="/js/jquery-3.6.0.min.js" type="text/javascript"></script>
   <script src="/js/common.js" type="text/javascript"></script>
   <script src="/js/bootstrap.min.js" type="text/javascript"></script>
   <script src="/js/sha.js" type="text/javascript"></script>
