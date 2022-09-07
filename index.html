@@ -54,22 +54,23 @@
   }
   
   function startApp() {
-	  $("#HCsplash").hide("slow");
+    //$("#HCsplash").hide("slow");
+    $("#HCsplash").css("display","none");	  
     $(document.body).css("background","#ffffff");
-	  $("#frmHC").show();
-	}			
+    $("#frmHC").show();
+  }			
 
-	window.addEventListener("load", function() {
+  window.addEventListener("load", function() {
 	
     $("#frmHC").hide();
     $(document.body).css("background","#000000");
-	  $("#HCsplash").show("slow");	  
-	  setTimeout("hideTitle()", 2000);
+    $("#HCsplash").show("slow");	  
+    setTimeout("hideTitle()", 2000);
     setTimeout("startApp()", 4000);
 
-	}, true);
+ }, true);
 
-  </script>    
+</script>    
        
 </head>
 <body>
