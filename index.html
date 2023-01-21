@@ -53,10 +53,25 @@
     $("#myh1").hide("slow");
   }
   
+  function setOriginsPos() {
+    h=parseInt(window.innerHeight);
+    w=parseInt(window.innerWidth);
+    mytop = parseInt(window.innerHeight - ($("#originsDisplay").height() + 60));
+    $("#originsDisplay").css("top", mytop+"px");
+    setTimeout("hideOrigins()",15000);
+  }
+
+  function hideOrigins() {
+    $("#originsDisplay").css("visibility","hidden");
+  }  	  
+	  
   function startApp() {
     //$("#HCsplash").hide("slow");
     $("#HCsplash").css("display","none");	  
     $(document.body).css("background","#ffffff");
+	  
+    $("#originsDisplay").show()  
+	  
     $("#frmHC").show();
   }			
 
@@ -64,8 +79,12 @@
 	
     $("#frmHC").hide();
     $(document.body).css("background","#000000");
+
+    setTimeout("setOriginsPos()", 500);  
+	  
     $("#HCsplash").show("slow");	  
     setTimeout("hideTitle()", 2000);
+	  
     setTimeout("startApp()", 4000);
 
  }, true);
@@ -149,6 +168,14 @@
 	
 </div>
 
+<div id="originsDisplay">
+      <br>
+       &nbsp;<span class="originLabel">Coding:</span>&nbsp;Italy<br>         
+       &nbsp;<span class="originLabel">Server:</span>&nbsp;United States&nbsp;<br>
+       &nbsp;<span class="originLabel"><a href="http://metrica.yandex.com" class="bbb">Metrics</a>:</span>&nbsp;Russia&nbsp;<br>
+      <br>
+</div>   
+	
 <div class="footer">
 <div id="footerCont">&nbsp;</div>
 <div id="footer"><span style="background:#E1E1E1;color:black;opacity:1.0;margin-right:10px;">&nbsp;&nbsp;<a href="dd.html">Disclaimer</a>&nbsp;&nbsp;A <a href="http://5mode.com">5 Mode</a> project and <a href="http://demo.5mode.com">WYSIWYG</a> system. Some rights reserved.</span></div>	
