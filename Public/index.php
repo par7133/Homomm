@@ -36,7 +36,9 @@ $scriptPath = APP_SCRIPT_PATH;
 
 // PARAMETERS VALIDATION
 
-$url = strtolower(rtrim(substr(filter_input(INPUT_GET, "url", FILTER_SANITIZE_STRING), 0, 300), "/"));
+$url = filter_input(INPUT_GET, "url")??"";
+$url = strip_tags($url);
+$url = strtolower(trim(substr($url, 0, 300), "/"));
 
 switch ($url) {
   case "pushmessages":
