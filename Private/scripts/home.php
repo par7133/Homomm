@@ -712,15 +712,22 @@ function updateHistory(&$update, $maxItems) {
  }   
 
   
- $password = filter_input(INPUT_POST, "Password");
+ $password = filter_input(INPUT_POST, "Password")??"";
+ $password = strip_tags($password);
  if ($password==PHP_STR) {
-   $password = filter_input(INPUT_POST, "Password2");
+   $password = filter_input(INPUT_POST, "Password2")??"";
+   $password = strip_tags($password);
  }  
- $command = filter_input(INPUT_POST, "CommandLine");
- $message = filter_input(INPUT_POST, "MessageLine");
- $sendSMS1 = filter_input(INPUT_POST, "chkSMS");
- $oldMsgSign = filter_input(INPUT_POST, "old-msg-sign");
- $msgSign = filter_input(INPUT_POST, "msg-sign");
+ $command = filter_input(INPUT_POST, "CommandLine")??"";
+ $command = strip_tags($command);
+ $message = filter_input(INPUT_POST, "MessageLine")??"";
+ $message = strip_tags($message);
+ $sendSMS1 = filter_input(INPUT_POST, "chkSMS")??"";
+ $sendSMS1 = strip_tags($sendSMS1);
+ $oldMsgSign = filter_input(INPUT_POST, "old-msg-sign")??"";
+ $oldMsgSign = strip_tags($oldMsgSign);
+ $msgSign = filter_input(INPUT_POST, "msg-sign")??"";
+ $msgSign = strip_tags($msgSign);
  
  if ($sendSMS1!=PHP_STR) {
    $sendSMS = true;
@@ -729,7 +736,8 @@ function updateHistory(&$update, $maxItems) {
  }    
  $pwd = PHP_STR;
  
- $chatHint = filter_input(INPUT_POST, "chatHint"); 
+ $chatHint = filter_input(INPUT_POST, "chatHint")??""; 
+ $chatHint = strip_tags($chatHint);
  
  // chat validation
  $chatHintResolved = PHP_STR;
@@ -750,8 +758,10 @@ function updateHistory(&$update, $maxItems) {
 //echo ("chatHint*=".$chatHint."<br>");
 //echo ("chatHintResolved*=".$chatHintResolved."<br>");
   
- $hideSplash = filter_input(INPUT_POST, "hideSplash");
- $hideHCSplash = filter_input(INPUT_POST, "hideHCSplash");
+ $hideSplash = filter_input(INPUT_POST, "hideSplash")??"";
+ $hideSplash = strip_tags($hideSplash);
+ $hideHCSplash = filter_input(INPUT_POST, "hideHCSplash")??"";
+ $hideHCSplash = strip_tags($hideHCSplash);
 
  //echo "password=*$password*<br>";
  if ($password != PHP_STR) {	
