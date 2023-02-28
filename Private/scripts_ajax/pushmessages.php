@@ -8,7 +8,8 @@ if ($requestMethod != "POST") {
 
 //userHint
 $chatHintResolved = PHP_STR;
-$chatHint = substr((string)filter_input(INPUT_POST, "chatHint"), 0, 50);
+$chatHint = substr((string)filter_input(INPUT_POST, "chatHint"), 0, 50)??"";
+$chatHint = strip_tags($chatHint);
 
 if ($chatHint == PHP_STR) {
   die("Wrong chat hint!");
