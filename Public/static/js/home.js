@@ -210,7 +210,7 @@ function setContentPos() {
     $("#messagebar").css("width","100%");
     $("#logo-hmm").css("display","none");
   } else {  
-    $("#ahome").attr("href","http://homomm.org");
+    $("#ahome").attr("href","http://homomm.5mode-foss.eu");
     $("#agithub").css("display","inline");
     $("#afeedback").css("display","inline");
     $("#asupport").css("display","inline");  
