@@ -55,11 +55,10 @@ As you are going to run Homomm in the PHP process context, using a limited web s
 <li>Configure the max history items as required (default: 50).</li>	      
 </ol>	
      
-Hope you can enjoy it and let us know about any feedback: <a href="mailto:posta@elettronica.lol" style="color:#e6d236;">posta@elettronica.lol</a>
-
 ## Screenshots
 	   
  ![Homomm on desktop](/Public/static/res/screenshot1.png)   
      
  ![Homomm on mobile](/Public/static/res/screenshot2.png)
 
+Feedback: <a href="mailto:posta@elettronica.lol" style="color:#e6d236;">posta@elettronica.lol</a>
