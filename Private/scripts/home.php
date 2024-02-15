@@ -948,6 +948,10 @@ function updateHistory(&$update, $maxItems) {
 </head>
 <body>
 
+<?php if (file_exists(APP_PATH . DIRECTORY_SEPARATOR . "jscheck.html")): ?>
+<?php include(APP_PATH . DIRECTORY_SEPARATOR . "jscheck.html"); ?> 
+<?php endif; ?>
+
 <?php
 
   // Sorting friend list..
