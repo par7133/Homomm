@@ -22,7 +22,7 @@ What 5 Mode can offer in exchange:
 - % of the income from support/installation service  
 - free advertisement on all the websites produced.  
 
-If you want access to Homomm on my dev installation: posta@elettronica.lol.
+If you want access to Homomm on my dev installation: code@gaox.io.
 
 ## License
  
@@ -62,5 +62,5 @@ As you are going to run Homomm in the PHP process context, using a limited web s
  ![Homomm on mobile](/Public/static/res/screenshot2.png)
 
 
-Feedback: <a href="mailto:posta@elettronica.lol" style="color:#e6d236;">posta@elettronica.lol</a>
+Feedback: <a href="mailto:code@gaox.io" style="color:#e6d236;">code@gaox.io</a>
 
