@@ -54,6 +54,12 @@ As you are going to run Homomm in the PHP process context, using a limited web s
 <li>Configure the server pushing interval to be notified on new chat messages.</li>
 <li>Configure the max history items as required (default: 50).</li>	      
 </ol>	
+
+Login with the password to message.
+
+For any need of software additions, plugins and improvements please write to <a href="mailto:info@5mode.com">info@5mode.com</a>  
+
+To help please donate by clicking <a href="https://gaox.io/l/dona1">https://gaox.io/l/dona1</a> and filling the form.  
      
 ## Screenshots
 	   
@@ -62,5 +68,5 @@ As you are going to run Homomm in the PHP process context, using a limited web s
  ![Homomm on mobile](/Public/static/res/screenshot2.png)
 
 
-Feedback: <a href="mailto:code@gaox.io" style="color:#e6d236;">code@gaox.io</a>
+Feedback: <a href="mailto:code@gaox.io">code@gaox.io</a>
 
