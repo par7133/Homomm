@@ -932,7 +932,7 @@ function updateHistory(&$update, $maxItems) {
   <link rel="shortcut icon" href="/favicon.ico?v=<?php echo(time()); ?>" />
     
   <meta name="description" content="Welcome to <?php echo(APP_NAME); ?>"/>
-  <meta name="author" content="5 Mode"/> 
+  <meta name="author" content="NuMode"/> 
   <meta name="robots" content="noindex"/>
   
   <script src="/js/jquery-3.6.0.min.js" type="text/javascript"></script>
@@ -1022,7 +1022,7 @@ function updateHistory(&$update, $maxItems) {
 <form id="frmHC" method="POST" action="/" target="_self" enctype="multipart/form-data" style="display:<?php echo((($hideHCSplash == "1") && ($hidePlayer == "1")? "inline": "none"));?>;">
 
 <div class="header">
-   <a id="burger-menu" href="#" style="display:none;"><img src="/res/burger-menu2.png" style="width:58px;"></a><a id="ahome" href="http://homomm.5mode-foss.eu" target="_blank" style="color:black; text-decoration: none;"><img id="logo-hmm" src="/res/HMMlogo2.png" style="width:48px;">&nbsp;Homomm</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="agithub" href="https://github.com/par7133/Homomm" style="color:#000000"><span style="color:#119fe2">on</span> github</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="afeedback" href="mailto:code@gaox.io" style="color:#000000"><span style="color:#119fe2">for</span> feedback</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="asupport" href="tel:+39-378-0812391" style="font-size:13px;background-color:#15c60b;border:2px solid #15c60b;color:black;height:27px;text-decoration:none;">&nbsp;&nbsp;get support&nbsp;&nbsp;</a><div id="pwd2" style="float:right;position:relative;top:+13px;display:none"><input type="password" id="Password2" name="Password2" placeholder="password" style="font-size:13px; background:#393939; color:#ffffff; width: 125px; border-radius:3px;" value="<?php echo($password);?>" autocomplete="off"></div>
+   <a id="burger-menu" href="#" style="display:none;"><img src="/res/burger-menu2.png" style="width:58px;"></a><a id="ahome" href="http://homomm.numode-foss.eu" target="_blank" style="color:black; text-decoration: none;"><img id="logo-hmm" src="/res/HMMlogo2.png" style="width:48px;">&nbsp;Homomm</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="agithub" href="https://github.com/par7133/Homomm" style="color:#000000"><span style="color:#119fe2">on</span> github</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="afeedback" href="mailto:code@gaox.io" style="color:#000000"><span style="color:#119fe2">for</span> feedback</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="asupport" href="tel:+39-378-0812391" style="font-size:13px;background-color:#15c60b;border:2px solid #15c60b;color:black;height:27px;text-decoration:none;">&nbsp;&nbsp;get support&nbsp;&nbsp;</a><div id="pwd2" style="float:right;position:relative;top:+13px;display:none"><input type="password" id="Password2" name="Password2" placeholder="password" style="font-size:13px; background:#393939; color:#ffffff; width: 125px; border-radius:3px;" value="<?php echo($password);?>" autocomplete="off"></div>
 </div>
 
 <div style="clear:both;"></div>
@@ -1168,7 +1168,7 @@ function updateHistory(&$update, $maxItems) {
 
 <div class="footer">
 <div id="footerCont">&nbsp;</div>
-<div id="footer"><span style="background:#FFFFFF;opacity:1.0;margin-right:10px;">&nbsp;&nbsp;A <a href="http://5mode.com">5 Mode</a> project <span class="no-sm">and <a href="http://demo.5mode.com">WYSIWYG</a> system</span>. Some rights reserved.</span></div>	
+<div id="footer"><span style="background:#FFFFFF;opacity:1.0;margin-right:10px;">&nbsp;&nbsp;A <a href="http://numode.eu">NuMode</a> project <span class="no-sm">and <a href="http://demo.numode.eu">WYSIWYG</a> system</span>. Some rights reserved.</span></div>	
 </div>
 
 <script>
