@@ -92,17 +92,18 @@
 </head>
 <body>
 
+<div id="langhideen">
+   <br>
+   &nbsp;We have detected that you maybe speak English, do you want to be redirected to the english site? <button onclick="$('#langhideen').hide();">NO</button>&nbsp;<button onclick="window.open('https://homomm.numode-foss.eu','_self');">OK</button>
+   <br><br>
+</div>
+
 <div id="langhideit">
    <br>
    &nbsp;We have detected that you maybe speak Italian, do you want to be redirected to the italian site? <button onclick="$('#langhideit').hide();">NO</button>&nbsp;<button onclick="window.open('https://homomm.numode-foss.eu/it','_self');">OK</button>
    <br><br>
 </div>
 
-<div id="langhidecn">
-   <br>
-   &nbsp;We have detected that you maybe speak Chinese, do you want to be redirected to the chinese site? <button onclick="$('#langhidecn').hide();">NO</button>&nbsp;<button onclick="window.open('https://homomm.numode-foss.eu/cn','_self');">OK</button>
-   <br><br>
-</div>
 
 <div id="HCsplash" style="padding-top: 160px; text-align:center;color:#ffffff;display:none;">
    <div id="myh1"><H1>Homomm</H1></div><br>
@@ -221,7 +222,6 @@ window.addEventListener("load", function() {
 </script>  
 
 <script>
-
     function isItalian() {
       ret = false;
       lang = window.navigator.language;
@@ -233,11 +233,11 @@ window.addEventListener("load", function() {
       return ret;
     }
 
-    function isChinese() {
+    function isEnglish() {
       ret = false;
       lang = window.navigator.language;
       lang = lang.toLowerCase();
-      if (lang === "cn" || lang === "zh-cn" || lang === "chinese" || lang === "chinese simplified" || lang === "mandarin") {
+      if (lang === "en" || lang === "en-us" || lang === "en-gb" || lang === "english") {
         ret = true;
       }
       return ret;
@@ -247,8 +247,8 @@ window.addEventListener("load", function() {
       $("#langhideit").show();
     }
 
-    if (isChinese()) {
-      $("#langhidecn").show();
+    if (isEnglish()) {
+      $("#langhideen").show();
     }
 
 </script>
