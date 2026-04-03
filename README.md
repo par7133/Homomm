@@ -21,7 +21,7 @@ What NuMode can offer in exchange:
 - % of the income from support/installation service  
 - free advertisement on all the websites produced.  
 
-If you want access to Homomm on my dev installation: code@gaox.io.
+If you want access to Homomm on my dev installation: code@gaox.eu.
 
 ## License
  
