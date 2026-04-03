@@ -4,8 +4,7 @@ Hello and welcome to Homomm!
 	   
 Homomm is a light and simple software on premise to exchange multimedia messages with friends, whats app like.  
 
-Note*: Please contact me directly to have access to Homomm dev installation.  
-  
+Note*: Please contact me directly to have access to Homomm dev installation.   
 Note**: I invite anyone from China and not who has access to Homomm.org to mirror it. If you get any problem downloading Homomm, please contact me directly.  
   
 ## What do we need to make Homomm successful?
@@ -18,7 +17,7 @@ Note**: I invite anyone from China and not who has access to Homomm.org to mirro
 <li>etc.</li>  
 </ol>
 	
-What 5 Mode can offer in exchange:  
+What NuMode can offer in exchange:  
 - % of the income from support/installation service  
 - free advertisement on all the websites produced.  
 
@@ -59,7 +58,7 @@ Login with the password to message.
 
 For any need of software additions, plugins and improvements please write to <a href="mailto:info@numode.eu">info@numode.eu</a>  
 
-To help please donate by clicking <a href="https://gaox.io/l/dona1">https://gaox.io/l/dona1</a> and filling the form.  
+To help please donate by clicking <a href="https://gaox.eu/l/dona1">https://gaox.eu/l/dona1</a> and filling the form.  
      
 ## Screenshots
 	   
@@ -68,5 +67,5 @@ To help please donate by clicking <a href="https://gaox.io/l/dona1">https://gaox
  ![Homomm on mobile](/Public/static/res/screenshot2.png)
 
 
-Feedback: <a href="mailto:code@gaox.io">code@gaox.io</a>
+Feedback: <a href="mailto:code@gaox.eu">code@gaox.eu</a>
 
