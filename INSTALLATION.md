@@ -13,7 +13,7 @@
         listen 80;
         listen [::]:80;
     
-        server_name yourservername.xyz;
+        server_name yoursitename.xyz;
      
         root /path/to/YourWebApp/Public/static;
         index index.php; 
